@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b546vlsf6braq"
+path="res://.godot/imported/00 - MENU A - o.ogg-e30dd358d37701818e043bf9d23e70e8.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/MENU A - unknown album/00 - MENU A - o.ogg"
+dest_files=["res://.godot/imported/00 - MENU A - o.ogg-e30dd358d37701818e043bf9d23e70e8.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

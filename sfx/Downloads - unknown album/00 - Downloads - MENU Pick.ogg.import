@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://8hshkpr3uil4"
+path="res://.godot/imported/00 - Downloads - MENU Pick.ogg-1904bb6b83ce2c737549bd0473ad2b64.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - MENU Pick.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - MENU Pick.ogg-1904bb6b83ce2c737549bd0473ad2b64.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

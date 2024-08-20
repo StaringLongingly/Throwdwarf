@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bnjybg3mbikkw"
+path="res://.godot/imported/00 - Downloads - ETRA.ogg-51be877a154404a9c70e4a0af2ba1935.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - ETRA.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - ETRA.ogg-51be877a154404a9c70e4a0af2ba1935.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

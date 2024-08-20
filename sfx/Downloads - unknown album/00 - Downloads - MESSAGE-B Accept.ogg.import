@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dcv0mmq1yyyie"
+path="res://.godot/imported/00 - Downloads - MESSAGE-B Accept.ogg-3ed8b417ef24b38be6075d50ff5c2882.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - MESSAGE-B Accept.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - MESSAGE-B Accept.ogg-3ed8b417ef24b38be6075d50ff5c2882.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cy801xngrq8dt"
+path="res://.godot/imported/00 - Downloads - o.ogg-5648ece2690e8117a3759bfb74e1cb83.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - o.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - o.ogg-5648ece2690e8117a3759bfb74e1cb83.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

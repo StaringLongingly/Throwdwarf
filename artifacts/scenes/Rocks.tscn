@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://h7de53a2lmwx"]
+
+[ext_resource type="Texture2D" uid="uid://752n0junq6wr" path="res://artifacts/sprites/rock.png" id="1_t5n26"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_m13f6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bt64g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t5n26")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Rocks" type="AnimatedSprite2D"]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_bt64g")
+script = ExtResource("2_m13f6")
+damage = 5.0
+angleVariation = 10.0
+rotateSpeed = 360.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(390, -132.5, 497.5, -30, 497.5, 235, 480, 360, 432.5, 407.5, -147.5, 412.5, -235, 492.5, -427.5, 295, -427.5, -42.5, -505, -117.5, -500, -240, -345, -392.5, -140, -385, -35, -495, 220, -495, 335, -380, 335, -207.5)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

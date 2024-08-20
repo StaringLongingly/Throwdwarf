@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://cngy4em37bsf0"]
+
+[ext_resource type="Texture2D" uid="uid://bb1k07befyqgt" path="res://sprites/breakBlack.png" id="1_xk6ex"]
+[ext_resource type="Texture2D" uid="uid://bw1b6q4iucit6" path="res://sprites/break0.png" id="2_ql5gl"]
+[ext_resource type="Texture2D" uid="uid://5iqc1jibvo46" path="res://sprites/break1.png" id="3_d37lb"]
+[ext_resource type="Texture2D" uid="uid://byx1v2r6wg3pj" path="res://sprites/break2.png" id="4_eg33v"]
+[ext_resource type="Texture2D" uid="uid://dmykq1l5wvbi0" path="res://sprites/break3.png" id="5_78dwf"]
+[ext_resource type="Script" path="res://scripts/animated_sprite_2d.gd" id="6_mjjnr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mh6x"]
+size = Vector2(615, 803)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry6ng"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a42lr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xk6ex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ql5gl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d37lb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_eg33v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_78dwf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_xk6ex")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[node name="Block" type="StaticBody2D"]
+position = Vector2(3402, 121)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, -0.5)
+shape = SubResource("RectangleShape2D_0mh6x")
+
+[node name="Area2D" type="Area2D" parent="CollisionShape2D"]
+position = Vector2(2.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/Area2D"]
+shape = SubResource("RectangleShape2D_ry6ng")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.666667, 0, 1, 1)
+sprite_frames = SubResource("SpriteFrames_a42lr")
+script = ExtResource("6_mjjnr")
+
+[connection signal="body_entered" from="CollisionShape2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="CollisionShape2D/Area2D" to="AnimatedSprite2D" method="_on_area_2d_body_exited"]

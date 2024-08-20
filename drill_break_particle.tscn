@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://pts84332r2e1"]
+
+[ext_resource type="Texture2D" uid="uid://28pqirqma2y5" path="res://sprites/triangle_300px.png" id="1_udndy"]
+[ext_resource type="Script" path="res://sprites/drill_particles.gd" id="2_e6ytl"]
+[ext_resource type="AudioStream" uid="uid://do458i14o26by" path="res://sfx/Downloads - unknown album/00 - Downloads - LeavesTest001 058.ogg" id="3_qci8f"]
+
+[sub_resource type="Curve" id="Curve_x2lov"]
+max_value = 100.0
+_data = [Vector2(0, 50), 0.0, 0.0, 0, 1, Vector2(1, 50), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7alyo"]
+max_value = 1.2
+_data = [Vector2(0, 1.2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Drill Break Particle" type="CPUParticles2D"]
+z_index = -1
+position = Vector2(0, 500)
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_udndy")
+particle_flag_align_y = true
+direction = Vector2(-1, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2000.0
+initial_velocity_max = 2000.0
+damping_min = 81.891
+damping_max = 81.891
+damping_curve = SubResource("Curve_x2lov")
+scale_amount_curve = SubResource("Curve_7alyo")
+script = ExtResource("2_e6ytl")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_qci8f")
+autoplay = true
+max_distance = 100000.0

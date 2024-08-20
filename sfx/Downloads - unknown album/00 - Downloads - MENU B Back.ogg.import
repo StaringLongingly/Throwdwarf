@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://byo1rapt2sp6n"
+path="res://.godot/imported/00 - Downloads - MENU B Back.ogg-eb7664361766527c7de5e9f92fd0fc5f.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - MENU B Back.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - MENU B Back.ogg-eb7664361766527c7de5e9f92fd0fc5f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

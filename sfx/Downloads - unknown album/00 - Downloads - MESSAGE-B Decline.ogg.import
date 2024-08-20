@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://18ry0vkf3hxj"
+path="res://.godot/imported/00 - Downloads - MESSAGE-B Decline.ogg-7eed56e432dc75bb92f2973805745120.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - MESSAGE-B Decline.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - MESSAGE-B Decline.ogg-7eed56e432dc75bb92f2973805745120.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

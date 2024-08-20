@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://dop3m5kh76n7j"]
+
+[ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_i1k35"]
+[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://drill_break_particle.tscn" id="2_emorr"]
+[ext_resource type="PackedScene" uid="uid://ci3mixgugk6cv" path="res://artifacts/scenes/Uruk Daggers.tscn" id="3_osmdr"]
+[ext_resource type="Texture2D" uid="uid://b8ei7srdrl1ty" path="res://sprites/Uruk000.png" id="4_f5c2w"]
+[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="5_jl8k4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6fcro"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_f5c2w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yyca5"]
+radius = 437.833
+
+[node name="Uruk" type="Node2D" node_paths=PackedStringArray("hurtbox", "hpText") groups=["Enemy"]]
+position = Vector2(8000, 0)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_i1k35")
+hurtbox = NodePath("Hurtbox")
+moveSpeed = 2.0
+desiredDistance = 5.0
+desiredDistanceAngleVariation = 60.0
+repositionCooldown = 5.0
+hitParticles = ExtResource("2_emorr")
+hpText = NodePath("HP display")
+artifact = ExtResource("3_osmdr")
+hp = 60.0
+attackCooldown = 20.0
+
+[node name="Enemy Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6fcro")
+
+[node name="Hurtbox" type="AnimatableBody2D" parent="." groups=["Enemy"]]
+collision_layer = 64
+collision_mask = 672
+sync_to_physics = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_yyca5")
+
+[node name="HP display" type="RichTextLabel" parent="."]
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -900.0
+offset_right = 500.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(500, 500)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/mono_font = ExtResource("5_jl8k4")
+theme_override_font_sizes/mono_font_size = 333
+bbcode_enabled = true
+text = "[code][color=ff0000] 100."
+autowrap_mode = 0

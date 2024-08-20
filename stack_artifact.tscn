@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4xp778afjv25"]
+
+[ext_resource type="AudioStream" uid="uid://bnjybg3mbikkw" path="res://sfx/Downloads - unknown album/00 - Downloads - ETRA.ogg" id="1_xsy2d"]
+
+[node name="Stack artifact" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_xsy2d")
+autoplay = true
+max_distance = 1e+08

@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgxhpt4y8ysyt"]
+
+[ext_resource type="Texture2D" uid="uid://bw8pabb8qv054" path="res://artifacts/sprites/Vampiric Dagger.png" id="1_gkt2c"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_yt2c2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0w0bv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gkt2c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Vampiric Dagger" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_0w0bv")
+script = ExtResource("2_yt2c2")
+damage = 25.0
+leach = 10.0
+angleVariation = 5.0
+rotateSpeed = 720.0
+bulletSpeed = 15.0
+bulletPenetration = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(75, 493, 146, 445, 195, 432, 225, 377, 235, 337, 279, 311, 265, 260, 289, 212, 265, 144, 244, -155, 187, -366, 94, -490, -34, -507, -114, -496, -51, -445, -212, -439, 46, -301, -302, -274, 145, -104, -101, -87, 196, 25, 99, 35, 167, 91, 173, 145, 169, 216, 149, 278, 125, 339, 68, 367, 12, 408, 17, 470, 63, 500)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ce7igykb3k85w"
+path="res://.godot/imported/Komak the Maid -  A Place Where You Will be at Peace.ogg-a30319e13837fc77c09f02ebfb9f39fb.oggvorbisstr"
+
+[deps]
+
+source_file="res://artifacts/sprites/Komak the Maid -  A Place Where You Will be at Peace.ogg"
+dest_files=["res://.godot/imported/Komak the Maid -  A Place Where You Will be at Peace.ogg-a30319e13837fc77c09f02ebfb9f39fb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

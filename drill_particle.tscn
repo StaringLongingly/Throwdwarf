@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dj2csruyy0ged"]
+
+[ext_resource type="Texture2D" uid="uid://28pqirqma2y5" path="res://sprites/triangle_300px.png" id="1_2riw8"]
+[ext_resource type="Script" path="res://sprites/drill_particles.gd" id="2_ns106"]
+[ext_resource type="AudioStream" uid="uid://dy0wtlnxyi4hc" path="res://sfx/Downloads - unknown album/00 - Downloads - LeavesTest001 007.ogg" id="3_y7uaa"]
+
+[sub_resource type="Curve" id="Curve_x2lov"]
+max_value = 100.0
+_data = [Vector2(0, 50), 0.0, 0.0, 0, 1, Vector2(1, 50), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7alyo"]
+_data = [Vector2(0.331461, 0.56044), 0.0, 0.90279, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_gcemv"]
+offsets = PackedFloat32Array(0.566667, 0.753333)
+colors = PackedColorArray(1, 1, 1, 1, 0.0156863, 0.0156863, 0.0156863, 1)
+
+[sub_resource type="Gradient" id="Gradient_ji48h"]
+
+[sub_resource type="Curve" id="Curve_uxsiq"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(0.606742, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Drill Particle" type="CPUParticles2D"]
+z_index = -1
+position = Vector2(0, 500)
+emitting = false
+amount = 1
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_2riw8")
+particle_flag_align_y = true
+direction = Vector2(-1, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2000.0
+initial_velocity_max = 2000.0
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("Curve_x2lov")
+scale_amount_curve = SubResource("Curve_7alyo")
+color_ramp = SubResource("Gradient_gcemv")
+color_initial_ramp = SubResource("Gradient_ji48h")
+hue_variation_max = 0.16
+hue_variation_curve = SubResource("Curve_uxsiq")
+script = ExtResource("2_ns106")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_y7uaa")
+autoplay = true
+max_distance = 10000.0

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://tujtab4gm5yp"]
+
+[ext_resource type="Texture2D" uid="uid://d41of54o2aed" path="res://artifacts/sprites/Uruk Javelin.png" id="1_5vall"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_822r8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5r3sk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5vall")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Uruk Javelin" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5r3sk")
+script = ExtResource("2_822r8")
+damage = 15.0
+angleVariation = 2.0
+bulletSpeed = 30.0
+bulletPenetration = 5
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-26, 502, 21, 502, 56, -324, -4, -504, -68, -305)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

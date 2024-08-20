@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyvftkx5beapb"]
+
+[ext_resource type="Texture2D" uid="uid://5te53ierwb07" path="res://artifacts/sprites/Hatchet.png" id="1_skq5d"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_y6ulm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ff5c6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_skq5d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Hatchet" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ff5c6")
+script = ExtResource("2_y6ulm")
+damage = 20.0
+angleVariation = 20.0
+rotateSpeed = -1440.0
+bulletSpeed = 25.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-150, -140, 96, -266, 156, 64, 122, 461, 255, 495, 313, -351, 298, -508, -97, -463, -312, -361, -286, 132)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1yljetampxtw"]
+
+[ext_resource type="Texture2D" uid="uid://c7sme7ncxwg6s" path="res://artifacts/sprites/Ruined Dwarven Crossbow.png" id="1_wuupq"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_gmph1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_guwou"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wuupq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Ruined Dwarven Crossbow" type="AnimatedSprite2D"]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_guwou")
+script = ExtResource("2_gmph1")
+damage = 18.0
+DamageOverTimeDps = 1.7
+DamageOverTimeDuration = 3.0
+angleVariation = 2.0
+bulletSpeed = 15.0
+bulletPenetration = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(12.6667, 396, 50, 301.333, 66.6667, -12, 42.6667, -385.333, -18, -404.667, -44.6667, -360, -52.6667, 299.333, -22.6667, 398)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

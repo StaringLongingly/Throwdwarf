@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b7g4r1rc6frlt"
+path="res://.godot/imported/00 - Downloads - ALERT Error.ogg-836a25b20d0d4dcb0e747e12be2600bc.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Downloads - unknown album/00 - Downloads - ALERT Error.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - ALERT Error.ogg-836a25b20d0d4dcb0e747e12be2600bc.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

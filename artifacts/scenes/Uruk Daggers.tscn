@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci3mixgugk6cv"]
+
+[ext_resource type="Texture2D" uid="uid://b67kjq88e6kle" path="res://artifacts/sprites/Uruk Dagger.png" id="1_hi1q2"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_1uutq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u1e0j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hi1q2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Uruk Dagger" type="AnimatedSprite2D"]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_u1e0j")
+script = ExtResource("2_1uutq")
+damage = 8.0
+DamageOverTimeDps = 0.2
+DamageOverTimeDuration = 5.0
+angleVariation = 3.0
+bulletSpeed = 20.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+scale = Vector2(0.954639, 1.01036)
+polygon = PackedVector2Array(39.2818, 489.925, 153.199, 442.912, 213.431, 362.495, 221.288, 267.232, 193.79, 174.443, 162.365, 143.513, 257.951, -39.5899, 251.404, -94.0259, 209.503, -439.2, 149.271, -112.584, 41.9006, 74.231, -45.8288, 72.9938, -147.962, -92.7887, -193.79, -287.027, -205.575, -433.014, -252.713, -117.532, -250.094, -28.4552, -158.437, 136.09, -227.835, 268.469, -218.669, 337.751, -174.15, 413.219, -106.061, 471.367, 9.16576, 493.636)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

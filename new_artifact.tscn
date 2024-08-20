@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwyxckbc0vnkg"]
+
+[ext_resource type="AudioStream" uid="uid://dcv0mmq1yyyie" path="res://sfx/Downloads - unknown album/00 - Downloads - MESSAGE-B Accept.ogg" id="1_rr8ow"]
+
+[node name="New artifact" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_rr8ow")
+autoplay = true
+max_distance = 1e+08
