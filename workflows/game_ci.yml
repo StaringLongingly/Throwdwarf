@@ -176,7 +176,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: game_web.zip
-          asset_name: Godot_Game_Web.zip
+          asset_name: Throwdwarf_Web.zip
           asset_content_type: application/zip
 
       - name: Upload Linux Release Asset
@@ -187,7 +187,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: game_linux.zip
-          asset_name: Godot_Game_Linux.zip
+          asset_name: Throwdwarf_Linux.zip
           asset_content_type: application/zip
 
       - name: Upload Windows Release Asset
@@ -198,5 +198,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: game_windows.zip
-          asset_name: Godot_Game_Windows.zip
+          asset_name: Throwdwarf_Windows.zip
           asset_content_type: application/zip
