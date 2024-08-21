@@ -1,6 +1,8 @@
 extends Node
 
 @export var spawnIntervalVariation: float
+@export var spawningBoundaryMin: Vector2
+@export var spawningBoundaryMax: Vector2
 
 # Exported Dictionary containing folders and their respective base chances
 @export var folder_chances = {
@@ -11,9 +13,9 @@ extends Node
 
 # Exported Dictionary containing enemy paths for each folder
 @export var enemies = {
-	"common": ["res://common/enemy1.tscn", "res://common/enemy2.tscn", "res://common/enemy3.tscn"],
-	"rare": ["res://rare/enemy1.tscn", "res://rare/enemy2.tscn"],
-	"legendary": ["res://legendary/enemy1.tscn"]
+	"common": [],
+	"rare" : [],
+	"legendary": []
 }
 
 # Exported parameters for time-related control
@@ -30,15 +32,18 @@ func spawn_enemy():
 	var selected_folder = choose_folder()
 
 	if selected_folder != "":
-		var enemy_path = enemies[selected_folder][randi_range(0, enemies[selected_folder].size() - 1)]
+		var enemy_path = "res://enemies/" + selected_folder + "/" + enemies[selected_folder][randi_range(0, enemies[selected_folder].size() - 1)] + ".tscn"
 		var enemy_scene = load(enemy_path)
 
 		if enemy_scene:
 			var enemy_instance = enemy_scene.instantiate()
 			add_child(enemy_instance)
+			var enemyPosition = lerp(spawningBoundaryMin, spawningBoundaryMax, randf() * 2 - 1)
 			print("Spawned enemy from ", selected_folder, ": ", enemy_path)
-		else:
-			print("Failed to load enemy scene from path: ", enemy_path)
+			print("   Enemy Position X: "  + str(enemyPosition.x).left(6), ", Y: " + str(enemyPosition.y).left(6))
+			print("    Time Interval: " + str(time_interval))
+		# else:
+		# print("Failed to load enemy scene from path: ", enemy_path)
 	else:
 		print("No folder selected, something went wrong.")
 
@@ -70,7 +75,7 @@ func update_chances_and_spawn_rate():
 		folder_chances[folder] /= total_chance
 
 	# Decrease time interval to spawn enemies more frequently
-	time_interval = max(min_time_interval, time_interval - time_interval_decrease_rate / 100)
+	time_interval = max(min_time_interval, time_interval - time_interval_decrease_rate / 100000)
 	time_interval += (randf() * 2 - 1) * spawnIntervalVariation
 
 # Main loop for spawning enemies

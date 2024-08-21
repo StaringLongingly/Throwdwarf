@@ -14,16 +14,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Pickaxe Head" type="AnimatedSprite2D"]
+[node name="Old Pickaxe" type="AnimatedSprite2D"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jq806")
 script = ExtResource("2_pgjgy")
-damage = 8.0
-DamageOverTimeDps = 0.2
+damage = 16.0
+DamageOverTimeDps = 0.4
 DamageOverTimeDuration = 5.0
 weaponType = "melee"
 angleVariation = 10.0
 rotateSpeed = 360.0
+bulletPenetration = 99
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 32

@@ -25,7 +25,7 @@ func _physics_process(_delta: float) -> void:
 	rotation = lerp_angle(rotation, target_direction, rotation_speed * _delta)
 	
 	if custom_velocity.length() > 0:
-		custom_velocity = custom_velocity.normalized() * speed
+		custom_velocity = custom_velocity.normalized() * speed * 1000
 		
 	# Set the velocity property of CharacterBody2D
 	velocity = custom_velocity  # Use the built-in velocity property

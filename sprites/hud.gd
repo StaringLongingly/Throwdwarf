@@ -50,17 +50,7 @@ func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, is
 		add_child(sound)
 	currentLifetime = lifetime
 	# print("Displaying artifact info:")
-	var colorHex: String
-	if (rarity == "common"):
-		colorHex = "#15f254"
-	elif (rarity == "rare"):
-		colorHex = "#158bf2"
-	elif (rarity == "legendary"):
-		colorHex = "#fcba05"
-	else:
-		colorHex = "#ffffff"
-		
-	artifactStats = "[b][u][color=" + colorHex + "]" + artifact.name + "[/color][/u][/b]"
+	artifactStats = "[b][u]" + get_color_string(rarity) + artifact.name + "[/color][/u][/b]"
 	artifactStats += "[color=#ffffff] (ID:" + artifact.id + ")"
 	artifactStats += "[color=#f21533]  " + str(artifact.extra_hp) + " Vg  [color=#f2ee15]" + str(artifact.sell_value) + " De\n"
 	artifactStats += "[color=#ffffff][i]" + artifact.description
@@ -78,3 +68,16 @@ func color_to_hex(color: Color) -> String:
 func get_screen_position_from_percentage(viewport: Viewport, percent: Vector2) -> Vector2:
 	var viewport_size = viewport.size
 	return Vector2(viewport_size.x * percent.x, viewport_size.y * percent.y)
+
+func get_color_string(rarity: String) -> String:
+	var result = "[color="
+	if (rarity == "common"):
+		result += "#15f254"
+	elif (rarity == "rare"):
+		result += "#158bf2"
+	elif (rarity == "legendary"):
+		result += "#fcba05"
+	else:
+		result += "#ffffff"
+	result += "]"
+	return result

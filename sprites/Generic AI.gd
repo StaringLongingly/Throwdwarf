@@ -51,5 +51,5 @@ func reposition():
 		to.x = -7000
 
 func take_damage(damage: float, DoTdps: float, DoTduration: float, drainHP: float):
-	print("Take damage child called")
+	# print("Take damage child called")
 	super.take_damage(damage, DoTdps, DoTduration, drainHP)

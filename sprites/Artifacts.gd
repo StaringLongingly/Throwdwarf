@@ -4,6 +4,7 @@ signal displayArtifactInfo(artifact: Dictionary, rarity: String, isNew: bool, id
 
 @export var searchLabel: RichTextLabel
 @export var itemCountLabel: RichTextLabel
+var HUD
 @export var hueSpeed = 0.2
 @export var cheatMode = false
 var latestRarity: String
@@ -15,33 +16,50 @@ var legendary_inventory = {}  # Dictionary to store legendary artifacts
 
 var typed: String = ""
 var searchResults: String = ""
-var selectedArtifact: Dictionary
+var selectedArtifact: Dictionary = {}
 var selectedArtifactRarity: String
+var latestSearchedInventory: String
 
 func _process(delta: float) -> void:
 	#itemcount
 	itemCountLabel.text = "[b][i]"
-	itemCountLabel.text += " [color=#15f254]" + str(count_items_in_inventory(common_inventory))
-	itemCountLabel.text += " [color=#158bf2]" + str(count_items_in_inventory(rare_inventory))
-	itemCountLabel.text += " [color=#fcba05]" + str(count_items_in_inventory(legendary_inventory))
+	itemCountLabel.text += " " + HUD.get_color_string("legendary") + str(count_items_in_inventory(legendary_inventory))
+	itemCountLabel.text += " " + HUD.get_color_string("rare") + str(count_items_in_inventory(rare_inventory))
+	itemCountLabel.text += " " + HUD.get_color_string("common") + str(count_items_in_inventory(common_inventory))
+	
+	var common_keyword = HUD.get_color_string("common") + "Q[/color]"
+	var rare_keyword = HUD.get_color_string("rare") + "E[/color]"
+	var legendary_keyword = HUD.get_color_string("legendary") + "R[/color]"
 	
 	#search
 	if Input.is_action_just_pressed("Common Inventory"):
-		typed = "Q"
+		latestSearchedInventory = "common"
+		if typed == common_keyword:
+			typed = ""
+		else:
+			typed = common_keyword 
 	if Input.is_action_just_pressed("Rare Inventory"):
-		typed = "E"
+		latestSearchedInventory = "rare"
+		if typed == rare_keyword:
+			typed = ""
+		else:
+			typed = rare_keyword 
 	if Input.is_action_just_pressed("Legendary Inventory"):
-		typed = "R"
+		latestSearchedInventory = "legendary"
+		if typed == legendary_keyword:
+			typed = ""
+		else:
+			typed = legendary_keyword 
 		
-	match typed.left(1):
-		"Q":
+	match typed.left(common_keyword.length()):
+		common_keyword:
 			searchResults = get_artifact_names_and_ids("common")
-		"E":
+		rare_keyword:
 			searchResults = get_artifact_names_and_ids("rare")
-		"R":
+		legendary_keyword:
 			searchResults = get_artifact_names_and_ids("legendary")
 			
-	if (typed.length() < 3 && typed.length() >= 1):
+	if (typed.length() < 2 + common_keyword.length() && typed.length() >= common_keyword.length()):
 		if Input.is_action_just_pressed("Pressed 1"):
 			typed += "1"
 		if Input.is_action_just_pressed("Pressed 2"):
@@ -52,17 +70,35 @@ func _process(delta: float) -> void:
 			typed += "4"
 		if Input.is_action_just_pressed("Pressed 5"):
 			typed += "5"
-	elif (typed.length() == 3):
-		var foundArtifact = find_artifact_by_id(typed)[0]
+	elif (typed.length() == 2 + common_keyword.length()):
+		var colorStringToRemove = HUD.get_color_string(latestSearchedInventory)
+		var typedClean = typed.replace(colorStringToRemove, "")
+		typedClean = typedClean.replace("[/color]", "")
+		var foundArtifact = find_artifact_by_id(typedClean)[0]
 		if (foundArtifact != {}): 
-			selectedArtifact = find_artifact_by_id(typed)[0]
-			selectedArtifactRarity = find_artifact_by_id(typed)[1]
-			print(selectedArtifact.name, selectedArtifactRarity)
+			selectedArtifact = find_artifact_by_id(typedClean)[0]
+			selectedArtifactRarity = find_artifact_by_id(typedClean)[1]
+			# print("Selected artifact: " + selectedArtifact.name)
 		typed = ""
 	hue += hueSpeed * delta
 	if (hue >= 1):
 		hue -= 1
-	searchLabel.text = "Search with ID: [i]" + typed + "[/i]" + "\n" + filter_lines(searchResults, typed)
+	# print(typedClean + ", " + colorStringToRemove)
+	var colorStringToRemove = HUD.get_color_string(latestSearchedInventory)
+	var typedClean = typed.replace(colorStringToRemove, "")
+	typedClean = typedClean.replace("[/color]", "")
+	var filteredLines = filter_lines(searchResults, typedClean)
+	searchLabel.text = "Search with ID: [i]" + typed + "[/i]" + "\n"
+	if filteredLines:
+		searchLabel.text += filteredLines
+	else:
+		if typed == "":
+			searchLabel.text += "[i] Press " + HUD.get_color_string("common") + "Q[/color], " + HUD.get_color_string("rare") + "E[/color], or " + HUD.get_color_string("legendary") + "R[/color] to search the matching inventory\n" 
+			if selectedArtifact:
+				if selectedArtifact.name:
+					searchLabel.text += " Selected Artifact: " + HUD.get_color_string(selectedArtifactRarity) + str(selectedArtifact.name)
+		else:
+			searchLabel.text += "[i] No Artifacts found on " + HUD.get_color_string(latestSearchedInventory) + latestSearchedInventory + " inventory[/color]!"
 	
 	#artifact usage
 	if (Input.is_action_just_pressed("Fire Artifact") && selectedArtifact != {}):
@@ -155,7 +191,9 @@ func _process(delta: float) -> void:
 }
 
 func _ready():
-	give_new_artifact()
+	selectedArtifact = {}
+	HUD = get_node("/root/Node2D/HUD")
+	give_new_artifact("legendary")
 	if cheatMode:
 		for i in range(999):
 			give_new_artifact()
@@ -224,13 +262,13 @@ func add_artifact_to_inventory(artifact: Dictionary, rarity: String) -> void:
 func artifact_exists(artifact_name: String, rarity: String) -> bool:
 	match rarity:
 		"common":
-			print("Artifact exists in ", rarity)
+			# print("Artifact exists in ", rarity)
 			return common_inventory.has(artifact_name)
 		"rare":
-			print("Artifact exists in ", rarity)
+			# print("Artifact exists in ", rarity)
 			return rare_inventory.has(artifact_name)
 		"legendary":
-			print("Artifact exists in ", rarity)
+			# print("Artifact exists in ", rarity)
 			return legendary_inventory.has(artifact_name)
 		_:
 			print("Unknown rarity: %s" % rarity)
@@ -242,8 +280,8 @@ func count_items_in_inventory(inventory: Dictionary) -> int:
 		total_count += inventory[artifact_name]["count"]
 	return total_count
 
-func give_new_artifact():
-	var newArtifact = select_random_artifact("random")
+func give_new_artifact(rarityOverride: String = "random"):
+	var newArtifact = select_random_artifact(rarityOverride)
 	var isArtifactNew = !artifact_exists(newArtifact.name, latestRarity)
 	add_artifact_to_inventory(newArtifact,latestRarity)
 	displayArtifactInfo.emit(newArtifact, latestRarity, isArtifactNew)
@@ -255,7 +293,7 @@ func generate_id_base_5(index: int) -> String:
 	# Convert the index to base 5
 	while index >= 0:
 		id_str = str((index % base) + 1) + id_str
-		index = int(index / base) - 1
+		index = int(index as float / base as float) - 1
 		if index < 0:
 			break
 
@@ -292,24 +330,21 @@ func get_artifact_id(artifact: Dictionary, rarity: String) -> String:
 	return "Artifact Not Found"
 
 func get_artifact_names_and_ids(rarity: String) -> String:
-	var resultRarity = "[u][b][color="
 	var result = ""
 
 	var inventoryValues
 	match rarity:
 		"common":
 			inventoryValues = common_inventory.values()
-			resultRarity += "#15f254"
 		"rare":
 			inventoryValues = rare_inventory.values()
-			resultRarity += "#158bf2"
 		"legendary":
 			inventoryValues = legendary_inventory.values()
-			resultRarity += "#fcba05"
 		_:
 			print("Unknown rarity: %s" % rarity)
 			return ""
 	
+	var resultRarity = "[u][b]" + HUD.get_color_string(rarity) 
 	for artifact in inventoryValues:
 		var countString = ""
 		var selectedString = ""
@@ -318,7 +353,7 @@ func get_artifact_names_and_ids(rarity: String) -> String:
 		if (artifact == selectedArtifact):
 			var hsv_color = Color.from_hsv(hue, 1, 1,)
 			selectedString += "[color=" + color_to_hex(hsv_color) + "] Selected![/color]"
-		result += resultRarity + "]" + artifact["name"] + "[/color][/b][/u]" + countString + " (ID:" + artifact["id"] + ")" + " [color=#f2ee15]Total De: " + str(artifact["sell_value"] * artifact["count"]) + "[/color]" +  selectedString +"\n"
+		result += resultRarity + artifact["name"] + "[/color][/b][/u]" + countString + " (ID:" + artifact["id"] + ")" + " [color=#f2ee15]Total De: " + str(artifact["sell_value"] * artifact["count"]) + "[/color]" +  selectedString +"\n"
 	
 	return result.strip_edges()
 

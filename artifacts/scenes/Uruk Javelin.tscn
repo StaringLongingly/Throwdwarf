@@ -18,9 +18,9 @@ animations = [{
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5r3sk")
 script = ExtResource("2_822r8")
-damage = 15.0
+damage = 30.0
 angleVariation = 2.0
-bulletSpeed = 30.0
+bulletSpeed = 20.0
 bulletPenetration = 5
 
 [node name="Area2D" type="Area2D" parent="."]

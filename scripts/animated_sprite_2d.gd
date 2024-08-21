@@ -1,8 +1,8 @@
 extends AnimatedSprite2D
-signal getSellvalue
 
 @export var hp: float = 100
 @export var HpLoseRate: float = 5
+@export var speedGainScale = 1
 @export var ScaleLoseRate: float = 0.1
 @export var collider: CollisionShape2D
 @onready var isBeingEntered: bool = false
@@ -22,8 +22,8 @@ func _process(delta: float) -> void:
 		if (frame != 5):
 			drillStays.emit()
 			var totalSellValue = get_node("/root/Node2D/Artifact").calculate_total_sell_value()
-			print(totalSellValue)
-			var speedGain = totalSellValue / 500 
+			# print(totalSellValue)
+			var speedGain = totalSellValue * speedGainScale / 1000 
 			hp -= (speedGain + 1) * HpLoseRate * delta
 			
 			@warning_ignore("narrowing_conversion")

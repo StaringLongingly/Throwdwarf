@@ -29,6 +29,7 @@ moveSpeed = 2.0
 desiredDistance = 5.0
 desiredDistanceAngleVariation = 60.0
 repositionCooldown = 5.0
+enemyRarity = "common"
 hitParticles = ExtResource("2_emorr")
 hpText = NodePath("HP display")
 artifact = ExtResource("3_osmdr")

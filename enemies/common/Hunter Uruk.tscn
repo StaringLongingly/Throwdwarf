@@ -28,6 +28,7 @@ hurtbox = NodePath("Hurtbox")
 moveSpeed = 1.0
 desiredDistance = 6.0
 repositionCooldown = 3.0
+enemyRarity = "common"
 hitParticles = ExtResource("2_lgg84")
 hpText = NodePath("HP display")
 artifact = ExtResource("3_gjs4h")

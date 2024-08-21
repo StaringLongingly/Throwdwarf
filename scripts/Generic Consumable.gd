@@ -32,12 +32,12 @@ func _ready() -> void:
 	cachedPos = position
 	cachedScale = scale
 	var Helmet = get_node("/root/Node2D/Player/Helmet")
-	if get_parent().is_in_group("Player"):
-		print("Artifact spawned by player")
-	elif get_parent().is_in_group("Enemy"):
-		print("Artifact spawned by enemy")
-	else:
-		print("Artifact spawned by unknown " + get_parent().name)
+	# if get_parent().is_in_group("Player"):
+	# print("Artifact spawned by player")
+	# elif get_parent().is_in_group("Enemy"):
+	# print("Artifact spawned by enemy")
+	# else:
+	# print("Artifact spawned by unknown " + get_parent().name)
 	isUsedByPlayer = !get_parent().is_in_group("Enemy")
 	
 	if isUsedByPlayer:
@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 
 # Called when the node enters the area
 func _on_area_2d_body_entered(body):
-	print("Projectile collided with " + body.name)
+	# print("Projectile collided with " + body.name)
 	var groupToCheck: String
 	if isUsedByPlayer:
 		groupToCheck = "Enemy"
@@ -100,7 +100,8 @@ func _on_area_2d_body_entered(body):
 		else:
 			bulletPenetration -= 1
 	else:
-		print("Bullet collided with group: " + str(body.get_groups()))
+		pass
+		# print("Bullet collided with group: " + str(body.get_groups()))
 
 func ease2(t: float) -> float:
 	if t <= 0.5:

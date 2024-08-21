@@ -159,20 +159,25 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_4y6e0")
-spawnIntervalVariation = 2.0
+spawnIntervalVariation = 1.0
+spawningBoundaryMin = Vector2(-6000, -9000)
+spawningBoundaryMax = Vector2(3000, 9000)
 enemies = {
-"common": ["res::/enemies/common/Bat.tscn", "res://enemies/common/Hunter Uruk.tscn", "res://enemies/common/Uruk.tscn", "res://enemies/coomon/Bombshroom.tscn"],
-"legendary": ["res://legendary/enemy1.tscn"],
-"rare": ["res://enemies/rare/Possessed Uruk.tscn", "res://enemies/rare/Possessed Hunter Uruk.tscn", "res://enemies/rare/Possessed Elf.tscn"]
+"common": ["Bat", "Bombshroom", "Hunter Uruk", "Uruk"],
+"legendary": ["Caragor", "Cavedrake"],
+"rare": ["Possessed Elf", "Possessed Uruk", "Possessed Hunter Uruk"]
 }
 time_interval = 10.0
 min_time_interval = 0.5
+time_interval_decrease_rate = 1.0
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("hpText") groups=["Player"]]
 script = ExtResource("43_00hfy")
 isPlayer = true
 hitParticles = ExtResource("26_2cqtc")
 hpText = NodePath("HP display3")
+hp = 300.0
+hpRegenRate = 0.5
 
 [node name="Helmet" type="Sprite2D" parent="Player" node_paths=PackedStringArray("target") groups=["Player"]]
 rotation = -1.5708
@@ -188,7 +193,7 @@ collision_mask = 578
 motion_mode = 1
 up_direction = Vector2(1, 0)
 script = ExtResource("3_qhakb")
-speed = 4000
+speed = 6
 rotation_speed = 15.0
 
 [node name="Head Collider" type="CollisionShape2D" parent="Player/Drill & Colliders"]
@@ -343,10 +348,7 @@ stream = ExtResource("37_inqva")
 volume_db = -8.0
 autoplay = true
 max_distance = 1e+08
-
-[node name="New artifact" parent="HUD" instance=ExtResource("38_if82i")]
-
-[node name="Stack artifact" parent="HUD" instance=ExtResource("39_ks1ve")]
+parameters/looping = false
 
 [node name="Block" type="StaticBody2D" parent="."]
 position = Vector2(0, 1e+06)
@@ -369,8 +371,9 @@ shape = SubResource("RectangleShape2D_ry6ng")
 modulate = Color(0.666667, 0, 1, 1)
 sprite_frames = SubResource("SpriteFrames_a42lr")
 script = ExtResource("34_iv4or")
-HpLoseRate = 10.0
-ScaleLoseRate = 1.0
+HpLoseRate = 30.0
+speedGainScale = 5
+ScaleLoseRate = 2.0
 collider = NodePath("../InsideCollider")
 
 [node name="Wall" type="Node" parent="." node_paths=PackedStringArray("wallBlockNode")]

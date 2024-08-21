@@ -18,7 +18,7 @@ animations = [{
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_bt64g")
 script = ExtResource("2_m13f6")
-damage = 5.0
+damage = 10.0
 angleVariation = 10.0
 rotateSpeed = 360.0
 

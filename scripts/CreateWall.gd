@@ -8,7 +8,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in range(0, wallWidth):
-		for j in range(0, wallHeight / 2 + 1):
+		for j in range(0, wallHeight as float / 2 + 1):
 			var newBlock = wallBlockNode.duplicate()
 			add_child(newBlock)
 			newBlock.position = Vector2(starterWall.x - i * 1000, j * 1000)
