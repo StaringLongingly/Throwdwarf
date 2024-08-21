@@ -6,6 +6,8 @@ extends AnimatedSprite2D
 @export var ScaleLoseRate: float = 0.1
 @export var collider: CollisionShape2D
 @onready var isBeingEntered: bool = false
+@export var DrillParticleCooldown: float
+var currentDrillParticleCooldown: float
 var scale2: float = 1
 
 signal drillEntered
@@ -20,7 +22,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (isBeingEntered):
 		if (frame != 5):
-			drillStays.emit()
+			if currentDrillParticleCooldown < 0:
+				currentDrillParticleCooldown = DrillParticleCooldown
+				drillStays.emit()
+			else:
+				currentDrillParticleCooldown -= delta
 			var totalSellValue = get_node("/root/Node2D/Artifact").calculate_total_sell_value()
 			# print(totalSellValue)
 			var speedGain = totalSellValue * speedGainScale / 1000 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=61 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -47,9 +47,11 @@
 [ext_resource type="Script" path="res://sprites/hud.gd" id="38_5xoef"]
 [ext_resource type="PackedScene" uid="uid://bwyxckbc0vnkg" path="res://new_artifact.tscn" id="38_if82i"]
 [ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://stack_artifact.tscn" id="39_ks1ve"]
+[ext_resource type="Shader" path="res://PauseRectangle.gdshader" id="40_keprr"]
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
+[ext_resource type="PackedScene" uid="uid://c5d588dp2t0dr" path="res://enemies/common/Bat.tscn" id="52_2kxqg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aup1c"]
 size = Vector2(15.2344, 22.7604)
@@ -121,6 +123,11 @@ animations = [{
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0pqpx"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpy46"]
+shader = ExtResource("40_keprr")
+shader_parameter/lod = 2.0
+shader_parameter/black = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mh6x"]
 size = Vector2(615, 803)
@@ -313,8 +320,9 @@ theme_override_font_sizes/normal_font_size = 20
 theme_override_font_sizes/bold_font_size = 30
 bbcode_enabled = true
 
-[node name="PauseMenu" type="RichTextLabel" parent="HUD"]
+[node name="PauseMenu" type="RichTextLabel" parent="HUD" node_paths=PackedStringArray("rectangle")]
 process_mode = 3
+z_index = 21
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -339,9 +347,11 @@ bbcode_enabled = true
 text = "[center][b]-- PAUSED --[/b]
 R: Restart
 Esc: Continue
-[i]Throwdwarf 1.0.0
+[i]Throwdwarf by Longingly
 "
 script = ExtResource("36_44icb")
+rectangle = NodePath("../ColorRect")
+animationTime = 0.3
 
 [node name="Background Music" type="AudioStreamPlayer2D" parent="HUD"]
 stream = ExtResource("37_inqva")
@@ -349,6 +359,13 @@ volume_db = -8.0
 autoplay = true
 max_distance = 1e+08
 parameters/looping = false
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+material = SubResource("ShaderMaterial_bpy46")
+offset_right = 400.0
+offset_bottom = 400.0
+scale = Vector2(100, 100)
+color = Color(0, 0, 0, 1)
 
 [node name="Block" type="StaticBody2D" parent="."]
 position = Vector2(0, 1e+06)
@@ -375,6 +392,7 @@ HpLoseRate = 30.0
 speedGainScale = 5
 ScaleLoseRate = 2.0
 collider = NodePath("../InsideCollider")
+DrillParticleCooldown = 0.01
 
 [node name="Wall" type="Node" parent="." node_paths=PackedStringArray("wallBlockNode")]
 script = ExtResource("35_n4kkg")
@@ -445,6 +463,8 @@ shape = SubResource("RectangleShape2D_68dla")
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
+
+[node name="Bat" parent="." instance=ExtResource("52_2kxqg")]
 
 [connection signal="body_exited" from="Block/InsideCollider/Area2D" to="Block/Block Sprite" method="_on_area_2d_body_exited"]
 [connection signal="body_shape_entered" from="Block/InsideCollider/Area2D" to="Block/Block Sprite" method="_on_area_2d_body_shape_entered"]

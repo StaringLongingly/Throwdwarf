@@ -24,6 +24,7 @@ DamageOverTimeDuration = 5.0
 weaponType = "melee"
 angleVariation = 10.0
 rotateSpeed = 360.0
+distanceFromBody = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 32

@@ -15,6 +15,8 @@ var to: Vector2
 
 # for melee, bullet
 var target_angle: float = 0
+#only for melee
+@export var distanceFromBody = 2
 #only for bullet
 @export var bulletSpeed: float = 10
 @export var bulletPenetration: int = 0
@@ -31,6 +33,8 @@ func _ready() -> void:
 	global_scale = scale
 	cachedPos = position
 	cachedScale = scale
+	if weaponType == "melee":
+		position = Vector2.ONE * 10000000
 	var Helmet = get_node("/root/Node2D/Player/Helmet")
 	# if get_parent().is_in_group("Player"):
 	# print("Artifact spawned by player")
@@ -56,7 +60,7 @@ func _ready() -> void:
 	global_position = from
 	rotation_degrees = rad_to_deg(target_angle) + 90
 	if weaponType == "melee":
-		position = Vector2.UP * 2000
+		position = Vector2.UP * distanceFromBody * 1000 
 	else:
 		reparent(get_node("/root"))
 		rotation_degrees = rad_to_deg(target_angle) + 90
@@ -77,6 +81,8 @@ func _process(delta: float) -> void:
 			global_position = lerp(from, to, ease3(mortarProgress))
 		"melee":
 			var newPosDif = Vector2.UP.rotated(deg_to_rad(count)) * 2000
+			if !isUsedByPlayer:
+				newPosDif = newPosDif.rotated(target_angle)
 			rotation_degrees = count
 			position = newPosDif
 			if count > 180:

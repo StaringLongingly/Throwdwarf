@@ -76,8 +76,11 @@ func _process(delta: float) -> void:
 		typedClean = typedClean.replace("[/color]", "")
 		var foundArtifact = find_artifact_by_id(typedClean)[0]
 		if (foundArtifact != {}): 
-			selectedArtifact = find_artifact_by_id(typedClean)[0]
-			selectedArtifactRarity = find_artifact_by_id(typedClean)[1]
+			if selectedArtifact == find_artifact_by_id(typedClean)[0]:
+				selectedArtifact = {}
+			else:
+				selectedArtifact = find_artifact_by_id(typedClean)[0]
+				selectedArtifactRarity = find_artifact_by_id(typedClean)[1]
 			# print("Selected artifact: " + selectedArtifact.name)
 		typed = ""
 	hue += hueSpeed * delta

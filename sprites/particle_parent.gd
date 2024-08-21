@@ -6,7 +6,7 @@ extends Node2D
 
 func _on_animated_sprite_2d_frame_changed() -> void:
 	spawn_particles(DrillBreakParticle)
-
+	
 func _on_animated_sprite_2d_drill_stays() -> void:
 	spawn_particles(DrillParticle)
 
