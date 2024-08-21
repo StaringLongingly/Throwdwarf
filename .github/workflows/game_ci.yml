@@ -1,7 +1,7 @@
 name: "Godot 4.3 CI/CD"
 
 env:
-  GODOT_VERSION: 4.3
+  GODOT_VERSION: 4.2.1
 
 on:
   workflow_dispatch:
