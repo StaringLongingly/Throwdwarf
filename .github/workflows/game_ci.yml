@@ -167,6 +167,9 @@ jobs:
             Release notes for ${{env.GitVersion_MajorMinorPatch}}
           draft: false
           prerelease: true
+          
+      - name: Changes between Tags
+        uses: simbo/changes-between-tags-action@v1.0.0
 
       - name: Upload Web Release Asset
         id: upload-release-asset
