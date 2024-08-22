@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=52 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -29,16 +29,10 @@
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://drill_break_particle.tscn" id="26_2cqtc"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="27_60si4"]
 [ext_resource type="Texture2D" uid="uid://bb1k07befyqgt" path="res://sprites/breakBlack.png" id="28_df15o"]
-[ext_resource type="Texture2D" uid="uid://bw1b6q4iucit6" path="res://sprites/break0.png" id="29_4ojwc"]
 [ext_resource type="FontFile" uid="uid://c6ol0yxmxxu1w" path="res://addons/godot-vim/TerminessNerdFont-Regular.ttf" id="29_w8agl"]
 [ext_resource type="FontFile" uid="uid://bkytyi8vvmlum" path="res://addons/godot-vim/TerminessNerdFont-Italic.ttf" id="30_bpxdh"]
-[ext_resource type="Texture2D" uid="uid://5iqc1jibvo46" path="res://sprites/break1.png" id="30_khl0s"]
-[ext_resource type="Texture2D" uid="uid://byx1v2r6wg3pj" path="res://sprites/break2.png" id="31_v8x0e"]
 [ext_resource type="FontFile" uid="uid://ixi0e3g3o3ik" path="res://addons/godot-vim/TerminessNerdFont-BoldItalic.ttf" id="31_x1a1n"]
-[ext_resource type="Texture2D" uid="uid://dmykq1l5wvbi0" path="res://sprites/break3.png" id="32_jncdt"]
 [ext_resource type="FontFile" uid="uid://dcr4j48sr5kyt" path="res://addons/godot-vim/TerminessNerdFont-Bold.ttf" id="32_xeoih"]
-[ext_resource type="Texture2D" uid="uid://bs18kbmdkichs" path="res://sprites/white_square.png" id="33_ljdeg"]
-[ext_resource type="Script" path="res://scripts/animated_sprite_2d.gd" id="34_iv4or"]
 [ext_resource type="Script" path="res://scripts/CreateWall.gd" id="35_n4kkg"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="36_44icb"]
 [ext_resource type="Texture2D" uid="uid://m6s1ksw4eu1g" path="res://sprites/bg.png" id="36_88nxx"]
@@ -48,10 +42,10 @@
 [ext_resource type="PackedScene" uid="uid://bwyxckbc0vnkg" path="res://new_artifact.tscn" id="38_if82i"]
 [ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://stack_artifact.tscn" id="39_ks1ve"]
 [ext_resource type="Shader" path="res://PauseRectangle.gdshader" id="40_keprr"]
+[ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://block.tscn" id="41_p7r45"]
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
-[ext_resource type="PackedScene" uid="uid://c5d588dp2t0dr" path="res://enemies/common/Bat.tscn" id="52_2kxqg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aup1c"]
 size = Vector2(15.2344, 22.7604)
@@ -129,38 +123,6 @@ shader = ExtResource("40_keprr")
 shader_parameter/lod = 2.0
 shader_parameter/black = 0.3
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mh6x"]
-size = Vector2(615, 803)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry6ng"]
-size = Vector2(1000, 1000)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_a42lr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("28_df15o")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_4ojwc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_khl0s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_v8x0e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_jncdt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("33_ljdeg")
-}],
-"loop": false,
-"name": &"default",
-"speed": 1.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68dla"]
 
 [node name="Node2D" type="Node2D"]
@@ -223,7 +185,7 @@ frame_progress = 0.317523
 speed_scale = -1.0
 script = ExtResource("23_unqb6")
 
-[node name="ParticleParent" type="Node2D" parent="Player/Drill & Colliders/Drill Sprite"]
+[node name="Particle Parent" type="Node2D" parent="Player/Drill & Colliders/Drill Sprite"]
 script = ExtResource("24_1k5gd")
 DrillParticle = ExtResource("25_n7681")
 DrillBreakParticle = ExtResource("26_2cqtc")
@@ -367,36 +329,11 @@ offset_bottom = 400.0
 scale = Vector2(100, 100)
 color = Color(0, 0, 0, 1)
 
-[node name="Block" type="StaticBody2D" parent="."]
-position = Vector2(0, 1e+06)
-collision_layer = 2
-collision_mask = 128
+[node name="Block" parent="." instance=ExtResource("41_p7r45")]
 
-[node name="InsideCollider" type="CollisionShape2D" parent="Block"]
-position = Vector2(-2.5, -0.5)
-shape = SubResource("RectangleShape2D_0mh6x")
-
-[node name="Area2D" type="Area2D" parent="Block/InsideCollider"]
-position = Vector2(2.5, 0.5)
-collision_layer = 2
-collision_mask = 128
-
-[node name="OutsideCollider" type="CollisionShape2D" parent="Block/InsideCollider/Area2D"]
-shape = SubResource("RectangleShape2D_ry6ng")
-
-[node name="Block Sprite" type="AnimatedSprite2D" parent="Block" node_paths=PackedStringArray("collider")]
-modulate = Color(0.666667, 0, 1, 1)
-sprite_frames = SubResource("SpriteFrames_a42lr")
-script = ExtResource("34_iv4or")
-HpLoseRate = 30.0
-speedGainScale = 5
-ScaleLoseRate = 2.0
-collider = NodePath("../InsideCollider")
-DrillParticleCooldown = 0.01
-
-[node name="Wall" type="Node" parent="." node_paths=PackedStringArray("wallBlockNode")]
+[node name="Wall" type="Node" parent="."]
 script = ExtResource("35_n4kkg")
-wallBlockNode = NodePath("../Block")
+wallBlockNode = ExtResource("41_p7r45")
 wallHeight = 25
 wallWidth = 50
 starterWall = Vector2(-8000, 0)
@@ -464,14 +401,4 @@ script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
 
-[node name="Bat" parent="." instance=ExtResource("52_2kxqg")]
-
-[connection signal="body_exited" from="Block/InsideCollider/Area2D" to="Block/Block Sprite" method="_on_area_2d_body_exited"]
-[connection signal="body_shape_entered" from="Block/InsideCollider/Area2D" to="Block/Block Sprite" method="_on_area_2d_body_shape_entered"]
-[connection signal="drillEntered" from="Block/Block Sprite" to="Player/Drill & Colliders/Drill Sprite" method="_on_animated_sprite_2d_drill_entered"]
-[connection signal="drillExited" from="Block/Block Sprite" to="Player/Drill & Colliders/Drill Sprite" method="_on_animated_sprite_2d_drill_exited"]
-[connection signal="drillStays" from="Block/Block Sprite" to="Player/Drill & Colliders/Drill Sprite" method="_on_animated_sprite_2d_drill_stays"]
-[connection signal="drillStays" from="Block/Block Sprite" to="Player/Drill & Colliders/Drill Sprite/ParticleParent" method="_on_animated_sprite_2d_drill_stays"]
-[connection signal="frame_changed" from="Block/Block Sprite" to="Player/Drill & Colliders/Drill Sprite/ParticleParent" method="_on_animated_sprite_2d_frame_changed"]
-[connection signal="giveArtifact" from="Block/Block Sprite" to="Artifact" method="_on_block_sprite_give_artifact"]
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]

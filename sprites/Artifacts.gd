@@ -234,9 +234,6 @@ func randomize_rarity() -> String:
 	else:
 		return "legendary"
 
-func _on_block_sprite_give_artifact() -> void:
-	give_new_artifact()
-
 func add_artifact_to_inventory(artifact: Dictionary, rarity: String) -> void:
 	match rarity:
 		"common":

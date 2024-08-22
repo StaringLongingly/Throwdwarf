@@ -16,7 +16,7 @@ var to: Vector2
 # for melee, bullet
 var target_angle: float = 0
 #only for melee
-@export var distanceFromBody = 2
+@export var distanceFromBody: float = 2
 #only for bullet
 @export var bulletSpeed: float = 10
 @export var bulletPenetration: int = 0
@@ -81,7 +81,7 @@ func _process(delta: float) -> void:
 			scale = cachedScale * ease3(mortarProgress)
 			global_position = lerp(from, to, ease3(mortarProgress))
 		"melee":
-			var newPosDif = Vector2.UP.rotated(deg_to_rad(count)) * 2000
+			var newPosDif = Vector2.UP.rotated(deg_to_rad(count)) * distanceFromBody * 1000
 			if !isUsedByPlayer:
 				newPosDif = newPosDif.rotated(target_angle)
 				rotation_degrees = count + rad_to_deg(target_angle)
