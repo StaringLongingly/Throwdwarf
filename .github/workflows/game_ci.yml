@@ -189,7 +189,7 @@ jobs:
             ${{ needs.commit_log.outputs.commit_log }}
 
             ### Additional Information:
-            Thanks for playing and testing the game! We hope you enjoy the latest updates.
+            As always thanks for playing!
 
           draft: false
           prerelease: true
