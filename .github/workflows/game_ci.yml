@@ -29,8 +29,10 @@ jobs:
           else
             COMMIT_LOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"%h - %an, %ar : %s")
           fi
+          echo "commit_log<<EOF" >> $GITHUB_ENV
+          echo "$COMMIT_LOG" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
-          echo "commit_log=$COMMIT_LOG" > $GITHUB_ENV
 
   web:
     runs-on: ubuntu-latest
