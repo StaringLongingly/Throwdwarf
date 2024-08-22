@@ -16,27 +16,30 @@ jobs:
   changed_files:
     runs-on: ubuntu-latest
     name: Test changed-files
+    outputs:
+      changed_files: ${{ steps.get_changed_files.outputs.changed_files }}
+      commit_log: ${{ steps.get_commit_log.outputs.commit_log }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for the repo
 
       - name: Get changed files
-        id: changed-files
+        id: get_changed_files
         uses: tj-actions/changed-files@v45
+        with:
+          files_output_format: json
 
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
+      - name: Save changed files as output
+        id: changed-files
+        run: echo "changed_files=$(jq -r '.all_changed_files[]' <<< \"${{ steps.get_changed_files.outputs.all_changed_files }}\")" >> $GITHUB_ENV
 
       - name: List all commits between previous and current commit
+        id: get_commit_log
         run: |
-          git log --pretty=format:"%h - %an, %ar : %s" HEAD~1..HEAD
-
+          COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s" HEAD~1..HEAD)
+          echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
+          
   web:
     runs-on: ubuntu-latest
     permissions:
@@ -141,7 +144,7 @@ jobs:
           path: game_windows.zip
 
   release:
-    needs: [web, linux, windows]
+    needs: [web, linux, windows, changed_files]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -191,6 +194,14 @@ jobs:
           release_name: ${{env.GitVersion_MajorMinorPatch}}
           body: |
             Release notes for ${{env.GitVersion_MajorMinorPatch}}
+
+            ### Commits:
+            ${{ needs.changed_files.outputs.commit_log }}
+
+            ### Changed files:
+            ${{ needs.changed_files.outputs.changed_files }}
+
+            As always, thanks for playing!
           draft: false
           prerelease: true
 
