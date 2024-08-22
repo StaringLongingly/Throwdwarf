@@ -130,7 +130,7 @@ jobs:
           path: game_windows.zip
 
   release:
-    needs: [web, linux, windows, commit_log]
+    needs: [web, linux, windows, generate-changelog]
     runs-on: ubuntu-latest
     permissions:
       contents: write
