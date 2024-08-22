@@ -23,10 +23,14 @@ jobs:
       - name: Get commits since last tag
         id: collect_commits
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0)
-          COMMIT_LOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"%h - %an, %ar : %s")
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "No tags found")
+          if [ "$LAST_TAG" = "No tags found" ]; then
+            COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s")
+          else
+            COMMIT_LOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"%h - %an, %ar : %s")
+          fi
           echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
-          echo "::set-output name=commit_log::$COMMIT_LOG"
+          echo "commit_log=$COMMIT_LOG" > $GITHUB_ENV
 
   web:
     runs-on: ubuntu-latest
@@ -187,7 +191,7 @@ jobs:
             ## Release Notes for Version ${{ env.GitVersion_MajorMinorPatch }}
 
             ### Commits since last tag:
-            ${{ needs.commit_log.outputs.commit_log }}
+            ${{ env.commit_log }}
 
             ### Additional Information:
             As always thanks for playing!
