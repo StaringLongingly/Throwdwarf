@@ -30,8 +30,8 @@ jobs:
             COMMIT_LOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"%h - %an, %ar : %s")
           fi
           echo "$COMMIT_LOG" > commit_log.txt
-          echo "commit_log=$(cat commit_log.txt)" >> $GITHUB_ENV
-          echo "::set-output name=commit_log::$(cat commit_log.txt)"
+          echo "COMMIT_LOG=$(cat commit_log.txt | sed ':a;N;$!ba;s/\n/\\n/g')" >> $GITHUB_ENV
+          echo "::set-output name=commit_log::$(cat commit_log.txt | sed ':a;N;$!ba;s/\n/\\n/g')"
 
   web:
     runs-on: ubuntu-latest
