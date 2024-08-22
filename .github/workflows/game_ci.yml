@@ -29,14 +29,11 @@ jobs:
           else
             COMMIT_LOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"%h - %an, %ar : %s")
           fi
-          echo "Last Tag: $LAST_TAG" >> commit_log_debug.txt
-          echo "Commit Log:" >> commit_log_debug.txt
-          echo "$COMMIT_LOG" >> commit_log_debug.txt
-          echo "COMMIT_LOG=$(echo "$COMMIT_LOG" | sed ':a;N;$!ba;s/\n/\\n/g')" >> $GITHUB_ENV
-          echo "::set-output name=commit_log::$(echo "$COMMIT_LOG" | sed ':a;N;$!ba;s/\n/\\n/g')"
+          echo "$COMMIT_LOG" > commit_log.txt
+          echo "::set-output name=commit_log::$COMMIT_LOG"
 
       - name: Debug commit log
-        run: cat commit_log_debug.txt
+        run: cat commit_log.txt
 
   web:
     runs-on: ubuntu-latest
@@ -237,3 +234,4 @@ jobs:
           asset_path: game_windows.zip
           asset_name: Throwdwarf_Windows.zip
           asset_content_type: application/zip
+
