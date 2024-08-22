@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bcwrjuchec71y"]
 
 [ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_rq13j"]
-[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://drill_break_particle.tscn" id="2_lgg84"]
+[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_lgg84"]
 [ext_resource type="PackedScene" uid="uid://tujtab4gm5yp" path="res://artifacts/scenes/Uruk Javelin.tscn" id="3_gjs4h"]
 [ext_resource type="Texture2D" uid="uid://ce8m6p1mnuamw" path="res://sprites/HUruk000.png" id="4_pvjce"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="5_pmit6"]
@@ -65,5 +65,4 @@ size_flags_vertical = 4
 theme_override_fonts/mono_font = ExtResource("5_pmit6")
 theme_override_font_sizes/mono_font_size = 333
 bbcode_enabled = true
-text = "[code][color=ff0000] 100."
 autowrap_mode = 0

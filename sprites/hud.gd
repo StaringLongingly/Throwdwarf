@@ -81,3 +81,16 @@ func get_color_string(rarity: String) -> String:
 		result += "#ffffff"
 	result += "]"
 	return result
+	
+func get_color(rarity: String) -> Color:
+	var result = ""
+	if (rarity == "common"):
+		result += "#15f254"
+	elif (rarity == "rare"):
+		result += "#158bf2"
+	elif (rarity == "legendary"):
+		result += "#fcba05"
+	else:
+		result += "#ffffff"
+	var color = Color.html(result)
+	return color

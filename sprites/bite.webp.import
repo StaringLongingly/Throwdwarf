@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhep6b6xgq6c2"
-path="res://.godot/imported/Bat Bite.png-fa83991288ee6ee277569d1ed5f4847a.ctex"
+uid="uid://t3xn8jjvcgyv"
+path="res://.godot/imported/bite.webp-da0823f88ba5f04d118ff4e834e2b264.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bat Bite.png"
-dest_files=["res://.godot/imported/Bat Bite.png-fa83991288ee6ee277569d1ed5f4847a.ctex"]
+source_file="res://sprites/bite.webp"
+dest_files=["res://.godot/imported/bite.webp-da0823f88ba5f04d118ff4e834e2b264.ctex"]
 
 [params]
 

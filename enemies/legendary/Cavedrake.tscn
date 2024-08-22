@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3qi5tkasdvk3"]
 
 [ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_cghwb"]
-[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://drill_break_particle.tscn" id="2_mw3o2"]
+[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_mw3o2"]
 [ext_resource type="PackedScene" uid="uid://dyus7p43crtso" path="res://artifacts/scenes/Magic Ball.tscn" id="3_ujqtj"]
 [ext_resource type="Texture2D" uid="uid://bbikc1eqe4u57" path="res://sprites/Stonedrake000.png" id="4_hpmf4"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="5_2h8jh"]
@@ -66,5 +66,4 @@ size_flags_vertical = 4
 theme_override_fonts/mono_font = ExtResource("5_2h8jh")
 theme_override_font_sizes/mono_font_size = 333
 bbcode_enabled = true
-text = "[code][color=ff0000] 100."
 autowrap_mode = 0

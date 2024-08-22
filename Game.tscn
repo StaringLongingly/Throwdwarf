@@ -25,8 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://db1i47fc7n4so" path="res://sprites/drill_v2/drill_v2_19.png" id="22_13mdf"]
 [ext_resource type="Script" path="res://sprites/drill.gd" id="23_unqb6"]
 [ext_resource type="Script" path="res://sprites/particle_parent.gd" id="24_1k5gd"]
-[ext_resource type="PackedScene" uid="uid://dj2csruyy0ged" path="res://drill_particle.tscn" id="25_n7681"]
-[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://drill_break_particle.tscn" id="26_2cqtc"]
+[ext_resource type="PackedScene" uid="uid://dd4dyytaho71c" path="res://scenes/drill_particle.tscn" id="25_n7681"]
+[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="26_2cqtc"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="27_60si4"]
 [ext_resource type="Texture2D" uid="uid://bb1k07befyqgt" path="res://sprites/breakBlack.png" id="28_df15o"]
 [ext_resource type="FontFile" uid="uid://c6ol0yxmxxu1w" path="res://addons/godot-vim/TerminessNerdFont-Regular.ttf" id="29_w8agl"]
@@ -39,10 +39,10 @@
 [ext_resource type="AudioStream" uid="uid://k5hssmv0gl54" path="res://music/1-osiris_monolith-2024.mp3" id="37_inqva"]
 [ext_resource type="Script" path="res://sprites/Artifacts.gd" id="37_nqwky"]
 [ext_resource type="Script" path="res://sprites/hud.gd" id="38_5xoef"]
-[ext_resource type="PackedScene" uid="uid://bwyxckbc0vnkg" path="res://new_artifact.tscn" id="38_if82i"]
-[ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://stack_artifact.tscn" id="39_ks1ve"]
-[ext_resource type="Shader" path="res://PauseRectangle.gdshader" id="40_keprr"]
-[ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://block.tscn" id="41_p7r45"]
+[ext_resource type="PackedScene" uid="uid://bwyxckbc0vnkg" path="res://scenes/new_artifact.tscn" id="38_if82i"]
+[ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://scenes/stack_artifact.tscn" id="39_ks1ve"]
+[ext_resource type="Shader" path="res://shaders/PauseRectangle.gdshader" id="40_keprr"]
+[ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://scenes/block.tscn" id="41_p7r45"]
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
@@ -142,7 +142,7 @@ time_interval_decrease_rate = 0.2
 time_increase_rate = 0.01
 base_group_spawn_size_min = 1
 base_group_spawn_size_max = 3
-group_size_increase_rate = 0.01
+group_size_increase_rate = 0.1
 max_delay_between_enemies = 3.0
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("hpText") groups=["Player"]]
@@ -250,28 +250,6 @@ bbcode_enabled = true
 text = "[b][i]"
 text_direction = 2
 
-[node name="Description_v2" type="RichTextLabel" parent="HUD"]
-custom_minimum_size = Vector2(20, 0)
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 352.0
-offset_bottom = 483.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/normal_font = ExtResource("29_w8agl")
-theme_override_fonts/italics_font = ExtResource("30_bpxdh")
-theme_override_fonts/bold_italics_font = ExtResource("31_x1a1n")
-theme_override_fonts/bold_font = ExtResource("32_xeoih")
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 25
-bbcode_enabled = true
-
 [node name="Search" type="RichTextLabel" parent="HUD"]
 offset_left = 21.0
 offset_top = 21.0
@@ -333,6 +311,29 @@ offset_right = 400.0
 offset_bottom = 400.0
 scale = Vector2(100, 100)
 color = Color(0, 0, 0, 1)
+
+[node name="Description_v2" type="RichTextLabel" parent="HUD"]
+custom_minimum_size = Vector2(20, 0)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 352.0
+offset_right = 23.0
+offset_bottom = 483.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("29_w8agl")
+theme_override_fonts/italics_font = ExtResource("30_bpxdh")
+theme_override_fonts/bold_italics_font = ExtResource("31_x1a1n")
+theme_override_fonts/bold_font = ExtResource("32_xeoih")
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 25
+bbcode_enabled = true
 
 [node name="Block" parent="." instance=ExtResource("41_p7r45")]
 

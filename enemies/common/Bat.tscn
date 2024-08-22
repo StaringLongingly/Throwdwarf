@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c5d588dp2t0dr"]
 
 [ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_ebh15"]
-[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://drill_break_particle.tscn" id="2_wasah"]
+[ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_wasah"]
 [ext_resource type="PackedScene" uid="uid://cm45m0g4afj44" path="res://artifacts/scenes/Bat Bite.tscn" id="3_rqfpd"]
 [ext_resource type="Texture2D" uid="uid://bu1ehplv4vom1" path="res://sprites/bat1000.png" id="4_p2htt"]
 [ext_resource type="Texture2D" uid="uid://vwyrlhg06rh0" path="res://sprites/bat2000.png" id="5_3qhnr"]
@@ -69,5 +69,4 @@ size_flags_vertical = 4
 theme_override_fonts/mono_font = ExtResource("6_jpak1")
 theme_override_font_sizes/mono_font_size = 333
 bbcode_enabled = true
-text = "[code][color=ff0000] 100."
 autowrap_mode = 0

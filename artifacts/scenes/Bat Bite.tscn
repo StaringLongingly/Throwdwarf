@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cm45m0g4afj44"]
 
-[ext_resource type="Texture2D" uid="uid://dhep6b6xgq6c2" path="res://Bat Bite.png" id="1_uw1ef"]
-[ext_resource type="Texture2D" uid="uid://whxbgwn7tc6q" path="res://Bat Bite 2.png" id="2_iwjgw"]
+[ext_resource type="Texture2D" uid="uid://dhep6b6xgq6c2" path="res://sprites/Bat Bite.png" id="1_uw1ef"]
+[ext_resource type="Texture2D" uid="uid://whxbgwn7tc6q" path="res://sprites/Bat Bite 2.png" id="2_iwjgw"]
 [ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="3_3d7rs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q2hj8"]

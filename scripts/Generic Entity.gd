@@ -75,3 +75,6 @@ func death():
 		get_node("/root/Node2D/HUD/PauseMenu").restart_scene()
 	else:
 		queue_free()  # Remove the enemy if HP is 0 or below
+
+func get_rarity() -> String:
+	return enemyRarity 

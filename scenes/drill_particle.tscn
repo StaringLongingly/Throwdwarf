@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dj2csruyy0ged"]
+[gd_scene load_steps=9 format=3 uid="uid://dd4dyytaho71c"]
 
 [ext_resource type="Texture2D" uid="uid://28pqirqma2y5" path="res://sprites/triangle_300px.png" id="1_2riw8"]
 [ext_resource type="Script" path="res://sprites/drill_particles.gd" id="2_ns106"]
-[ext_resource type="Script" path="res://scripts/Drill Particle Audio.gd" id="4_3nlwu"]
+[ext_resource type="Script" path="res://scripts/Drill Particle Audio.gd" id="3_oly6f"]
 
 [sub_resource type="Curve" id="Curve_x2lov"]
 max_value = 100.0
@@ -49,6 +49,8 @@ hue_variation_curve = SubResource("Curve_uxsiq")
 script = ExtResource("2_ns106")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
 autoplay = true
 max_distance = 10000.0
-script = ExtResource("4_3nlwu")
+script = ExtResource("3_oly6f")
+numberRange = Vector2(10, 70)

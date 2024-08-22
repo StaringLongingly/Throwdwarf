@@ -10,12 +10,45 @@ extends "res://scripts/Generic Entity.gd"
 var to: Vector2
 var from: Vector2
 var currentRepositionCooldown: float
+@export var spawnAnimationDuration: float = 2
+@export var cutoffShader: Shader
+@export var spawnParticlesScene: PackedScene
+var spawnParticles: CPUParticles2D
+var spawnAnimationProgress: float
+var spriteNode: AnimatedSprite2D
+var shaderMaterial
 
 func _ready() -> void:
+	if not spawnParticles:
+		cutoffShader = preload("res://shaders/Cutoff.gdshader")
+	if not spawnParticlesScene:
+		spawnParticlesScene = preload("res://scenes/spawn_particles.tscn")
+	spawnParticles = spawnParticlesScene.instantiate()
+	add_child(spawnParticles)
+	
+	var rarity = super.get_rarity()
+	spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity) 
+	shaderMaterial = ShaderMaterial.new()
+	shaderMaterial.shader = cutoffShader
+	
+	spriteNode = get_node("Enemy Sprite")
+	spriteNode.material = shaderMaterial
+	spriteNode.material.set_shader_parameter("cutoff", 0)
+	
+	spawnAnimationProgress = 0
 	target = get_node("/root/Node2D/Player/Helmet")
 	super._ready()
 
 func _process(delta: float) -> void:
+	if spawnAnimationProgress < spawnAnimationDuration:
+		spawnAnimationProgress += delta
+		var rarity = super.get_rarity()
+		spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity) 
+		spriteNode.material.set_shader_parameter("cutoff", clampf(spawnAnimationProgress / spawnAnimationDuration, 0, 1))
+		return
+	else:
+		spawnParticles.emitting = false
+	
 	if currentRepositionCooldown > 0:
 		currentRepositionCooldown -= delta
 		
