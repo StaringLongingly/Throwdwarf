@@ -10,23 +10,37 @@ on:
       - main
 
 jobs:
-  commit_log:
+  generate-changelog:
     runs-on: ubuntu-latest
-    outputs:
-      commit_log: ${{ steps.collect_commits.outputs.commit_log }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - run: echo "previous_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo '')" >> $GITHUB_ENV
+      - name: Generate changelog
+        id: changelog
+        uses: jaywcjlove/changelog-generator@main
+        if: env.previous_tag
         with:
-          fetch-depth: 0  # Fetch all history for the repo
-
-      - name: Get commit log
-        id: collect_commits
-        run: |
-          COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s" HEAD~1..HEAD)
-          echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
-          echo "::set-output name=commit_log::$COMMIT_LOG"
-
+          token: ${{ secrets.GITHUB_TOKEN }}
+          filter-author: (小弟调调™|Renovate Bot)
+          filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+          
+  get-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the changelog
+      - run: echo "${{ steps.changelog.outputs.changelog }}"
+    
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        if: steps.create_tag.outputs.successful == 'true'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ steps.create_tag.outputs.version }}
+          tag: ${{ steps.create_tag.outputs.version }}
+          body: |
+            ${{ steps.changelog.outputs.compareurl }}
+      
+            ${{ steps.changelog.outputs.changelog }}
+      
   web:
     runs-on: ubuntu-latest
     permissions:
