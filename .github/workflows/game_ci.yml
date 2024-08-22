@@ -22,25 +22,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           filter-author: (小弟调调™|Renovate Bot)
           filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
-          
-  get-changelog:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get the changelog
-      - run: echo "${{ steps.changelog.outputs.changelog }}"
-    
-      - name: Create Release
-        uses: ncipollo/release-action@v1
-        if: steps.create_tag.outputs.successful == 'true'
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: ${{ steps.create_tag.outputs.version }}
-          tag: ${{ steps.create_tag.outputs.version }}
-          body: |
-            ${{ steps.changelog.outputs.compareurl }}
-      
-            ${{ steps.changelog.outputs.changelog }}
-      
+
   web:
     runs-on: ubuntu-latest
     permissions:
@@ -199,8 +181,9 @@ jobs:
           body: |
             ## Release Notes for Version ${{env.GitVersion_MajorMinorPatch}}
 
-            ### Commits:
-            ${{ needs.commit_log.outputs.commit_log }}
+            ${{ steps.changelog.outputs.compareurl }}
+      
+            ${{ steps.changelog.outputs.changelog }}
 
             ### Additional Information:
             As always thanks for playing!
