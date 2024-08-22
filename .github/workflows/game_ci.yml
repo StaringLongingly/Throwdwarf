@@ -4,10 +4,11 @@ env:
   GODOT_VERSION: 4.2.1
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+    tags:
+      - v*
 
 jobs:
   commit_log:
@@ -20,19 +21,19 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all history for the repo
 
-      - name: Get commits since last tag
+      - name: Get commit log
         id: collect_commits
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "No tags found")
-          if [ "$LAST_TAG" = "No tags found" ]; then
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            echo "No previous tag found, showing all commits."
             COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s")
           else
-            COMMIT_LOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"%h - %an, %ar : %s")
+            echo "Showing commits since $LAST_TAG."
+            COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s" $LAST_TAG..HEAD)
           fi
-          echo "${COMMIT_LOG}" | tee commit_log.txt
-          echo "commit_log<<EOF" >> $GITHUB_ENV
-          echo "${COMMIT_LOG}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
+          echo "::set-output name=commit_log::$COMMIT_LOG"
 
   web:
     runs-on: ubuntu-latest
@@ -42,7 +43,7 @@ jobs:
       image: barichello/godot-ci:4.2.1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Move export templates into position
         run: |
@@ -88,7 +89,7 @@ jobs:
       image: barichello/godot-ci:4.2.1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Move export templates into position
         run: |
@@ -118,7 +119,7 @@ jobs:
       image: barichello/godot-ci:4.2.1
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Move export templates into position
         run: |
@@ -147,7 +148,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -187,12 +188,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.GitVersion_MajorMinorPatch }}
-          release_name: "Version ${{ env.GitVersion_MajorMinorPatch }}"
+          tag_name: ${{env.GitVersion_MajorMinorPatch}}
+          release_name: "Version ${{env.GitVersion_MajorMinorPatch}}"
           body: |
-            ## Release Notes for Version ${{ env.GitVersion_MajorMinorPatch }}
+            ## Release Notes for Version ${{env.GitVersion_MajorMinorPatch}}
 
-            ### Commits since last tag:
+            ### Commits:
             ${{ needs.commit_log.outputs.commit_log }}
 
             ### Additional Information:
