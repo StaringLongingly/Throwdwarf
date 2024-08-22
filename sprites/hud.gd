@@ -6,6 +6,8 @@ extends CanvasLayer
 @export var lifetime: float
 @export var moveSpeed: float
 @export var hueSpeed: float
+var previousArtifactDisplayed: Dictionary = {}
+var artifactsDisplayed: int = 0
 var hue = 0
 var currentLifetime = 0
 var moveProgress = 0
@@ -17,7 +19,9 @@ func _process(delta: float) -> void:
 	if (hue >= 1):
 		hue -= 1
 	var hsv_color = Color.from_hsv(hue, 1, 1,)
-	if (isArtifactNew):
+	if artifactsDisplayed == 1:
+		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]" + "STARTER! " + artifactStats
+	elif isArtifactNew:
 		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]" + "NEW! " + artifactStats
 	else:
 		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]" + "STACK! " + artifactStats
@@ -26,6 +30,8 @@ func _process(delta: float) -> void:
 		# Window is sliding up
 		# print("Sliding Window up with moveProgress: ", moveProgress)
 		moveProgress += moveSpeed * delta
+		if artifactsDisplayed == 1:
+			moveProgress = 1
 	elif (moveProgress >= 1 && currentLifetime >= 0):
 		# Window is staying
 		# print("Window is staying with currentLifetime: ", currentLifetime)
@@ -41,6 +47,9 @@ func _process(delta: float) -> void:
 
 
 func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, isNew: bool, ) -> void:
+	if artifact != previousArtifactDisplayed:
+		artifactsDisplayed += 1
+		print(artifactsDisplayed)
 	isArtifactNew = isNew
 	if isNew:
 		var sound = newSound.instantiate()
@@ -55,6 +64,7 @@ func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, is
 	artifactStats += "[color=#f21533]  " + str(artifact.extra_hp) + " Vg  [color=#f2ee15]" + str(artifact.sell_value) + " De\n"
 	artifactStats += "[color=#ffffff][i]" + artifact.description
 	
+	previousArtifactDisplayed = artifact
 
 func color_to_hex(color: Color) -> String:
 	# Convert Color to RGB

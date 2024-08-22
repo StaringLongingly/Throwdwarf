@@ -117,12 +117,6 @@ func _on_area_2d_body_entered(body):
 		pass
 		# print("Bullet collided with group: " + str(body.get_groups()))
 
-func ease2(t: float) -> float:
-	if t <= 0.5:
-		return ease((1-t) * 2, 4.8)
-	else:
-		return ease(t * 2, 4.8)
-
 func ease3(t: float) -> float:
 	if t <= 0.5:
 		return ease(1-ease((1-t), 4.8), 2) / 2
