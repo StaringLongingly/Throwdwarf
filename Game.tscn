@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=53 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" path="res://scripts/CreateWall.gd" id="35_n4kkg"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="36_44icb"]
 [ext_resource type="Texture2D" uid="uid://m6s1ksw4eu1g" path="res://sprites/bg.png" id="36_88nxx"]
+[ext_resource type="FontFile" uid="uid://kaa5h4tbgiri" path="res://3270NerdFont-Regular.ttf" id="36_xikev"]
 [ext_resource type="AudioStream" uid="uid://k5hssmv0gl54" path="res://music/1-osiris_monolith-2024.mp3" id="37_inqva"]
 [ext_resource type="Script" path="res://sprites/Artifacts.gd" id="37_nqwky"]
 [ext_resource type="Script" path="res://sprites/hud.gd" id="38_5xoef"]
@@ -256,7 +257,7 @@ offset_top = 21.0
 offset_right = 880.0
 offset_bottom = 585.0
 theme_override_fonts/normal_font = ExtResource("29_w8agl")
-theme_override_fonts/italics_font = ExtResource("30_bpxdh")
+theme_override_fonts/italics_font = ExtResource("36_xikev")
 theme_override_fonts/bold_italics_font = ExtResource("31_x1a1n")
 theme_override_fonts/bold_font = ExtResource("32_xeoih")
 theme_override_font_sizes/bold_italics_font_size = 30
@@ -282,7 +283,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/normal_font = ExtResource("29_w8agl")
-theme_override_fonts/italics_font = ExtResource("30_bpxdh")
+theme_override_fonts/italics_font = ExtResource("36_xikev")
 theme_override_fonts/bold_font = ExtResource("32_xeoih")
 theme_override_font_sizes/italics_font_size = 30
 theme_override_font_sizes/normal_font_size = 50
@@ -325,7 +326,7 @@ offset_bottom = 483.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("29_w8agl")
-theme_override_fonts/italics_font = ExtResource("30_bpxdh")
+theme_override_fonts/italics_font = ExtResource("36_xikev")
 theme_override_fonts/bold_italics_font = ExtResource("31_x1a1n")
 theme_override_fonts/bold_font = ExtResource("32_xeoih")
 theme_override_font_sizes/bold_italics_font_size = 25
