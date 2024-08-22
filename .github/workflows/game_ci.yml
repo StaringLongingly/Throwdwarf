@@ -10,23 +10,15 @@ on:
       - main
 
 jobs:
-  changed_files_and_commits:
+  commit_log:
     runs-on: ubuntu-latest
     outputs:
-      changed_files: ${{ steps.collect_files.outputs.changed_files }}
       commit_log: ${{ steps.collect_commits.outputs.commit_log }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for the repo
-
-      - name: Get changed files
-        id: collect_files
-        run: |
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
-          echo "changed_files=$CHANGED_FILES" >> $GITHUB_ENV
-          echo "::set-output name=changed_files::$CHANGED_FILES"
 
       - name: Get commit log
         id: collect_commits
@@ -142,7 +134,7 @@ jobs:
           path: game_windows.zip
 
   release:
-    needs: [web, linux, windows, changed_files_and_commits]
+    needs: [web, linux, windows, commit_log]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -189,16 +181,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{env.GitVersion_MajorMinorPatch}}
-          release_name: ${{env.GitVersion_MajorMinorPatch}}
+          release_name: "Version ${{env.GitVersion_MajorMinorPatch}}"
           body: |
-            Release notes for ${{env.GitVersion_MajorMinorPatch}}
+            ## Release Notes for Version ${{env.GitVersion_MajorMinorPatch}}
 
             ### Commits:
-            ${{ needs.changed_files_and_commits.outputs.commit_log }}
+            ${{ needs.commit_log.outputs.commit_log }}
 
-            ### Changed files:
-            ${{ needs.changed_files_and_commits.outputs.changed_files }}
-            Thanks for playing!
+            ### Additional Information:
+            As always thanks for playing!
+
           draft: false
           prerelease: true
 
