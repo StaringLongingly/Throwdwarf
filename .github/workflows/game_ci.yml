@@ -12,7 +12,7 @@ jobs:
           lfs: true
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@latest-version
+        uses: gittools/actions/gitversion/setup@v3.0.0
         with:
           versionSpec: '5.x'
 
