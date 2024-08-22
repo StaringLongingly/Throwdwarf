@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ce7g7j46jgl65"
-path="res://.godot/imported/3270NerdFontMono-SemiCondensed.ttf-1f796f25e2eb8dc1adec41fc4ccd6bfd.fontdata"
+uid="uid://cnlpugv41klgm"
+path="res://.godot/imported/3270NerdFontPropo-Condensed.ttf-2536e1d86eb7402ea0d03160485fd41f.fontdata"
 
 [deps]
 
-source_file="res://3270NerdFontMono-SemiCondensed.ttf"
-dest_files=["res://.godot/imported/3270NerdFontMono-SemiCondensed.ttf-1f796f25e2eb8dc1adec41fc4ccd6bfd.fontdata"]
+source_file="res://fonts/3270NerdFontPropo-Condensed.ttf"
+dest_files=["res://.godot/imported/3270NerdFontPropo-Condensed.ttf-2536e1d86eb7402ea0d03160485fd41f.fontdata"]
 
 [params]
 

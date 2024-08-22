@@ -36,7 +36,7 @@
 [ext_resource type="Script" path="res://scripts/CreateWall.gd" id="35_n4kkg"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="36_44icb"]
 [ext_resource type="Texture2D" uid="uid://m6s1ksw4eu1g" path="res://sprites/bg.png" id="36_88nxx"]
-[ext_resource type="FontFile" uid="uid://kaa5h4tbgiri" path="res://3270NerdFont-Regular.ttf" id="36_xikev"]
+[ext_resource type="FontFile" uid="uid://kaa5h4tbgiri" path="res://fonts/3270NerdFont-Regular.ttf" id="36_xikev"]
 [ext_resource type="AudioStream" uid="uid://k5hssmv0gl54" path="res://music/1-osiris_monolith-2024.mp3" id="37_inqva"]
 [ext_resource type="Script" path="res://sprites/Artifacts.gd" id="37_nqwky"]
 [ext_resource type="Script" path="res://sprites/hud.gd" id="38_5xoef"]
@@ -46,7 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://scenes/block.tscn" id="41_p7r45"]
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
-[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
+[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aup1c"]
 size = Vector2(15.2344, 22.7604)

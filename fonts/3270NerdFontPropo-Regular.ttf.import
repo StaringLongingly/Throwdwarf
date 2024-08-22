@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cxqe3xb7t0snq"
-path="res://.godot/imported/3270NerdFontMono-Regular.ttf-3992c1a3deaf62c493480569a7a9eeae.fontdata"
+uid="uid://d14mvw8xsx62x"
+path="res://.godot/imported/3270NerdFontPropo-Regular.ttf-eac2ae1cb27595893052e004efba7f54.fontdata"
 
 [deps]
 
-source_file="res://3270NerdFontMono-Regular.ttf"
-dest_files=["res://.godot/imported/3270NerdFontMono-Regular.ttf-3992c1a3deaf62c493480569a7a9eeae.fontdata"]
+source_file="res://fonts/3270NerdFontPropo-Regular.ttf"
+dest_files=["res://.godot/imported/3270NerdFontPropo-Regular.ttf-eac2ae1cb27595893052e004efba7f54.fontdata"]
 
 [params]
 

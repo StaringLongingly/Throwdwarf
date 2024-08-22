@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_hiydd"]
 [ext_resource type="PackedScene" uid="uid://tujtab4gm5yp" path="res://artifacts/scenes/Uruk Javelin.tscn" id="3_cd0xa"]
 [ext_resource type="Texture2D" uid="uid://cps7b826veh8v" path="res://sprites/PUruk000.png" id="4_usefi"]
-[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="5_m0a5w"]
+[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="5_m0a5w"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rsbbv"]
 animations = [{

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_p02ky"]
 [ext_resource type="PackedScene" uid="uid://cyvftkx5beapb" path="res://artifacts/scenes/Hatchet.tscn" id="3_dwvi2"]
 [ext_resource type="Texture2D" uid="uid://d2ecft5ncaxty" path="res://sprites/Blowshroom000.png" id="4_fedvt"]
-[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="5_w865x"]
+[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="5_w865x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sxtsb"]
 animations = [{

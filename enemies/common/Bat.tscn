@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cm45m0g4afj44" path="res://artifacts/scenes/Bat Bite.tscn" id="3_rqfpd"]
 [ext_resource type="Texture2D" uid="uid://bu1ehplv4vom1" path="res://sprites/bat1000.png" id="4_p2htt"]
 [ext_resource type="Texture2D" uid="uid://vwyrlhg06rh0" path="res://sprites/bat2000.png" id="5_3qhnr"]
-[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="6_jpak1"]
+[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="6_jpak1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gig1s"]
 animations = [{

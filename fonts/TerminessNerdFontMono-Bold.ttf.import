@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://digepcah7p3jv"
-path="res://.godot/imported/3270NerdFont-Condensed.ttf-29a9a136fe9a0e72809ab7958ab57151.fontdata"
+uid="uid://6q2xyetu31xx"
+path="res://.godot/imported/TerminessNerdFontMono-Bold.ttf-628ea92645cd47c69df982972df9d622.fontdata"
 
 [deps]
 
-source_file="res://3270NerdFont-Condensed.ttf"
-dest_files=["res://.godot/imported/3270NerdFont-Condensed.ttf-29a9a136fe9a0e72809ab7958ab57151.fontdata"]
+source_file="res://fonts/TerminessNerdFontMono-Bold.ttf"
+dest_files=["res://.godot/imported/TerminessNerdFontMono-Bold.ttf-628ea92645cd47c69df982972df9d622.fontdata"]
 
 [params]
 

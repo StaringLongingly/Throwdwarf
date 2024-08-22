@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_6e43m"]
 [ext_resource type="PackedScene" uid="uid://dg6yq0qb1ouvb" path="res://artifacts/scenes/Elven Sword Blade.tscn" id="3_a1cua"]
 [ext_resource type="Texture2D" uid="uid://dpqpjmdggao8r" path="res://sprites/PElf000.png" id="4_iy6rh"]
-[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://TerminessNerdFontMono-Bold.ttf" id="5_aoetg"]
+[ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="5_aoetg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v2mja"]
 animations = [{
