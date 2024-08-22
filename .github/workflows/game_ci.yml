@@ -197,7 +197,7 @@ jobs:
             ## Release Notes for Version ${{ env.GitVersion_MajorMinorPatch }}
 
             ### Commits since last tag:
-            ${{ steps.collect_commits.outputs.commit_log }}
+            ${{ needs.commit_log.outputs.commit_log }}
 
             ### Additional Information:
             As always thanks for playing!
