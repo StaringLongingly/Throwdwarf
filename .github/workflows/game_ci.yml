@@ -10,36 +10,31 @@ on:
       - main
 
 jobs:
-  # -------------------------------------------------------------
-  # Event `push`: Compare the preceding remote commit -> to the current commit of the main branch 
-  # -------------------------------------------------------------
-  changed_files:
+  changed_files_and_commits:
     runs-on: ubuntu-latest
-    name: Test changed-files
     outputs:
-      changed_files: ${{ steps.get_changed_files.outputs.changed_files }}
-      commit_log: ${{ steps.get_commit_log.outputs.commit_log }}
+      changed_files: ${{ steps.collect_files.outputs.changed_files }}
+      commit_log: ${{ steps.collect_commits.outputs.commit_log }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for the repo
 
       - name: Get changed files
-        id: get_changed_files
-        uses: tj-actions/changed-files@v45
-        with:
-          files_output_format: json
+        id: collect_files
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "::set-output name=changed_files::$CHANGED_FILES"
 
-      - name: Save changed files as output
-        id: changed-files
-        run: echo "changed_files=$(jq -r '.all_changed_files[]' <<< \"${{ steps.get_changed_files.outputs.all_changed_files }}\")" >> $GITHUB_ENV
-
-      - name: List all commits between previous and current commit
-        id: get_commit_log
+      - name: Get commit log
+        id: collect_commits
         run: |
           COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s" HEAD~1..HEAD)
           echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
-          
+          echo "::set-output name=commit_log::$COMMIT_LOG"
+
   web:
     runs-on: ubuntu-latest
     permissions:
@@ -47,17 +42,18 @@ jobs:
     container:
       image: barichello/godot-ci:4.2.1
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Move export templates into position
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
       - name: Create staging directory
         run: mkdir -v -p build/web
 
-      - name: Build
+      - name: Build for Web
         run: godot -v --export-release --headless "Web"
 
       - name: Add coi-service-worker
@@ -66,7 +62,7 @@ jobs:
           mv coi-serviceworker/coi-serviceworker.js build/web/coi-serviceworker.js
           sed -i '3 i <script src="coi-serviceworker.js"></script>' build/web/index.html
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3.9.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -92,13 +88,14 @@ jobs:
     container:
       image: barichello/godot-ci:4.2.1
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Move export templates into position
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
       - name: Create staging directory
         run: mkdir -v -p build/linux
 
@@ -121,30 +118,31 @@ jobs:
     container:
       image: barichello/godot-ci:4.2.1
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Move export templates into position
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
       - name: Create staging directory
         run: mkdir -v -p build/windows
 
-      - name: Build for windows
+      - name: Build for Windows
         run: godot -v --export-release --headless "Windows Desktop" --path . --output "build/windows/game.x86_64"
 
       - name: Zip Windows artifacts
         run: zip -r game_windows.zip build/windows
 
-      - name: Upload windows artifacts
+      - name: Upload Windows artifacts
         uses: actions/upload-artifact@v3
         with:
           name: game_windows
           path: game_windows.zip
 
   release:
-    needs: [web, linux, windows, changed_files]
+    needs: [web, linux, windows, changed_files_and_commits]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -196,12 +194,11 @@ jobs:
             Release notes for ${{env.GitVersion_MajorMinorPatch}}
 
             ### Commits:
-            ${{ needs.changed_files.outputs.commit_log }}
+            ${{ needs.changed_files_and_commits.outputs.commit_log }}
 
             ### Changed files:
-            ${{ needs.changed_files.outputs.changed_files }}
-
-            As always, thanks for playing!
+            ${{ needs.changed_files_and_commits.outputs.changed_files }}
+            Thanks for playing!
           draft: false
           prerelease: true
 
