@@ -72,6 +72,6 @@ func _on_generic_enemy_life_drain(hpGain: float) -> void:
 
 func death():
 	if isPlayer:
-		get_tree().reload_current_scene()
+		get_node("/root/Node2D/HUD/PauseMenu").restart_scene()
 	else:
 		queue_free()  # Remove the enemy if HP is 0 or below

@@ -89,7 +89,7 @@ func _process(delta: float) -> void:
 				rotation_degrees = count
 			position = newPosDif
 			var scaleMagnitude = ease((1 - abs((count - 90) / 90)), 0.4) * cachedScale.x
-			print(str(scaleMagnitude) + ", " + str(count))
+			# print(str(scaleMagnitude) + ", " + str(count))
 			scale = Vector2.ONE * scaleMagnitude
 			if count > 180:
 				queue_free()

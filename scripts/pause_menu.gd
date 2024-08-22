@@ -1,19 +1,23 @@
 extends RichTextLabel
+
 var isPaused: bool = true
-var textCache
+var textCache: String
 @export var rectangle: ColorRect
-@export var animationTime: float
-var cachedBlack
-var cachedLod
-var LodProgress: float = 1
+@export var animationTime: float = 1.0
+var cachedBlack: float = 0.0
+var cachedLod: float = 0.0
+var LodProgress: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	cachedLod = rectangle.material.get_shader_parameter("lod")
-	cachedBlack = rectangle.material.get_shader_parameter("black")
+	# Ensure rectangle and its material are available
+	if rectangle and rectangle.material:
+		reset_shader_parameters()
+	else:
+		print("Error: Rectangle or material is missing.")
+
 	textCache = text
 	text = ""
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -22,22 +26,33 @@ func _process(delta: float) -> void:
 	
 	get_tree().paused = isPaused
 	if isPaused:
-		animateShader(delta, true)
+		animate_shader(delta, true)
 		text = textCache
 		if Input.is_action_just_pressed("Legendary Inventory"): 
-			get_tree().reload_current_scene()
-			
+			restart_scene()
 	else:
-		animateShader(delta, false)
+		animate_shader(delta, false)
 		text = ""
 
-func animateShader(delta: float, isIncreasing: bool):
+func animate_shader(delta: float, isIncreasing: bool) -> void:
 	if isIncreasing:
-		if LodProgress < 1:
-			LodProgress += delta / animationTime
+		LodProgress = min(LodProgress + delta / animationTime, 1.0)
 	else:
-		if LodProgress > 0:
-			LodProgress -= delta / animationTime
-	clampf(LodProgress, 0, 1)
+		LodProgress = max(LodProgress - delta / animationTime, 0.0)
+		
 	rectangle.material.set_shader_parameter("lod", cachedLod * ease(LodProgress, 0.6))
 	rectangle.material.set_shader_parameter("black", lerpf(1, cachedBlack, ease(LodProgress, 0.6)))
+
+# Function to reset shader parameters and cached variables
+func reset_shader_parameters() -> void:
+	if rectangle and rectangle.material:
+		cachedLod = 2
+		cachedBlack = 0.3
+		LodProgress = 1.0
+	else:
+		print("Error: Rectangle or material is missing.")
+
+# Function to handle scene restart
+func restart_scene() -> void:
+	reset_shader_parameters()  # Ensure cached values are reset before restarting
+	get_tree().reload_current_scene()

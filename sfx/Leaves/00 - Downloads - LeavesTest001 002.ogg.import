@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cjcam6wyeajy5"
+path="res://.godot/imported/00 - Downloads - LeavesTest001 002.ogg-15e0feafc2ca582d3696621c40b7c688.oggvorbisstr"
+
+[deps]
+
+source_file="res://sfx/Leaves/00 - Downloads - LeavesTest001 002.ogg"
+dest_files=["res://.godot/imported/00 - Downloads - LeavesTest001 002.ogg-15e0feafc2ca582d3696621c40b7c688.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

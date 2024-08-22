@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://28pqirqma2y5" path="res://sprites/triangle_300px.png" id="1_2riw8"]
 [ext_resource type="Script" path="res://sprites/drill_particles.gd" id="2_ns106"]
-[ext_resource type="AudioStream" uid="uid://dy0wtlnxyi4hc" path="res://sfx/Downloads - unknown album/00 - Downloads - LeavesTest001 007.ogg" id="3_y7uaa"]
+[ext_resource type="Script" path="res://scripts/Drill Particle Audio.gd" id="4_3nlwu"]
 
 [sub_resource type="Curve" id="Curve_x2lov"]
 max_value = 100.0
@@ -49,6 +49,6 @@ hue_variation_curve = SubResource("Curve_uxsiq")
 script = ExtResource("2_ns106")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_y7uaa")
 autoplay = true
 max_distance = 10000.0
+script = ExtResource("4_3nlwu")

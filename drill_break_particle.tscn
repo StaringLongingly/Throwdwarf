@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://28pqirqma2y5" path="res://sprites/triangle_300px.png" id="1_udndy"]
 [ext_resource type="Script" path="res://sprites/drill_particles.gd" id="2_e6ytl"]
-[ext_resource type="AudioStream" uid="uid://do458i14o26by" path="res://sfx/Downloads - unknown album/00 - Downloads - LeavesTest001 058.ogg" id="3_qci8f"]
+[ext_resource type="AudioStream" uid="uid://do458i14o26by" path="res://sfx/Leaves/00 - Downloads - LeavesTest001 058.ogg" id="3_qci8f"]
 
 [sub_resource type="Curve" id="Curve_x2lov"]
 max_value = 100.0

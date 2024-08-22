@@ -136,9 +136,14 @@ enemies = {
 "legendary": ["Caragor", "Cavedrake"],
 "rare": ["Possessed Elf", "Possessed Uruk", "Possessed Hunter Uruk"]
 }
-time_interval = 10.0
+time_interval = 20.0
 min_time_interval = 0.5
-time_interval_decrease_rate = 1.0
+time_interval_decrease_rate = 0.2
+time_increase_rate = 0.01
+base_group_spawn_size_min = 1
+base_group_spawn_size_max = 3
+group_size_increase_rate = 0.01
+max_delay_between_enemies = 3.0
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("hpText") groups=["Player"]]
 script = ExtResource("43_00hfy")
