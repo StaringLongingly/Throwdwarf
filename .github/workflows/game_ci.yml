@@ -12,9 +12,10 @@ jobs:
           lfs: true
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.11.3
+        uses: gittools/actions/gitversion/setup@latest-version
         with:
           versionSpec: '5.x'
+
 
       - name: Determine version
         id: gitversion
