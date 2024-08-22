@@ -61,7 +61,7 @@ func take_damage(damage: float, DoTdps: float, DoTduration: float, drainHP: floa
 	currentDoTduration += DoTduration
 	latestDoTdps = DoTdps
 	hp -= damage
-	emit_signal("lifeDrain", drainHP)
+	lifeDrain.emit(drainHP)
 	if hp <= 0:
 		death()
 

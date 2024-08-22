@@ -99,4 +99,4 @@ func _process(delta: float) -> void:
 
 		# Randomize the next interval a bit more to make it less predictable
 		elapsed_time = 0.0
-		time_interval = time_interval + randi_range(-0.5, 0.5) * time_interval * 0.5
+		time_interval = time_interval + randf_range(-0.5, 0.5) * time_interval * 0.5

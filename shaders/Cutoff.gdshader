@@ -7,7 +7,7 @@ void fragment() {
 	float threshhold = UV.y;
 	vec2 adjusted_uv = UV;
 	adjusted_uv.y = UV.y + (cutoff - 1.0);
-	
+
 	if (adjusted_uv.y > 1.0) {
 		discard;
 	} else {

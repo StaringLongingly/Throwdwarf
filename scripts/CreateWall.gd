@@ -14,7 +14,7 @@ func _ready() -> void:
 # Function that builds the wall, to be run in a separate thread.
 func build_wall() -> void:
 	for i in range(0, wallWidth):
-		for j in range(0, int(wallHeight / 2) + 1):
+		for j in range(0, int(wallHeight as float / 2) + 1):
 			var newBlock: Node2D = wallBlockNode.instantiate()
 			call_deferred("add_child", newBlock) # Safely add the child to the scene tree in the main thread
 			newBlock.position = Vector2(starterWall.x - i * 1000, j * 1000)

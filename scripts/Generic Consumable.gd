@@ -62,7 +62,7 @@ func _ready() -> void:
 	rotation_degrees = rad_to_deg(target_angle) + 90
 	if weaponType == "melee":
 		position = Vector2.UP * distanceFromBody * 1000 
-		if (to - from).length() > 2000:
+		if not isUsedByPlayer and (to - from).length() > 2000:
 			queue_free()
 	else:
 		reparent(get_node("/root"))

@@ -407,5 +407,6 @@ shape = SubResource("RectangleShape2D_68dla")
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
+cheatMode = true
 
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]
