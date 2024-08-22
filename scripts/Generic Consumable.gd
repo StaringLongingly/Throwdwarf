@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var damage: float = 1
-@export var leach: float = 0
+@export var leech: float = 0
 @export var DamageOverTimeDps: float = 0
 @export var DamageOverTimeDuration: float = 1
 # Accepted values: melee, mortar, bullet
@@ -35,6 +35,7 @@ func _ready() -> void:
 	cachedScale = scale
 	if weaponType == "melee":
 		position = Vector2.ONE * 10000000
+		scale = Vector2.ZERO
 	var Helmet = get_node("/root/Node2D/Player/Helmet")
 	# if get_parent().is_in_group("Player"):
 	# print("Artifact spawned by player")
@@ -83,8 +84,13 @@ func _process(delta: float) -> void:
 			var newPosDif = Vector2.UP.rotated(deg_to_rad(count)) * 2000
 			if !isUsedByPlayer:
 				newPosDif = newPosDif.rotated(target_angle)
-			rotation_degrees = count
+				rotation_degrees = count + rad_to_deg(target_angle)
+			else:
+				rotation_degrees = count
 			position = newPosDif
+			var scaleMagnitude = ease((1 - abs((count - 90) / 90)), 0.4) * cachedScale.x
+			print(str(scaleMagnitude) + ", " + str(count))
+			scale = Vector2.ONE * scaleMagnitude
 			if count > 180:
 				queue_free()
 
@@ -99,7 +105,7 @@ func _on_area_2d_body_entered(body):
 		
 	if body.is_in_group(groupToCheck):  # Make sure to add enemies to an "enemies" group
 		var scriptHost: Node2D = body.get_parent()
-		scriptHost.take_damage(damage, DamageOverTimeDps, DamageOverTimeDuration, leach)
+		scriptHost.take_damage(damage, DamageOverTimeDps, DamageOverTimeDuration, leech)
 		# print("Hit Enemy")
 		if bulletPenetration == 0:
 			queue_free()  # Remove the projectile after hitting an enemy (optional)
