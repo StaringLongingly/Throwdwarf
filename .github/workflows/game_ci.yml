@@ -34,7 +34,9 @@ jobs:
 
       - name: Debug (I fucking hate gh actions)
         run: |
+          echo "GitVersion Tag:"
           echo "${{env.GitVersion_MajorMinorPatch}}"
+          echo "Logs:"
           echo "{{ steps.release-change-logs.change-logs }}"
 
       - name: Generate Release Notes
