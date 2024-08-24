@@ -11,24 +11,6 @@ on:
       - v*
 
 jobs:
-  commit_log:
-    runs-on: ubuntu-latest
-    outputs:
-      commit_log: ${{ steps.changelog.outputs.commit_log }}
-    steps:
-      - name: 🛎 Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: 📋 Get Changes between Tags
-        id: changelog
-        run: |
-          git fetch --tags
-          latest_tag=$(git describe --tags --abbrev=0)
-          changelog=$(git log $latest_tag..HEAD --oneline)
-          echo "::set-output name=commit_log::${changelog}"
-
   web:
     runs-on: ubuntu-latest
     permissions:
@@ -136,30 +118,16 @@ jobs:
           path: game_windows.zip
 
   release:
-    needs: [web, linux, windows, commit_log]
+    needs: [web, linux, windows]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Do a pretty commit <3
+        uses: actions/checkout@v2
+        uses: bullrich/commit-autotag@main
         with:
-          fetch-depth: 0
-
-      - name: Set up GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.15
-        with:
-          versionSpec: '5.x'
-
-      - name: Execute GitVersion
-        uses: gittools/actions/gitversion/execute@v0.9.15
-        with:
-          useConfigFile: true
-          configFilePath: GitVersion.yml
-
-      - name: Get branch name
-        id: get_branch
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Download Web artifacts
         uses: actions/download-artifact@v3
@@ -175,26 +143,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: game_windows
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.GitVersion_MajorMinorPatch }}
-          release_name: "Version ${{ env.GitVersion_MajorMinorPatch }}"
-          body: |
-            ## Release Notes for Version ${{ env.GitVersion_MajorMinorPatch }}
-
-            ### Commits:
-            ${{ needs.commit_log.outputs.commit_log }}
-
-            ### Additional Information:
-            As always thanks for playing!
-
-          draft: false
-          prerelease: true
 
       - name: Upload Web Release Asset
         id: upload-release-asset
