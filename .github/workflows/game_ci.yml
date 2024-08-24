@@ -49,7 +49,7 @@ jobs:
           commit_message: "UPDATE GITHUB PAGES"
 
       - name: Zip Web artifacts
-        run: zip -r game_web.zip build/web
+        run: cd build/web && zip -r ../../game_web.zip *
 
       - name: Upload Web artifacts
         uses: actions/upload-artifact@v3
