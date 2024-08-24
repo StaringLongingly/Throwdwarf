@@ -13,8 +13,6 @@ on:
 jobs:
   commit_log:
     runs-on: ubuntu-latest
-    outputs:
-      commit_log: ${{ steps.collect_commits.outputs.commit_log }}
     steps:
       - name: 🛎 Checkout
         uses: actions/checkout@v4
