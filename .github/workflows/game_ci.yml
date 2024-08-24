@@ -100,10 +100,10 @@ jobs:
         run: mkdir -v -p build/linux
 
       - name: Build for Linux
-        run: godot -v --export-release --headless "Linux/X11" --path . --output "build/linux/game.x86_64"
+        run: godot -v --export-release --headless "Linux/X11" --path . --output "build/linux/Throwdwarf"
 
       - name: Zip Linux artifacts
-        run: zip -r game_linux.zip build/linux
+        run: cd build/linux && zip -r game_linux.zip *
 
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v3
@@ -130,10 +130,10 @@ jobs:
         run: mkdir -v -p build/windows
 
       - name: Build for Windows
-        run: godot -v --export-release --headless "Windows Desktop" --path . --output "build/windows/game.x86_64"
+        run: godot -v --export-release --headless "Windows Desktop" --path . --output "build/windows/Throwdwarf.exe"
 
       - name: Zip Windows artifacts
-        run: zip -r game_windows.zip build/windows
+        run: cd build/windows && zip -r ../../ game_windows.zip *
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v3
