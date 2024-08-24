@@ -163,6 +163,12 @@ jobs:
       - name: Debug (I fucking hate gh actions)
         run: |
           ls
+          echo
+          echo
+          ls ..
+          echo
+          echo
+          ls /home/runner/work/Throwdwarf/Throwdwarf
  
       - name: Create Release
         id: create_release
