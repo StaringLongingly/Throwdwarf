@@ -16,6 +16,17 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Set up GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.15
+        with:
+          versionSpec: '5.x'
+
+      - name: Execute GitVersion
+        uses: gittools/actions/gitversion/execute@v0.9.15
+        with:
+          useConfigFile: true
+          configFilePath: GitVersion.yml
+          
       - name: Checkout code
         uses: actions/checkout@v2
         with:
@@ -35,7 +46,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ steps.gitversion.outputs.PreReleaseTag }}
           release_name: Prerelease ${{ github.ref }}
           body: |
             ### Changelog
