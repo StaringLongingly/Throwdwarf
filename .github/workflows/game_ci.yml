@@ -124,12 +124,12 @@ jobs:
       contents: write
     steps:
       - name: Checking out ..
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Do a pretty commit <3
-        uses: bullrich/commit-autotag@main
+      - uses: butlerlogic/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
