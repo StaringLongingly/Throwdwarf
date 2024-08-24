@@ -11,58 +11,6 @@ on:
       - v*
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          
-      - name: Set up GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.15
-        with:
-          versionSpec: '5.x'
-
-      - name: Execute GitVersion
-        uses: gittools/actions/gitversion/execute@v0.9.15
-        with:
-          useConfigFile: true
-          configFilePath: GitVersion.yml
-
-      - name: Generate Release Notes
-        uses: johnyherangi/create-release-notes@main
-        id: create-release-notes
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Debug (I fucking hate gh actions)
-        run: |
-          echo "GitVersion Tag:"
-          echo "${{env.GitVersion_MajorMinorPatch}}"
-          echo "Logs:"
-          echo "${{ steps.create-release-notes.outputs.release-notes }}"
-        
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{env.GitVersion_MajorMinorPatch}}
-          release_name: "New ver ${{env.GitVersion_MajorMinorPatch}}"
-          body: |
-            ### New stuff:
-            ${{ steps.create-release-notes.outputs.release-notes }}
-            
-            As always thanks for playing!
-            I love you <33
-          draft: false
-          prerelease: true
-        
-
   web:
     needs: release
     runs-on: ubuntu-latest
@@ -172,8 +120,8 @@ jobs:
           name: game_windows
           path: game_windows.zip
 
-  release-upload:
-    needs: [web, linux, windows, release]
+  release:
+    needs: [web, linux, windows]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -192,6 +140,52 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: game_windows
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Set up GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.15
+        with:
+          versionSpec: '5.x'
+
+      - name: Execute GitVersion
+        uses: gittools/actions/gitversion/execute@v0.9.15
+        with:
+          useConfigFile: true
+          configFilePath: GitVersion.yml
+
+      - name: Generate Release Notes
+        uses: johnyherangi/create-release-notes@main
+        id: create-release-notes
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Debug (I fucking hate gh actions)
+        run: |
+          echo "GitVersion Tag:"
+          echo "${{env.GitVersion_MajorMinorPatch}}"
+          echo "Logs:"
+          echo "${{ steps.create-release-notes.outputs.release-notes }}"
+        
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{env.GitVersion_MajorMinorPatch}}
+          release_name: "New ver ${{env.GitVersion_MajorMinorPatch}}"
+          body: |
+            ### New stuff:
+            ${{ steps.create-release-notes.outputs.release-notes }}
+            
+            As always thanks for playing!
+            I love you <33
+          draft: false
+          prerelease: true
 
       - name: Upload Web Release Asset
         id: upload-release-asset
