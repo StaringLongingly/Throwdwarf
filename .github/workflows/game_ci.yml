@@ -194,7 +194,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: web/game_web.zip
+          asset_path: game_web.zip
           asset_name: Throwdwarf_Web.zip
           asset_content_type: application/zip
 
