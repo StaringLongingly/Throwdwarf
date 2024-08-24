@@ -13,6 +13,8 @@ on:
 jobs:
   commit_log:
     runs-on: ubuntu-latest
+    outputs:
+      commit_log: ${{ steps.changelog.outputs.commit_log }}
     steps:
       - name: 🛎 Checkout
         uses: actions/checkout@v4
@@ -20,14 +22,12 @@ jobs:
           fetch-depth: 0
 
       - name: 📋 Get Changes between Tags
-        id: changes
+        id: changelog
         run: |
           git fetch --tags
           latest_tag=$(git describe --tags --abbrev=0)
           changelog=$(git log $latest_tag..HEAD --oneline)
-          echo "commit_log<<EOF" >> $GITHUB_ENV
-          echo "$changelog" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "::set-output name=commit_log::${changelog}"
 
   web:
     runs-on: ubuntu-latest
@@ -182,13 +182,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{env.GitVersion_MajorMinorPatch}}
-          release_name: "Version ${{env.GitVersion_MajorMinorPatch}}"
+          tag_name: ${{ env.GitVersion_MajorMinorPatch }}
+          release_name: "Version ${{ env.GitVersion_MajorMinorPatch }}"
           body: |
-            ## Release Notes for Version ${{env.GitVersion_MajorMinorPatch}}
+            ## Release Notes for Version ${{ env.GitVersion_MajorMinorPatch }}
 
             ### Commits:
-            ${{ env.commit_log }}
+            ${{ needs.commit_log.outputs.commit_log }}
 
             ### Additional Information:
             As always thanks for playing!
