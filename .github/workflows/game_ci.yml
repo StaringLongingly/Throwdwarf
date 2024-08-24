@@ -33,6 +33,7 @@ jobs:
           configFilePath: GitVersion.yml
 
       - name: Generate Release Notes
+        id: commits
         uses: paolorevillosa/release-change-logs@v3.0
 
       - name: Debug (I fucking hate gh actions)
@@ -40,18 +41,19 @@ jobs:
           echo "GitVersion Tag:"
           echo "${{env.GitVersion_MajorMinorPatch}}"
           echo "Logs:"
-          echo "${{ env.release-change-logs.change-logs }}"
+          echo "${{ steps.commits.release-change-logs.change-logs }}"
         
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
           tag_name: ${{env.GitVersion_MajorMinorPatch}}
           release_name: "New ver ${{env.GitVersion_MajorMinorPatch}}"
           body: |
             ### New stuff:
-            ${{ env.release-change-logs.change-logs }}
+            ${{ steps.commits.release-change-logs.change-logs }}
             As always thanks for playing!
             I love you <33
           draft: false
