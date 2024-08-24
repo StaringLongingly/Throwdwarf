@@ -103,7 +103,7 @@ jobs:
         run: godot -v --export-release --headless "Linux/X11" --path . --output "build/linux/Throwdwarf"
 
       - name: Zip Linux artifacts
-        run: cd build/linux && zip -r game_linux.zip *
+        run: cd build/linux && zip -r ../../game_linux.zip * 
 
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v3
@@ -133,7 +133,7 @@ jobs:
         run: godot -v --export-release --headless "Windows Desktop" --path . --output "build/windows/Throwdwarf.exe"
 
       - name: Zip Windows artifacts
-        run: cd build/windows && zip -r ../../ game_windows.zip *
+        run: cd build/windows && zip -r ../../game_windows.zip *
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v3
