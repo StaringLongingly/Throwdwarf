@@ -130,7 +130,7 @@ jobs:
 
       # get commit summary
       - name: Get commit summary
-        uses: actions/commit-summary@v1
+        uses: kristiyan-petrov/commit-summary@v3
         id: get_commit_summary
         with:
           ref: ${{ github.ref }}
