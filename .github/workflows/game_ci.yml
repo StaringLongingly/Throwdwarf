@@ -162,12 +162,7 @@ jobs:
 
       - name: Debug (I fucking hate gh actions)
         run: |
-          echo "Web Asset exists:"
-          ls -l build/web/game_web.zip
-          echo "Linux Asset exists:"
-          ls -l build/linux/game_linux.zip
-          echo "Windows Asset exists:"
-          ls -l build/windows/game_windows.zip
+          ls
  
       - name: Create Release
         id: create_release
