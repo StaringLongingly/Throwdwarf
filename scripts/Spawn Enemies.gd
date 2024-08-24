@@ -34,6 +34,7 @@ var spawning = false  # A flag to check if a group is currently being spawned
 # Function to spawn a group of enemies with delays between each spawn
 func spawn_enemy_group() -> void:
 	spawning = true  # Set the spawning flag to true
+	
 	# Calculate the current group size based on elapsed time
 	var current_group_spawn_size_min = base_group_spawn_size_min + int(elapsed_time * group_size_increase_rate)
 	var current_group_spawn_size_max = base_group_spawn_size_max + int(elapsed_time * group_size_increase_rate)
@@ -52,7 +53,7 @@ func spawn_enemy_group() -> void:
 				var enemyPosition = lerp(spawningBoundaryMin, spawningBoundaryMax, randf())
 				enemy_instance.position = enemyPosition
 				print("Spawned enemy from ", selected_folder, ": ", enemy_path)
-				print("   Enemy Position X: "  + str(enemyPosition.x).left(6), ", Y: " + str(enemyPosition.y).left(6))
+				print("   Enemy Position X: " + str(enemyPosition.x).left(6), ", Y: " + str(enemyPosition.y).left(6))
 		else:
 			print("No folder selected, something went wrong.")
 

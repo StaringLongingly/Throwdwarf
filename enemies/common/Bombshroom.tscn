@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_8gv24"]
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_p02ky"]
-[ext_resource type="PackedScene" uid="uid://cyvftkx5beapb" path="res://artifacts/scenes/Hatchet.tscn" id="3_dwvi2"]
+[ext_resource type="PackedScene" uid="uid://cuwdpaxmice75" path="res://artifacts/scenes/Bombshroom Mortar.tscn" id="3_qs0wp"]
 [ext_resource type="Texture2D" uid="uid://d2ecft5ncaxty" path="res://sprites/Blowshroom000.png" id="4_fedvt"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="5_w865x"]
 
@@ -31,7 +31,7 @@ repositionCooldown = 30.0
 enemyRarity = "common"
 hitParticles = ExtResource("2_p02ky")
 hpText = NodePath("HP display")
-artifact = ExtResource("3_dwvi2")
+artifact = ExtResource("3_qs0wp")
 hp = 70.0
 attackCooldown = 20.0
 

@@ -27,7 +27,7 @@ func _ready() -> void:
 	add_child(spawnParticles)
 	
 	var rarity = super.get_rarity()
-	spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity) 
+	spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity)
 	shaderMaterial = ShaderMaterial.new()
 	shaderMaterial.shader = cutoffShader
 	
@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 	if spawnAnimationProgress < spawnAnimationDuration:
 		spawnAnimationProgress += delta
 		var rarity = super.get_rarity()
-		spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity) 
+		spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity)
 		spriteNode.material.set_shader_parameter("cutoff", clampf(spawnAnimationProgress / spawnAnimationDuration, 0, 1))
 		return
 	else:
@@ -60,16 +60,14 @@ func _process(delta: float) -> void:
 			global_position = to
 	else:
 		if not disableAI:
-			reposition()	
+			reposition()
 	super._process(delta)
 	
 func reposition():
 	if target == null:
 		print("No target")
 		return
-	# print("Trying to reposition")
-	# print("  from: " + str(from.x) + ", " + str(from.y))
-	# print("    to: " + str(to.x) + ", " + str(to.y))
+
 	currentRepositionCooldown = repositionCooldown
 	from = global_position
 	to = target.global_position
@@ -84,5 +82,4 @@ func reposition():
 		to.x = -7000
 
 func take_damage(damage: float, DoTdps: float, DoTduration: float, drainHP: float):
-	# print("Take damage child called")
 	super.take_damage(damage, DoTdps, DoTduration, drainHP)

@@ -1,4 +1,5 @@
 extends CanvasLayer
+
 @export var newSound: PackedScene
 @export var stackSound: PackedScene
 @export var windowMinMax: Vector2
@@ -16,52 +17,43 @@ var isArtifactNew: bool = false
 
 func _process(delta: float) -> void:
 	hue += hueSpeed * delta
-	if (hue >= 1):
+	if hue >= 1:
 		hue -= 1
-	var hsv_color = Color.from_hsv(hue, 1, 1,)
+	var hsv_color = Color.from_hsv(hue, 1, 1)
 	if artifactsDisplayed == 1:
-		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]" + "STARTER! " + artifactStats
+		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]STARTER! " + artifactStats
 	elif isArtifactNew:
-		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]" + "NEW! " + artifactStats
+		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]NEW! " + artifactStats
 	else:
-		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]" + "STACK! " + artifactStats
+		infoLabel.text = "[color=#" + color_to_hex(hsv_color) + "]STACK! " + artifactStats
 	
-	if (moveProgress <= 1 && currentLifetime >= 0): 
+	if moveProgress <= 1 and currentLifetime >= 0:
 		# Window is sliding up
-		# print("Sliding Window up with moveProgress: ", moveProgress)
 		moveProgress += moveSpeed * delta
 		if artifactsDisplayed == 1:
 			moveProgress = 1
-	elif (moveProgress >= 1 && currentLifetime >= 0):
+	elif moveProgress >= 1 and currentLifetime >= 0:
 		# Window is staying
-		# print("Window is staying with currentLifetime: ", currentLifetime)
 		currentLifetime -= delta
-	elif (moveProgress >= 0 && currentLifetime <= 0):
+	elif moveProgress >= 0 and currentLifetime <= 0:
 		# Window is sliding down
-		# print("Sliding Window down with moveProgress: ", moveProgress)
 		moveProgress -= moveSpeed * delta
 	var viewport = get_viewport()
 	var percent = Vector2(0.02, lerpf(windowMinMax.x, windowMinMax.y, ease(moveProgress, 0.2)))  # Example: Center of the viewport
 	var screen_position = get_screen_position_from_percentage(viewport, percent)
 	infoLabel.position = screen_position
 
-
-func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, isNew: bool, ) -> void:
+func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, isNew: bool) -> void:
 	if artifact != previousArtifactDisplayed:
 		artifactsDisplayed += 1
 		print(artifactsDisplayed)
 	isArtifactNew = isNew
-	if isNew:
-		var sound = newSound.instantiate()
-		add_child(sound)
-	else:
-		var sound = stackSound.instantiate()
-		add_child(sound)
+	var sound = newSound.instantiate() if isNew else stackSound.instantiate()
+	add_child(sound)
 	currentLifetime = lifetime
-	# print("Displaying artifact info:")
 	artifactStats = "[b][u]" + get_color_string(rarity) + artifact.name + "[/color][/u][/b]"
 	artifactStats += "[color=#ffffff] (ID:" + artifact.id + ")"
-	artifactStats += "[color=#f21533]  " + str(artifact.extra_hp) + " Vg  [color=#f2ee15]" + str(artifact.sell_value) + " De\n"
+	artifactStats += "[color=#f21533] " + str(artifact.extra_hp) + " Vg  [color=#f2ee15]" + str(artifact.sell_value) + " De\n"
 	artifactStats += "[color=#ffffff][i]" + artifact.description
 	
 	previousArtifactDisplayed = artifact
@@ -81,11 +73,11 @@ func get_screen_position_from_percentage(viewport: Viewport, percent: Vector2) -
 
 func get_color_string(rarity: String) -> String:
 	var result = "[color="
-	if (rarity == "common"):
+	if rarity == "common":
 		result += "#15f254"
-	elif (rarity == "rare"):
+	elif rarity == "rare":
 		result += "#158bf2"
-	elif (rarity == "legendary"):
+	elif rarity == "legendary":
 		result += "#fcba05"
 	else:
 		result += "#ffffff"
@@ -94,13 +86,12 @@ func get_color_string(rarity: String) -> String:
 	
 func get_color(rarity: String) -> Color:
 	var result = ""
-	if (rarity == "common"):
+	if rarity == "common":
 		result += "#15f254"
-	elif (rarity == "rare"):
+	elif rarity == "rare":
 		result += "#158bf2"
-	elif (rarity == "legendary"):
+	elif rarity == "legendary":
 		result += "#fcba05"
 	else:
 		result += "#ffffff"
-	var color = Color.html(result)
-	return color
+	return Color.html(result)

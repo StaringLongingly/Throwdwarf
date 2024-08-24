@@ -24,33 +24,30 @@ func _process(delta: float) -> void:
 	if hp < startingHP:
 		hp += hpRegenRate * delta
 	var strHP: String = str(hp)
-	if strHP.length() % 2 == 1 || strHP.length() <= 2:
+	if strHP.length() % 2 == 1 or strHP.length() <= 2:
 		strHP += "."
 	while strHP.length() <= 4:
 		strHP += "0"
 	var rarityColor = "[color=ff0000]"
-	if !isPlayer:
+	if not isPlayer:
 		rarityColor = get_node("/root/Node2D/HUD").get_color_string(enemyRarity)
 	hpText.text = "[code][center] " + rarityColor + strHP.left(4)
-	if (currentDoTduration > 0):
+	if currentDoTduration > 0:
 		currentDoTduration -= delta
 		hp -= latestDoTdps * delta
 		if hp <= 0:
 			death()
-	if !isPlayer:
-		if (currentCooldown > 0):
+	if not isPlayer:
+		if currentCooldown > 0:
 			currentCooldown -= delta
 		else:
-			# print("Attacking the player")
 			currentCooldown = attackCooldown
 			var spawnedArtifact = artifact.instantiate()
 			add_child(spawnedArtifact)
 	else:
 		hpText.global_position = get_node("Helmet").global_position + cachedHPTextPosition 
 
-
 func take_damage(damage: float, DoTdps: float, DoTduration: float, drainHP: float):
-	# print("take_damage called")
 	var particle = hitParticles.instantiate()
 	add_child(particle)
 	if isPlayer:
@@ -65,7 +62,6 @@ func take_damage(damage: float, DoTdps: float, DoTduration: float, drainHP: floa
 	if hp <= 0:
 		death()
 
-
 func _on_generic_enemy_life_drain(hpGain: float) -> void:
 	if isPlayer:
 		hp += hpGain
@@ -77,4 +73,4 @@ func death():
 		queue_free()  # Remove the enemy if HP is 0 or below
 
 func get_rarity() -> String:
-	return enemyRarity 
+	return enemyRarity

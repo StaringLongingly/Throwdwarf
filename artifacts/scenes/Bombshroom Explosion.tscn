@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://dq66jbt5ccdfj"]
+
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_je8kr"]
+[ext_resource type="Texture2D" uid="uid://dcugm2e3vr1o" path="res://sprites/triangle_white.png" id="2_t8owi"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ipnr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_23lk3"]
+
+[sub_resource type="Curve" id="Curve_wk6dg"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 200), 0.0, 58.4982, 0, 0, Vector2(0.841986, -200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_4jrdp"]
+_data = [Vector2(0, 0.37362), 0.0, 0.0, 0, 0, Vector2(0.593679, 0.937012), 0.0551183, 0.0551183, 0, 0, Vector2(1, 0.037685), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_48nhy"]
+_data = [Vector2(0, 1), 0.0, -0.666947, 0, 0, Vector2(0.604966, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Bombshroom Explosion" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_5ipnr")
+script = ExtResource("2_je8kr")
+damage = 5.0
+DamageOverTimeDps = 1.0
+DamageOverTimeDuration = 20.0
+weaponType = "explosion"
+angleVariation = 10.0
+mortarDelay = 2.0
+animationDuration = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(5, 5)
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(50, 50)
+shape = SubResource("CircleShape2D_23lk3")
+
+[node name="Explosion Particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 60
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("2_t8owi")
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+linear_accel_curve = SubResource("Curve_wk6dg")
+scale_amount_curve = SubResource("Curve_4jrdp")
+color = Color(1.6557e-05, 0.879511, 0.15351, 1)
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_48nhy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

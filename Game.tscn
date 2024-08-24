@@ -407,5 +407,21 @@ shape = SubResource("RectangleShape2D_68dla")
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
+legendary_artifacts = {
+"Ruined Dwarven Crossbow": {
+"description": "A Crossbow made by the dwarves utilizing mithril. Although heavily damaged, it is armed with a mithril bolt which can accurately serrate and pierce the enemy.",
+"extra_hp": 0,
+"id": "R11",
+"resistance": 6,
+"sell_value": 75
+},
+"Vampiric Dagger": {
+"description": "Used by the necromancers of the dark forest, this dagger can suck the blood of living creatures granting the user extra health while damaging heavily.as",
+"extra_hp": 5,
+"id": "R12",
+"resistance": 3,
+"sell_value": 100
+}
+}
 
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]
