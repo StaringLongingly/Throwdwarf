@@ -123,21 +123,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Download Web artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: game_web
-
-      - name: Download Linux artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: game_linux
-
-      - name: Download Windows artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: game_windows
-
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -186,6 +171,21 @@ jobs:
             I love you <33
           draft: false
           prerelease: true
+
+      - name: Download Web artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: game_web
+
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: game_linux
+
+      - name: Download Windows artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: game_windows
 
       - name: Upload Web Release Asset
         id: upload-release-asset
