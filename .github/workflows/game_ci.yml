@@ -162,11 +162,13 @@ jobs:
 
       - name: Debug (I fucking hate gh actions)
         run: |
-          echo "GitVersion Tag:"
-          echo "${{env.GitVersion_MajorMinorPatch}}"
-          echo "Logs:"
-          echo "${{ steps.create-release-notes.outputs.release-notes }}"
-        
+          echo "Web Asset exists:"
+          ls -l build/web/game_web.zip
+          echo "Linux Asset exists:"
+          ls -l build/linux/game_linux.zip
+          echo "Windows Asset exists:"
+          ls -l build/windows/game_windows.zip
+ 
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
@@ -191,7 +193,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: game_web.zip
+          asset_path: build/web/game_web.zip
           asset_name: Throwdwarf_Web.zip
           asset_content_type: application/zip
 
