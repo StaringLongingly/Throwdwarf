@@ -123,8 +123,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Do a pretty commit <3
+      - name: Checking out ..
         uses: actions/checkout@v2
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Do a pretty commit <3
         uses: bullrich/commit-autotag@main
         with:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
