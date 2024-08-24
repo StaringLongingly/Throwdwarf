@@ -33,7 +33,7 @@ jobs:
           configFilePath: GitVersion.yml
 
       - name: Generate Release Notes
-      - uses: johnyherangi/create-release-notes@main
+        uses: johnyherangi/create-release-notes@main
         id: create-release-notes
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
