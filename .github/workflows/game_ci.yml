@@ -123,15 +123,35 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checking out ..
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
 
-      - name: Do a pretty commit <3
-      - uses: butlerlogic/action-autotag@stable
+      # get commit summary
+      - name: Get commit summary
+        uses: actions/commit-summary@v1
+        id: get_commit_summary
         with:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          ref: ${{ github.ref }}
+
+      # create release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ### Changelog
+            ${{ steps.get_commit_summary.outputs.summary }}
+            ### Additional info:
+            Thanks for playing!
+            I love you guys <3
+          draft: false
+          prerelease: false
 
       - name: Download Web artifacts
         uses: actions/download-artifact@v3
