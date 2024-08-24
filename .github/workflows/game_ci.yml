@@ -11,7 +11,40 @@ on:
       - v*
 
 jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # get commit summary
+      - name: Get commit summary
+        uses: kristiyan-petrov/commit-summary@v3
+        id: get_commit_summary
+        with:
+          ref: ${{ github.ref }}
+
+      # create release
+      - name: Create Release
+        id: create_release
+        uses: kristiyan-petrov/commit-summary@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Prerelease ${{ github.ref }}
+          body: |
+            ### Changelog
+            ${{ steps.get_commit_summary.outputs.summary }}
+            ### Additional info:
+            Thanks for playing!
+            I love you guys <3
+          draft: false
+          prerelease: true
   web:
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -58,6 +91,7 @@ jobs:
           path: game_web.zip
 
   linux:
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -88,6 +122,7 @@ jobs:
           path: game_linux.zip
 
   windows:
+    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -117,42 +152,12 @@ jobs:
           name: game_windows
           path: game_windows.zip
 
-  release:
-    needs: [web, linux, windows]
+  release-upload:
+    needs: [web, linux, windows, release]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      # get commit summary
-      - name: Get commit summary
-        uses: kristiyan-petrov/commit-summary@v3
-        id: get_commit_summary
-        with:
-          ref: ${{ github.ref }}
-
-      # create release
-      - name: Create Release
-        id: create_release
-        uses: kristiyan-petrov/commit-summary@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Prerelease ${{ github.ref }}
-          body: |
-            ### Changelog
-            ${{ steps.get_commit_summary.outputs.summary }}
-            ### Additional info:
-            Thanks for playing!
-            I love you guys <3
-          draft: false
-          prerelease: true
-
       - name: Download Web artifacts
         uses: actions/download-artifact@v3
         with:
