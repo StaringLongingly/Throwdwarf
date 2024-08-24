@@ -33,8 +33,9 @@ jobs:
           configFilePath: GitVersion.yml
 
       - name: Debug (I fucking hate gh actions)
-        run: echo "${{env.GitVersion_MajorMinorPatch}}"
-        run: echo "{{ steps.release-change-logs.change-logs }}"
+        run: |
+          echo "${{env.GitVersion_MajorMinorPatch}}"
+          echo "{{ steps.release-change-logs.change-logs }}"
 
       - name: Generate Release Notes
         uses: paolorevillosa/release-change-logs@v3.0
