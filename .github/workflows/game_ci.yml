@@ -37,7 +37,7 @@ jobs:
         uses: kristiyan-petrov/commit-summary@v3
         id: get_commit_summary
         with:
-          ref: ${{ github.ref }}
+          ref: ${{env.GitVersion_MajorMinorPatch}}
 
       # create release
       - name: Create Release
@@ -46,8 +46,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.gitversion.outputs.PreReleaseTag }}
-          release_name: Prerelease ${{ github.ref }}
+          tag_name: ${{env.GitVersion_MajorMinorPatch}}
+          release_name: New ver ${{env.GitVersion_MajorMinorPatch}}
           body: |
             ### Changelog
             ${{ steps.get_commit_summary.outputs.summary }}
