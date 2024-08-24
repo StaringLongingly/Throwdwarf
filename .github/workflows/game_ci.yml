@@ -16,24 +16,15 @@ jobs:
     outputs:
       commit_log: ${{ steps.collect_commits.outputs.commit_log }}
     steps:
-      - name: Checkout code
+      - name: 🛎 Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for the repo
+          # you need full history to collect changes correctly
+          fetch-depth: 0
 
-      - name: Get commit log
-        id: collect_commits
-        run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-          if [ -z "$LAST_TAG" ]; then
-            echo "No previous tag found, showing all commits."
-            COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s")
-          else
-            echo "Showing commits since $LAST_TAG."
-            COMMIT_LOG=$(git log --pretty=format:"%h - %an, %ar : %s" $LAST_TAG..HEAD)
-          fi
-          echo "commit_log=$COMMIT_LOG" >> $GITHUB_ENV
-          echo "::set-output name=commit_log::$COMMIT_LOG"
+      - name: 📋 Get Changes between Tags
+        id: changes
+        uses: simbo/changes-between-tags-action@v1
 
   web:
     runs-on: ubuntu-latest
