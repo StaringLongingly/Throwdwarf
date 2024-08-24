@@ -16,6 +16,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
       - name: Set up GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.15
         with:
@@ -26,12 +31,7 @@ jobs:
         with:
           useConfigFile: true
           configFilePath: GitVersion.yml
-          
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
+        
       # get commit summary
       - name: Get commit summary
         uses: kristiyan-petrov/commit-summary@v3
