@@ -31,31 +31,26 @@ jobs:
         with:
           useConfigFile: true
           configFilePath: GitVersion.yml
-        
-      # get commit summary
-      - name: Get commit summary
-        uses: kristiyan-petrov/commit-summary@v3
-        id: get_commit_summary
-        with:
-          ref: ${{env.GitVersion_MajorMinorPatch}}
 
-      # create release
+      - name: Generate Release Notes
+        uses: paolorevillosa/release-change-logs@v3.0
+        
       - name: Create Release
         id: create_release
-        uses: kristiyan-petrov/commit-summary@v3
+        uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
           tag_name: ${{env.GitVersion_MajorMinorPatch}}
           release_name: New ver ${{env.GitVersion_MajorMinorPatch}}
           body: |
-            ### Changelog
-            ${{ steps.get_commit_summary.outputs.summary }}
-            ### Additional info:
-            Thanks for playing!
-            I love you guys <3
+            ### New stuff:
+            ${{ steps.release-change-logs.change-logs }}
+            As always thanks for playing!
+            I love you <33
           draft: false
           prerelease: true
+        
+
   web:
     needs: release
     runs-on: ubuntu-latest
