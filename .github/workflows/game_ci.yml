@@ -12,7 +12,6 @@ on:
 
 jobs:
   web:
-    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -59,7 +58,6 @@ jobs:
           path: game_web.zip
 
   linux:
-    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -90,7 +88,6 @@ jobs:
           path: game_linux.zip
 
   windows:
-    needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
