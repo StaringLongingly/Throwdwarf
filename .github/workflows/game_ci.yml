@@ -23,9 +23,6 @@ jobs:
 
       - name: Execute GitVersion
         uses: gittools/actions/gitversion/execute@v0.9.15
-        with:
-          useConfigFile: true
-          configFilePath: GitVersion.yml
           
       - name: Checkout code
         uses: actions/checkout@v2
