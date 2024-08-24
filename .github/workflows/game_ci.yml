@@ -17,12 +17,17 @@ jobs:
       - name: 🛎 Checkout
         uses: actions/checkout@v4
         with:
-          # you need full history to collect changes correctly
           fetch-depth: 0
 
       - name: 📋 Get Changes between Tags
         id: changes
-        uses: simbo/changes-between-tags-action@v1
+        run: |
+          git fetch --tags
+          latest_tag=$(git describe --tags --abbrev=0)
+          changelog=$(git log $latest_tag..HEAD --oneline)
+          echo "commit_log<<EOF" >> $GITHUB_ENV
+          echo "$changelog" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
   web:
     runs-on: ubuntu-latest
@@ -183,7 +188,7 @@ jobs:
             ## Release Notes for Version ${{env.GitVersion_MajorMinorPatch}}
 
             ### Commits:
-            ${{ needs.commit_log.outputs.commit_log }}
+            ${{ env.commit_log }}
 
             ### Additional Information:
             As always thanks for playing!
