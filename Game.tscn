@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=58 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -49,7 +49,6 @@
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
 [ext_resource type="Shader" path="res://shaders/Cutoff.gdshader" id="48_egvxd"]
 [ext_resource type="Texture2D" uid="uid://cqfn8bjxloegd" path="res://sprites/Chain 4 links.png" id="49_wfxxo"]
-[ext_resource type="PackedScene" uid="uid://dpxqjbmbs18to" path="res://enemies/legendary/Caragor.tscn" id="50_m2tdr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ai074"]
 animations = [{
@@ -460,7 +459,5 @@ position = Vector2(0, 1e+06)
 material = SubResource("ShaderMaterial_usk3l")
 position = Vector2(2000, -20000)
 sprite_frames = SubResource("SpriteFrames_toi1a")
-
-[node name="Caragor" parent="." instance=ExtResource("50_m2tdr")]
 
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]

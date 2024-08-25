@@ -61,7 +61,7 @@ func _ready():
 		genericSprite.sprite_frames = get_node("Enemy Sprite").sprite_frames
 	for i in range(4):
 		splits[i] = genericSprite.duplicate()
-		splits[i].global_position = Vector2.ONE * 10000
+		splits[i].global_position = Vector2.ONE * 1000000
 		chains[i] = chain.duplicate()
 		
 		var splitsMat: ShaderMaterial = ShaderMaterial.new()
