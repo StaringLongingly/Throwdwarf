@@ -123,9 +123,9 @@ func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, d
 	particle.global_scale = particle.scale
 	particle.emitting = true
 	
-	currentDoTduration += DoTduration
 	if currentDoTduration <= 0:
 		latestDoTdps = DoTdps
+	currentDoTduration += DoTduration
 	hp -= damage
 	lifeDrain.emit(drainHP)
 	if hp <= 0:
@@ -143,7 +143,6 @@ func death(delta : float):
 		get_node("Enemy Sprite").sprite_frames = null
 		get_node("Hurtbox/CollisionShape2D").disabled = true
 	if isPlayer and currentDeathAnimationDurationPart0 < deathAnimationDurationPart0:
-		print("test")
 		if currentDeathAnimationDurationPart0 == 0:
 			cachedHelmetRotation = get_node("Helmet").global_rotation_degrees
 		currentDeathAnimationDurationPart0 += delta

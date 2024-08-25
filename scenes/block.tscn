@@ -59,6 +59,7 @@ shape = SubResource("RectangleShape2D_ry6ng")
 
 [node name="Block Sprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("collider")]
 modulate = Color(0.666667, 0, 1, 1)
+z_index = 1000
 sprite_frames = SubResource("SpriteFrames_a42lr")
 script = ExtResource("7_v4grk")
 HpLoseRate = 30.0
