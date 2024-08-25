@@ -124,7 +124,8 @@ func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, d
 	particle.emitting = true
 	
 	currentDoTduration += DoTduration
-	latestDoTdps = DoTdps
+	if currentDoTduration <= 0:
+		latestDoTdps = DoTdps
 	hp -= damage
 	lifeDrain.emit(drainHP)
 	if hp <= 0:
@@ -150,6 +151,7 @@ func death(delta : float):
 		var progressEased = ease(progress, 2)
 		var degrees = lerp(cachedHelmetRotation, 0.0, progressEased)
 		get_node("Helmet").global_rotation_degrees = degrees
+		
 	elif currentDeathAnimationDurationPart1 < deathAnimationDurationPart1:
 		if isPlayer:
 			get_node("Helmet").sprite_frames = null
@@ -199,7 +201,6 @@ func death(delta : float):
 		for i in range(4):
 			chains[i].material.set_shader_parameter("cutoff", progressEased)
 			
-		
 	elif currentDeathAnimationDurationPart3 < deathAnimationDurationPart3:
 		currentDeathAnimationDurationPart3 += delta
 		for i in range(4):
