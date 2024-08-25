@@ -40,11 +40,14 @@ func _ready() -> void:
 	super._ready()
 
 func _process(delta: float) -> void:
+	super._process(delta)
+	if super.get_is_dying():
+		return
 	if spawnAnimationProgress < spawnAnimationDuration:
 		spawnAnimationProgress += delta
 		var rarity = super.get_rarity()
 		spawnParticles.color = get_node("/root/Node2D/HUD").get_color(rarity)
-		spriteNode.material.set_shader_parameter("cutoff", clampf(spawnAnimationProgress / spawnAnimationDuration, 0, 1))
+		spriteNode.material.set_shader_parameter("cutoff", ease(clampf(spawnAnimationProgress / spawnAnimationDuration, 0, 1), 4))
 		return
 	else:
 		spawnParticles.emitting = false
@@ -61,7 +64,6 @@ func _process(delta: float) -> void:
 	else:
 		if not disableAI:
 			reposition()
-	super._process(delta)
 	
 func reposition():
 	if target == null:
@@ -81,5 +83,5 @@ func reposition():
 	if to.x < -8000:
 		to.x = -7000
 
-func take_damage(damage: float, DoTdps: float, DoTduration: float, drainHP: float):
+func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, drainHP: float = 0):
 	super.take_damage(damage, DoTdps, DoTduration, drainHP)

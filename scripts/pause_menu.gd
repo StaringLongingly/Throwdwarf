@@ -29,7 +29,8 @@ func _process(delta: float) -> void:
 		animate_shader(delta, true)
 		text = textCache
 		if Input.is_action_just_pressed("Legendary Inventory"): 
-			restart_scene()
+			isPaused = false
+			get_node("/root/Node2D/Player").take_damage(99999999999)
 	else:
 		animate_shader(delta, false)
 		text = ""

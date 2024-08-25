@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=59 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -47,6 +47,20 @@
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
+[ext_resource type="Shader" path="res://shaders/Cutoff.gdshader" id="48_egvxd"]
+[ext_resource type="Texture2D" uid="uid://cqfn8bjxloegd" path="res://sprites/Chain 4 links.png" id="49_wfxxo"]
+[ext_resource type="PackedScene" uid="uid://dpxqjbmbs18to" path="res://enemies/legendary/Caragor.tscn" id="50_m2tdr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ai074"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gwdp4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aup1c"]
 size = Vector2(15.2344, 22.7604)
@@ -126,6 +140,22 @@ shader_parameter/black = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68dla"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usk3l"]
+shader = ExtResource("48_egvxd")
+shader_parameter/cutoff = 1.0
+shader_parameter/modulate = Vector4(1, 1, 1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_toi1a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_wfxxo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_4y6e0")
@@ -154,9 +184,9 @@ hpText = NodePath("HP display3")
 hp = 300.0
 hpRegenRate = 0.5
 
-[node name="Helmet" type="Sprite2D" parent="Player" node_paths=PackedStringArray("target") groups=["Player"]]
+[node name="Helmet" type="AnimatedSprite2D" parent="Player" node_paths=PackedStringArray("target") groups=["Player"]]
 rotation = -1.5708
-texture = ExtResource("1_gwdp4")
+sprite_frames = SubResource("SpriteFrames_ai074")
 script = ExtResource("2_htryi")
 target = NodePath("../Drill & Colliders")
 speed = 15.0
@@ -170,6 +200,7 @@ up_direction = Vector2(1, 0)
 script = ExtResource("3_qhakb")
 speed = 6
 rotation_speed = 15.0
+shrinkAnimationDuration = 1.0
 
 [node name="Head Collider" type="CollisionShape2D" parent="Player/Drill & Colliders"]
 position = Vector2(7.62939e-06, -1.30664e-11)
@@ -336,8 +367,6 @@ theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
 
-[node name="Block" parent="." instance=ExtResource("41_p7r45")]
-
 [node name="Wall" type="Node" parent="."]
 script = ExtResource("35_n4kkg")
 wallBlockNode = ExtResource("41_p7r45")
@@ -423,5 +452,15 @@ legendary_artifacts = {
 "sell_value": 100
 }
 }
+
+[node name="Generic Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1e+06)
+
+[node name="Chain" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_usk3l")
+position = Vector2(2000, -20000)
+sprite_frames = SubResource("SpriteFrames_toi1a")
+
+[node name="Caragor" parent="." instance=ExtResource("50_m2tdr")]
 
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]

@@ -1,17 +1,18 @@
 shader_type canvas_item;
 
 uniform float cutoff: hint_range(0.0, 1.0) = 0.5;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform vec4 modulate = vec4(1.0, 1.0, 1.0, 1.0);
 
 void fragment() {
-	float threshhold = UV.y;
-	vec2 adjusted_uv = UV;
-	adjusted_uv.y = UV.y + (cutoff - 1.0);
+	// Calculate the adjusted UV.y based on the cutoff value
+	float adjusted_y = UV.y + (cutoff - 1.0);
 
-	if (adjusted_uv.y > 1.0) {
+	// Check if the adjusted UV.y is within bounds
+	if (adjusted_y < 0.0 || adjusted_y > 1.0) {
 		discard;
 	} else {
-		COLOR = texture(TEXTURE, adjusted_uv);
+		// Sample the texture with the adjusted UV coordinates
+		vec2 adjusted_uv = vec2(UV.x, adjusted_y);
+		COLOR = texture(TEXTURE, adjusted_uv) * modulate;
 	}
-	// Called for every pixel the material is visible on.
 }

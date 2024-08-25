@@ -1,7 +1,8 @@
-extends Sprite2D
+extends AnimatedSprite2D 
 
 @export var target: Node2D
 @export var speed: float
+@export var canMove: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,7 +11,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if target:
+	if target and canMove:
 		follow_target(delta)	
 
 func follow_target(delta: float):
