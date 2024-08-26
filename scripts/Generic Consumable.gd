@@ -108,7 +108,7 @@ func _process_mortar(delta: float) -> void:
 	scale.y = pow(scale.y, 2.5)
 	global_position = lerp(from, to, progress)
 
-func _process_melee(delta: float) -> void:
+func _process_melee(_delta: float) -> void:
 	var newPosDif = Vector2.UP.rotated(deg_to_rad(count)) * distanceFromBody * 1000
 	if not isUsedByPlayer:
 		newPosDif = newPosDif.rotated(target_angle)

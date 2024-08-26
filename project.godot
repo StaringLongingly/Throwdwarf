@@ -17,10 +17,6 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/image="res://sprites/throwdwarf.png"
 config/icon="res://sprites/throwdwarf_square.png"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [display]
 
 window/vsync/vsync_mode=0
@@ -34,6 +30,11 @@ enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
 
 Player=""
 Enemy=""
+
+[gui]
+
+theme/default_font_subpixel_positioning=3
+theme/default_font_generate_mipmaps=true
 
 [input]
 

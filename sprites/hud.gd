@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, isNew: bool) -> void:
 	if artifact != previousArtifactDisplayed:
 		artifactsDisplayed += 1
-		print(artifactsDisplayed)
 	isArtifactNew = isNew
 	var sound = newSound.instantiate() if isNew else stackSound.instantiate()
 	add_child(sound)

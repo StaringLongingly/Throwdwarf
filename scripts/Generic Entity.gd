@@ -46,7 +46,6 @@ var splitsTo: Array[Vector2] = [
 ]
 var spawnParticlesSuper
 var cachedHelmetRotation
-signal lifeDrain
 
 func _ready():
 	startingHP = hp
@@ -116,6 +115,12 @@ func _process(delta: float) -> void:
 		hpText.global_position = get_node("Helmet").global_position + cachedHPTextPosition 
 
 func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, drainHP: float = 0):
+	print("Took Damage:")
+	print("     isPlayer: "+str(isPlayer))
+	print("       Damage: "+str(damage))
+	print("       DoTdps: "+str(DoTdps))
+	print("  DoTduration: "+str(DoTduration))
+	print("        leech: "+str(drainHP))
 	var particle = hitParticles.instantiate()
 	add_child(particle)
 	if isPlayer:
@@ -127,13 +132,13 @@ func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, d
 		latestDoTdps = DoTdps
 	currentDoTduration += DoTduration
 	hp -= damage
-	lifeDrain.emit(drainHP)
+	if drainHP > 0:
+		get_node("/root/Node2D/Player").get_hp(drainHP)
 	if hp <= 0:
 		isDying = true
-
-func _on_generic_enemy_life_drain(hpGain: float) -> void:
-	if isPlayer:
-		hp += hpGain
+		
+func get_hp(gainedHP: float):
+	hp += gainedHP
 
 func death(delta : float):
 	if isPlayer:

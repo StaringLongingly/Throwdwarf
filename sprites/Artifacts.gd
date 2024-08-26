@@ -99,7 +99,10 @@ func _process(delta: float) -> void:
 			searchLabel.text += "[i] Press " + HUD.get_color_string("common") + "Q[/color], " + HUD.get_color_string("rare") + "E[/color], or " + HUD.get_color_string("legendary") + "R[/color] to search the matching inventory\n" 
 			if selectedArtifact:
 				if selectedArtifact.name:
-					searchLabel.text += " Selected Artifact: " + HUD.get_color_string(selectedArtifactRarity) + str(selectedArtifact.name)
+					searchLabel.text += " Selected Artifact: " + HUD.get_color_string(selectedArtifactRarity) + str(selectedArtifact.name) + "[/color], " + str(selectedArtifact.count) + " use"
+					if selectedArtifact.count > 1:
+						searchLabel.text += "s"
+					searchLabel.text += " remaining."
 		else:
 			searchLabel.text += "[i] No Artifacts found on " + HUD.get_color_string(latestSearchedInventory) + latestSearchedInventory + " inventory[/color]!"
 	

@@ -31,8 +31,6 @@ func build_wall() -> void:
 				newBlock2.position = position2 
 				wallArray.append(position2)
 
-	worker_thread.wait_to_finish() # Ensure the thread completes before the node is removed
-
 func _exit_tree() -> void:
 	worker_thread.wait_to_finish() # Wait for the thread to finish if the node is removed
 
