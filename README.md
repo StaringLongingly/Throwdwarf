@@ -1,5 +1,7 @@
 # Throwdwarf
-## [You can play the game here (Currently Broken ¯\_(ツ)_/¯)](https://staringlongingly.github.io/Throwdwarf)
+## [You can play the web version here (Currently Broken ¯\\_(ツ)_/¯)](https://staringlongingly.github.io/Throwdwarf)
+## [You can find builds of the game here](https://github.com/staringlongingly/throwdwarf/releases)
+
 Twin Stick Shooter Roguelike Bullet Hell originally made for the 2024 GMTK Game Jam.
 
 You can find the version posted to the jam on the init commit.
