@@ -50,8 +50,8 @@ func spawn_enemy_group() -> void:
 			if enemy_scene:
 				var enemy_instance = enemy_scene.instantiate()
 				add_child(enemy_instance)
-				var enemyPosition = lerp(spawningBoundaryMin, spawningBoundaryMax, randf())
-				enemy_instance.position = enemyPosition
+				var enemyPosition: Vector2 = get_node("Wall").get_valid_enemy_position()
+				enemy_instance.position = enemyPosition 
 				print("Spawned enemy from ", selected_folder, ": ", enemy_path)
 				print("   Enemy Position X: " + str(enemyPosition.x).left(6), ", Y: " + str(enemyPosition.y).left(6))
 		else:

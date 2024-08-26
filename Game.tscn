@@ -372,6 +372,8 @@ wallBlockNode = ExtResource("41_p7r45")
 wallHeight = 25
 wallWidth = 50
 starterWall = Vector2(-8000, 0)
+minPos = Vector2(-20000, -8000)
+maxPos = Vector2(10000, 8000)
 
 [node name="Background" type="Sprite2D" parent="Wall"]
 z_index = -1000
@@ -431,6 +433,14 @@ collision_mask = 193
 scale = Vector2(48, 48)
 shape = SubResource("RectangleShape2D_68dla")
 
+[node name="Generic Sprite" type="AnimatedSprite2D" parent="Wall"]
+position = Vector2(0, 1e+06)
+
+[node name="Chain" type="AnimatedSprite2D" parent="Wall"]
+material = SubResource("ShaderMaterial_usk3l")
+position = Vector2(2000, -20000)
+sprite_frames = SubResource("SpriteFrames_toi1a")
+
 [node name="Artifact" type="Node2D" parent="." node_paths=PackedStringArray("searchLabel", "itemCountLabel")]
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
@@ -451,13 +461,5 @@ legendary_artifacts = {
 "sell_value": 100
 }
 }
-
-[node name="Generic Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 1e+06)
-
-[node name="Chain" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_usk3l")
-position = Vector2(2000, -20000)
-sprite_frames = SubResource("SpriteFrames_toi1a")
 
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]

@@ -38,6 +38,7 @@ func _process(delta: float) -> void:
 	if (frame == 5):
 		if (collider.disabled == false):
 			get_node("/root/Node2D/Artifact").give_new_artifact()
+			get_node("/root/Node2D/Wall").remove_position(global_position)
 		collider.disabled = true
 		scale2 -= ScaleLoseRate * delta
 		scale = ease(scale2, 4.8) * Vector2.ONE;

@@ -52,8 +52,8 @@ func _ready():
 	startingHP = hp
 	cachedHPTextPosition = hpText.position
 	currentCooldown = attackCooldown
-	var genericSprite: AnimatedSprite2D = get_node("/root/Node2D/Generic Sprite")
-	var chain: AnimatedSprite2D = get_node("/root/Node2D/Chain")
+	var genericSprite: AnimatedSprite2D = get_node("/root/Node2D/Wall/Generic Sprite")
+	var chain: AnimatedSprite2D = get_node("/root/Node2D/Wall/Chain")
 	
 	if isPlayer:
 		genericSprite.sprite_frames = get_node("Helmet").sprite_frames
@@ -61,7 +61,7 @@ func _ready():
 		genericSprite.sprite_frames = get_node("Enemy Sprite").sprite_frames
 	for i in range(4):
 		splits[i] = genericSprite.duplicate()
-		splits[i].global_position = Vector2.ONE * 1000000
+		splits[i].global_position = Vector2.ONE * 100000
 		chains[i] = chain.duplicate()
 		
 		var splitsMat: ShaderMaterial = ShaderMaterial.new()
@@ -175,7 +175,7 @@ func death(delta : float):
 		else:
 			add_child(spawnParticlesSuper)
 			spawnParticlesSuper.scale = Vector2(1.5, 1.1)
-		spawnParticlesSuper.amount = 600
+		spawnParticlesSuper.amount = 600 * global_scale.x
 		spawnParticlesSuper.global_rotation_degrees = -90
 		spawnParticlesSuper.position = Vector2(0, minimum_of_ys(finalSplitPosition) + 400 * get_parent().scale.x)
 		spawnParticlesSuper.color = get_node("/root/Node2D/HUD").get_color(enemyRarity)
@@ -221,9 +221,6 @@ func death(delta : float):
 
 func get_rarity() -> String:
 	return enemyRarity
-
-func get_is_dying() -> bool:
-	return isDying
 
 func minimum_of_ys(array: Array[Vector2]) -> float:
 	var minimum: float = array[0].y

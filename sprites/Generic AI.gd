@@ -17,6 +17,7 @@ var spawnParticles: CPUParticles2D
 var spawnAnimationProgress: float
 var spriteNode: AnimatedSprite2D
 var shaderMaterial
+var canMove
 
 func _ready() -> void:
 	if not spawnParticles:
@@ -41,7 +42,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	if super.get_is_dying():
+	if isDying:
 		return
 	if spawnAnimationProgress < spawnAnimationDuration:
 		spawnAnimationProgress += delta
@@ -76,12 +77,17 @@ func reposition():
 	
 	# Calculate the desired position relative to the target.
 	var difference: Vector2 = (from - to).normalized() * 1000 * desiredDistance
-	var target_angle = deg_to_rad((randf() * 2 - 1) * desiredDistanceAngleVariation)
-	difference = difference.rotated(target_angle)
-	
+	var isValidPosition = false
+	var i = 0
+	while not isValidPosition:
+		i += 1
+		var target_angle = deg_to_rad((randf() * 2 - 1) * desiredDistanceAngleVariation)
+		difference = difference.rotated(target_angle)
+		isValidPosition = get_node("/root/Node2D/Wall").is_valid_enemy_position(to + difference)
+		if i > 1000:
+			print("Couldnt find valid position for enemy reposition")
+			break
 	to = to + difference  # Set `to` to the new calculated position
-	if to.x < -8000:
-		to.x = -7000
 
 func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, drainHP: float = 0):
 	super.take_damage(damage, DoTdps, DoTduration, drainHP)

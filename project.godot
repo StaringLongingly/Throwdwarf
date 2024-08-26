@@ -17,8 +17,13 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/image="res://sprites/throwdwarf.png"
 config/icon="res://sprites/throwdwarf_square.png"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
+window/vsync/vsync_mode=0
 mouse_cursor/custom_image="res://sprites/cursor2.png"
 
 [editor_plugins]

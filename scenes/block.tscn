@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://byx1v2r6wg3pj" path="res://sprites/break2.png" id="4_g46fk"]
 [ext_resource type="Texture2D" uid="uid://dmykq1l5wvbi0" path="res://sprites/break3.png" id="5_s1x8t"]
 [ext_resource type="Texture2D" uid="uid://bs18kbmdkichs" path="res://sprites/white_square.png" id="6_ncxf7"]
-[ext_resource type="Script" path="res://scripts/animated_sprite_2d.gd" id="7_v4grk"]
+[ext_resource type="Script" path="res://scripts/Block.gd" id="7_v4grk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0mh6x"]
 size = Vector2(615, 803)
