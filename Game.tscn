@@ -134,7 +134,6 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bpy46"]
 shader = ExtResource("40_keprr")
-shader_parameter/lod = 2.0
 shader_parameter/black = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68dla"]
