@@ -136,7 +136,7 @@ jobs:
           CHANNEL: windows
           ITCH_GAME: throwdwarf
           ITCH_USER: longingly
-          PACKAGE: game_windows
+          PACKAGE: game_windows.zip
           
   itch-upload-linux:
     needs: linux
@@ -157,7 +157,7 @@ jobs:
           CHANNEL: linux
           ITCH_GAME: throwdwarf
           ITCH_USER: longingly
-          PACKAGE: game_linux
+          PACKAGE: game_linux.zip
 
   itch-upload-web:
     needs: web
@@ -178,7 +178,7 @@ jobs:
           CHANNEL: html
           ITCH_GAME: throwdwarf
           ITCH_USER: longingly
-          PACKAGE: game_web
+          PACKAGE: game_web.zip
           
   release:
     needs: [web, linux, windows]
