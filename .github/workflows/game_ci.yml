@@ -121,10 +121,13 @@ jobs:
     needs: windows
     runs-on: ubuntu-latest
     steps:
-      - name: Download Web artifacts
+      - name: Download Windows artifacts
         uses: actions/download-artifact@v3
         with:
           name: game_windows
+
+      - name: Debug
+        run: ls
 
       - name: Upload to itch.io
         uses: manleydev/butler-publish-itchio-action@master
@@ -139,10 +142,13 @@ jobs:
     needs: linux
     runs-on: ubuntu-latest
     steps:
-      - name: Download Web artifacts
+      - name: Download Linux artifacts
         uses: actions/download-artifact@v3
         with:
           name: game_linux
+          
+      - name: Debug
+        run: ls
 
       - name: Upload to itch.io
         uses: manleydev/butler-publish-itchio-action@master
@@ -161,6 +167,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: game_web
+          
+      - name: Debug
+        run: ls
 
       - name: Upload to itch.io
         uses: manleydev/butler-publish-itchio-action@master
