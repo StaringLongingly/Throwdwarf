@@ -37,9 +37,9 @@ func _process(delta: float) -> void:
 
 func animate_shader(delta: float, isIncreasing: bool) -> void:
 	if isIncreasing:
-		LodProgress = min(LodProgress + delta / animationTime, 1.0)
+		LodProgress = clamp(LodProgress + delta / animationTime, 0, 1)
 	else:
-		LodProgress = max(LodProgress - delta / animationTime, 0.0)
+		LodProgress = clamp(LodProgress - delta / animationTime, 0, 1)
 		
 	rectangle.material.set_shader_parameter("lod", cachedLod * ease(LodProgress, 0.6))
 	rectangle.material.set_shader_parameter("black", lerpf(1, cachedBlack, ease(LodProgress, 0.6)))
