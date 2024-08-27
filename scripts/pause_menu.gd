@@ -40,9 +40,10 @@ func animate_shader(delta: float, isIncreasing: bool) -> void:
 		LodProgress = clamp(LodProgress + delta / animationTime, 0, 1)
 	else:
 		LodProgress = clamp(LodProgress - delta / animationTime, 0, 1)
+	var LodProgressEased: float = clamp(ease(LodProgress, 0.6), 0, 1)
 		
-	rectangle.material.set_shader_parameter("lod", cachedLod * ease(LodProgress, 0.6))
-	rectangle.material.set_shader_parameter("black", lerpf(1, cachedBlack, ease(LodProgress, 0.6)))
+	rectangle.material.set_shader_parameter("lod", cachedLod * LodProgressEased)
+	rectangle.material.set_shader_parameter("black", lerp(1, cachedBlack, LodProgressEased))
 
 # Function to reset shader parameters and cached variables
 func reset_shader_parameters() -> void:
