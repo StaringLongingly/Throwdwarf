@@ -117,43 +117,60 @@ jobs:
           name: game_windows
           path: game_windows.zip
 
-  itch-upload-windows:
+  itch-upload-web:
     needs: windows
     runs-on: ubuntu-latest
     steps:
-      - uses: manleydev/butler-publish-itchio-action@master
+      - name: Download Web artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: game_windows
+
+      - name: Upload to itch.io
+        uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: windows
           ITCH_GAME: throwdwarf
           ITCH_USER: longingly
-          PACKAGE: game_windows.zip
+          PACKAGE: game_windows
           
   itch-upload-linux:
     needs: linux
     runs-on: ubuntu-latest
     steps:
-      - uses: manleydev/butler-publish-itchio-action@master
+      - name: Download Web artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: game_linux
+
+      - name: Upload to itch.io
+        uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: linux
           ITCH_GAME: throwdwarf
           ITCH_USER: longingly
-          PACKAGE: game_linux.zip
+          PACKAGE: game_linux
 
   itch-upload-web:
     needs: web
     runs-on: ubuntu-latest
     steps:
-      - uses: manleydev/butler-publish-itchio-action@master
+      - name: Download Web artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: game_web
+
+      - name: Upload to itch.io
+        uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: html
           ITCH_GAME: throwdwarf
           ITCH_USER: longingly
-          PACKAGE: game_web.zip
+          PACKAGE: game_web
           
-
   release:
     needs: [web, linux, windows]
     runs-on: ubuntu-latest
