@@ -117,7 +117,7 @@ jobs:
           name: game_windows
           path: game_windows.zip
 
-  itch-upload-web:
+  itch-upload-windows:
     needs: windows
     runs-on: ubuntu-latest
     steps:
