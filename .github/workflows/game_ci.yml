@@ -117,6 +117,43 @@ jobs:
           name: game_windows
           path: game_windows.zip
 
+  itch-upload-windows:
+    needs: windows
+    runs-on: ubuntu-lateset
+    steps:
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: windows
+          ITCH_GAME: throwdwarf
+          ITCH_USER: longingly
+          PACKAGE: game_windows.zip
+          
+  itch-upload-linux:
+    needs: linux
+    runs-on: ubuntu-lateset
+    steps:
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          ITCH_GAME: throwdwarf
+          ITCH_USER: longingly
+          PACKAGE: game_linux.zip
+
+  itch-upload-web:
+    needs: web
+    runs-on: ubuntu-lateset
+    steps:
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html
+          ITCH_GAME: throwdwarf
+          ITCH_USER: longingly
+          PACKAGE: game_web.zip
+          
+
   release:
     needs: [web, linux, windows]
     runs-on: ubuntu-latest
