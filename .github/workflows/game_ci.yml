@@ -119,7 +119,7 @@ jobs:
 
   itch-upload-windows:
     needs: windows
-    runs-on: ubuntu-lateset
+    runs-on: ubuntu-latest
     steps:
       - uses: manleydev/butler-publish-itchio-action@master
         env:
@@ -131,7 +131,7 @@ jobs:
           
   itch-upload-linux:
     needs: linux
-    runs-on: ubuntu-lateset
+    runs-on: ubuntu-latest
     steps:
       - uses: manleydev/butler-publish-itchio-action@master
         env:
@@ -143,7 +143,7 @@ jobs:
 
   itch-upload-web:
     needs: web
-    runs-on: ubuntu-lateset
+    runs-on: ubuntu-latest
     steps:
       - uses: manleydev/butler-publish-itchio-action@master
         env:
