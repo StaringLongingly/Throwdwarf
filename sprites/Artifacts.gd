@@ -356,7 +356,7 @@ func get_artifact_names_and_ids(rarity: String) -> String:
 		if (artifact == selectedArtifact):
 			var hsv_color = Color.from_hsv(hue, 1, 1,)
 			selectedString += "[color=" + color_to_hex(hsv_color) + "] Selected![/color]"
-		result += resultRarity + artifact["name"] + "[/color][/b][/u]" + countString + " (ID:" + artifact["id"] + ")" + " [color=#f2ee15]Total De: " + str(artifact["sell_value"] * artifact["count"]) + "[/color]" +  selectedString +"\n"
+		result += resultRarity + artifact["name"] + "[/color][/b][/u]" + countString + " (ID:" + artifact["id"] + ")" + " [color=#f2ee15]Total DE: " + str(artifact["sell_value"] * artifact["count"]) + "[/color]" +  selectedString +"\n"
 	
 	return result.strip_edges()
 

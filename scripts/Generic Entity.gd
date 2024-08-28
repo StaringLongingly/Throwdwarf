@@ -103,7 +103,7 @@ func _process(delta: float) -> void:
 		currentDoTduration -= delta
 		hp -= latestDoTdps * delta
 		if hp <= 0:
-			death(delta)
+			isDying = true
 	if not isPlayer:
 		if currentCooldown > 0:
 			currentCooldown -= delta

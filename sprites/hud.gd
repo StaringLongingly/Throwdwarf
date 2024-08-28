@@ -52,7 +52,7 @@ func _on_artifact_display_artifact_info(artifact: Dictionary, rarity: String, is
 	currentLifetime = lifetime
 	artifactStats = "[b][u]" + get_color_string(rarity) + artifact.name + "[/color][/u][/b]"
 	artifactStats += "[color=#ffffff] (ID:" + artifact.id + ")"
-	artifactStats += "[color=#f21533] " + str(artifact.extra_hp) + " Vg  [color=#f2ee15]" + str(artifact.sell_value) + " De\n"
+	artifactStats += " [color=#f2ee15]" + str(artifact.sell_value) + " Drill Energy\n"
 	artifactStats += "[color=#ffffff][i]" + artifact.description
 	
 	previousArtifactDisplayed = artifact
