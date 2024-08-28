@@ -17,10 +17,10 @@ animations = [{
 [node name="Magic Ball" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_17wrl")
 script = ExtResource("2_dagsd")
+itemRarity = "legendary"
 damage = 5.0
 DamageOverTimeDps = 5.0
 DamageOverTimeDuration = 10.0
-isUsedByPlayer = false
 angleVariation = 10.0
 rotateSpeed = 180.0
 bulletSpeed = 5.0

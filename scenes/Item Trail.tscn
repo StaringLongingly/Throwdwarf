@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://wlnu4f83xst0"]
+
+[ext_resource type="Texture2D" uid="uid://bs18kbmdkichs" path="res://sprites/white_square.png" id="1_xid1q"]
+
+[sub_resource type="Curve" id="Curve_u0iey"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_noxar"]
+_data = [Vector2(0.347826, 0.226766), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.12942, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_m2ttj"]
+min_value = -1.0
+_data = [Vector2(0.40099, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.06633, 0.0, 0, 0]
+point_count = 2
+
+[node name="Item Trail" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 30
+lifetime = 0.2
+lifetime_randomness = 0.2
+texture = ExtResource("1_xid1q")
+gravity = Vector2(0, 0)
+angle_min = -360.0
+angle_max = 360.0
+angle_curve = SubResource("Curve_u0iey")
+scale_amount_curve = SubResource("Curve_noxar")
+color = Color(1, 0, 0, 1)
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+hue_variation_curve = SubResource("Curve_m2ttj")

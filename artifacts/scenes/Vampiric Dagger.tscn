@@ -17,6 +17,7 @@ animations = [{
 [node name="Vampiric Dagger" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_0w0bv")
 script = ExtResource("2_yt2c2")
+itemRarity = "legendary"
 damage = 50.0
 leech = 25.0
 angleVariation = 5.0

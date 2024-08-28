@@ -17,6 +17,7 @@ animations = [{
 [node name="Hatchet" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_ff5c6")
 script = ExtResource("2_y6ulm")
+itemRarity = "rare"
 damage = 40.0
 angleVariation = 20.0
 rotateSpeed = -1440.0

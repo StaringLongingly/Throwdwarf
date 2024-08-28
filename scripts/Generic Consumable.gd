@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var itemRarity: String
 @export var damage: float = 1
 @export var leech: float = 0
 @export var DamageOverTimeDps: float = 0
@@ -33,7 +34,16 @@ var mortarProgress: float = 0
 var cachedScale
 var cachedPos
 
+var trail: Node2D
+
 func _ready() -> void:
+	var trailScene: PackedScene = preload("res://scenes/Item Trail.tscn")
+	trail = trailScene.instantiate()
+	var rarityColor: Color = get_node("/root/Node2D/HUD").get_color(itemRarity)
+	trail.get_node("CPUParticles2D").color = Color(rarityColor, 0.5)
+	add_child(trail)
+	trail.position = Vector2.ZERO
+	
 	# Cache initial scale and position
 	global_scale = scale
 	cachedPos = position
@@ -69,7 +79,7 @@ func _ready() -> void:
 	if weaponType == "melee":
 		position = Vector2.UP * distanceFromBody * 1000
 		if not isUsedByPlayer and (to - from).length() > 2000:
-			queue_free()
+			destroy()
 	else:
 		reparent(get_node("/root"))
 		rotation_degrees = rad_to_deg(target_angle) + 90
@@ -89,7 +99,7 @@ func _process(delta: float) -> void:
 			_process_melee(delta)
 		"explosion":
 			if not get_node("Explosion Particles").emitting:
-				queue_free()
+				destroy()
 
 func _process_mortar(delta: float) -> void:
 	rotation_degrees += rotateSpeed * delta
@@ -100,7 +110,7 @@ func _process_mortar(delta: float) -> void:
 		spawnedExplosion.isUsedByPlayer = isUsedByPlayer  # Pass down the property
 		get_tree().root.add_child(spawnedExplosion)
 		spawnedExplosion.global_position = to 
-		queue_free()
+		destroy()
 	
 	var progress = ease(mortarProgress, -0.5)
 	var mortalProgressCos = mortarProgress * 2 - 1
@@ -121,7 +131,7 @@ func _process_melee(_delta: float) -> void:
 	scale = Vector2.ONE * scaleMagnitude
 	
 	if count > 180:
-		queue_free()
+		destroy()
 
 func _on_area_2d_body_entered(body: Node) -> void:
 	var groupToCheck: String = "Enemy" if isUsedByPlayer else "Player"
@@ -133,6 +143,11 @@ func _on_area_2d_body_entered(body: Node) -> void:
 		var scriptHost: Node2D = body.get_parent()
 		scriptHost.take_damage(damage, DamageOverTimeDps, DamageOverTimeDuration, leech)
 		if bulletPenetration == 0 and weaponType != "explosion":
-			queue_free()
+			destroy()
 		else:
 			bulletPenetration -= 1
+
+func destroy():
+	trail.reparent(get_node("/root/Node2D"))
+	trail.get_node("CPUParticles2D").emitting = false
+	queue_free()

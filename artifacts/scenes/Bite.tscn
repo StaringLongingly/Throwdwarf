@@ -18,6 +18,7 @@ animations = [{
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_4124y")
 script = ExtResource("2_hwb3w")
+itemRarity = "legendary"
 damage = 8.0
 DamageOverTimeDps = 0.2
 DamageOverTimeDuration = 5.0

@@ -24,6 +24,7 @@ point_count = 2
 [node name="Bombshroom Explosion" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_5ipnr")
 script = ExtResource("2_je8kr")
+itemRarity = "common"
 damage = 5.0
 DamageOverTimeDps = 1.0
 DamageOverTimeDuration = 20.0
