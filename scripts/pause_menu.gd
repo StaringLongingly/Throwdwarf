@@ -10,12 +10,7 @@ var LodProgress: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Ensure rectangle and its material are available
-	if rectangle and rectangle.material:
-		reset_shader_parameters()
-	else:
-		print("Error: Rectangle or material is missing.")
-
+	rectangle.color = Color(Color.BLACK, 0.9)
 	textCache = text
 	text = ""
 
@@ -41,9 +36,9 @@ func animate_shader(delta: float, isIncreasing: bool) -> void:
 	else:
 		LodProgress = clamp(LodProgress - delta / animationTime, 0, 1)
 	var LodProgressEased: float = clamp(ease(LodProgress, 0.6), 0, 1)
+	
+	rectangle.color = Color(Color.BLACK, LodProgressEased * 0.9)
 		
-	rectangle.material.set_shader_parameter("black", lerp(1.0, cachedBlack, LodProgressEased))
-
 # Function to reset shader parameters and cached variables
 func reset_shader_parameters() -> void:
 	if rectangle and rectangle.material:
@@ -55,5 +50,5 @@ func reset_shader_parameters() -> void:
 
 # Function to handle scene restart
 func restart_scene() -> void:
-	reset_shader_parameters()  # Ensure cached values are reset before restarting
+	# reset_shader_parameters()  # Ensure cached values are reset before restarting
 	get_tree().reload_current_scene()

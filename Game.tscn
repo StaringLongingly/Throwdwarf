@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=56 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -42,7 +42,6 @@
 [ext_resource type="Script" path="res://sprites/hud.gd" id="38_5xoef"]
 [ext_resource type="PackedScene" uid="uid://bwyxckbc0vnkg" path="res://scenes/new_artifact.tscn" id="38_if82i"]
 [ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://scenes/stack_artifact.tscn" id="39_ks1ve"]
-[ext_resource type="Shader" path="res://shaders/PauseRectangle.gdshader" id="40_keprr"]
 [ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://scenes/block.tscn" id="41_p7r45"]
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
@@ -131,10 +130,6 @@ animations = [{
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0pqpx"]
 bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpy46"]
-shader = ExtResource("40_keprr")
-shader_parameter/black = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68dla"]
 
@@ -336,11 +331,10 @@ max_distance = 1e+08
 parameters/looping = true
 
 [node name="ColorRect" type="ColorRect" parent="HUD"]
-material = SubResource("ShaderMaterial_bpy46")
 offset_right = 400.0
 offset_bottom = 400.0
 scale = Vector2(100, 100)
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.788235)
 
 [node name="Description_v2" type="RichTextLabel" parent="HUD"]
 custom_minimum_size = Vector2(20, 0)
