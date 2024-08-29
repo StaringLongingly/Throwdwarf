@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Throwdwarf"
 config/description="Drill & Gun"
+config/tags=PackedStringArray("2d", "roguelike", "twin_stick")
 run/main_scene="res://Game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/image="res://sprites/throwdwarf.png"

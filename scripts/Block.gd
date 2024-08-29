@@ -39,6 +39,10 @@ func _process(delta: float) -> void:
 		if (collider.disabled == false):
 			get_node("/root/Node2D/Artifact").give_new_artifact()
 			get_node("/root/Node2D/Wall").remove_position(global_position)
+			var newArtifactScene: PackedScene = preload("res://scenes/dummy_artifact.tscn")
+			var newArtifact: Node2D = newArtifactScene.instantiate()
+			get_node("/root/Node2D").add_child(newArtifact)
+			newArtifact.global_position = global_position
 		collider.disabled = true
 		scale2 -= ScaleLoseRate * delta
 		scale = ease(scale2, 4.8) * Vector2.ONE;

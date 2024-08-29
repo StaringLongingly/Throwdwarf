@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dqdjsv7xanfn2"]
 
-[ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_6y27t"]
+[ext_resource type="Script" path="res://scripts/Generic AI.gd" id="1_6y27t"]
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_6e43m"]
 [ext_resource type="PackedScene" uid="uid://dg6yq0qb1ouvb" path="res://artifacts/scenes/Elven Sword Blade.tscn" id="3_a1cua"]
 [ext_resource type="Texture2D" uid="uid://dpqpjmdggao8r" path="res://sprites/PElf000.png" id="4_iy6rh"]

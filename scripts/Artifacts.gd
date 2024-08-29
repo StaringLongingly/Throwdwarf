@@ -8,7 +8,12 @@ var HUD
 @export var hueSpeed = 0.2
 @export var cheatMode = false
 var latestRarity: String
+var latestArtifact: Dictionary
 var hue = 0
+
+@export var common_artifacts = {}
+@export var rare_artifacts = {}
+@export var legendary_artifacts = {}
 
 var common_inventory = {}  # Dictionary to store common artifacts
 var rare_inventory = {}    # Dictionary to store rare artifacts
@@ -117,85 +122,6 @@ func _process(delta: float) -> void:
 		else:
 			selectedArtifact["count"] -= 1
 	
-# Define artifacts with extra HP, sell value, and descriptions
-@export var common_artifacts = {
-	"Rocks": {
-	  "id": "Q11",
-	  "extra_hp": 0,
-	  "sell_value": 1,
-	  "description": "A bunch of measly rocks. They are used as a last ditch weapon by lost dwarven miners.",
-	  "resistance": 1
-	},
-
-	"Uruk Daggers": {
-	  "id": "Q12",
-	  "extra_hp": 0,
-	  "sell_value": 15,
-	  "description": "Throwable daggers made from the bones of Caragor wolves by Uruks. Their jagged blade serrates the flesh of the victim and makes them bleed, damaging them over time.",
-	  "resistance": 2
-	},
-
-	"Old Pickaxe": {
-	  "id": "Q13",
-	  "extra_hp": 0,
-	  "sell_value": 3,
-	  "description": "An old rusty pickaxe made by a fallen dwarf colony. Pierces enemies.",
-	  "resistance": 1
-	},
-
-	"Rusty Nails": {
-	  "id": "Q14",
-	  "extra_hp": 0,
-	  "sell_value": 2,
-	  "description": "Used to belong on a support pillar. They can be used to damage enemies; however, they are too worn to do any real damage.",
-	  "resistance": 0
-	}
-}
-
-@export var rare_artifacts = {
-	"Hatchet": {
-	  "id": "E11",
-	  "extra_hp": 0,
-	  "sell_value": 25,
-	  "description": "A hatchet used as a self-defense weapon by dwarven miners. Thrown to heavily damage enemies.",
-	  "resistance": 3
-	},
-
-	"Uruk Javelin": {
-	  "id": "E12",
-	  "extra_hp": 0,
-	  "sell_value": 30,
-	  "description": "Javelin used by the Hunter-Uruks in their hunts. Famed for its piercing capabilities.",
-	  "resistance": 4
-	},
-
-	"Elven Sword Blade": {
-	  "id": "E13",
-	  "extra_hp": 0,
-	  "sell_value": 40,
-	  "description": "A weathered blade once created and used by the tall and immortal elves. Still slashes the enemy with ease at a cost of low direct damage.",
-	  "resistance": 5
-	}
-}
-
-@export var legendary_artifacts = {
-	"Ruined Dwarven Crossbow": {
-	  "id": "R11",
-	  "extra_hp": 0,
-	  "sell_value": 75,
-	  "description": "A Crossbow made by the dwarves utilizing mithril. Although heavily damaged, it is armed with a mithril bolt which can accurately serrate and pierce the enemy.",
-	  "resistance": 6
-	},
-
-	"Vampiric Dagger": {
-	  "id": "R12",
-	  "extra_hp": 5,
-	  "sell_value": 100,
-	  "description": "Used by the necromancers of the dark forest, this dagger can suck the soul and blood of living creatures granting the user extra health while damaging heavily.",
-	  "resistance": 3
-	}
-}
-
 func _ready():
 	selectedArtifact = {}
 	HUD = get_node("/root/Node2D/HUD")
@@ -287,6 +213,7 @@ func give_new_artifact(rarityOverride: String = "random"):
 	var newArtifact = select_random_artifact(rarityOverride)
 	var isArtifactNew = !artifact_exists(newArtifact.name, latestRarity)
 	add_artifact_to_inventory(newArtifact,latestRarity)
+	latestArtifact = newArtifact
 	displayArtifactInfo.emit(newArtifact, latestRarity, isArtifactNew)
 
 func generate_id_base_5(index: int) -> String:

@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://4ijxvbl1e21k"]
+
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_30jkc"]
+[ext_resource type="Script" path="res://scripts/dummy_artifact.gd" id="1_yiax1"]
+[ext_resource type="Texture2D" uid="uid://rj7hevv3oa1f" path="res://artifacts/sprites/Old Pickaxe.png" id="2_apcde"]
+[ext_resource type="Texture2D" uid="uid://bs18kbmdkichs" path="res://sprites/white_square.png" id="2_mplsc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvhya"]
+shader = ExtResource("1_30jkc")
+shader_parameter/size_effect = 0.3
+shader_parameter/speed = 1.0
+shader_parameter/highlight_strength = 0.5
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = false
+shader_parameter/color_gradient = ExtResource("2_mplsc")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uq17w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_apcde")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Dummy Artifact" type="AnimatedSprite2D"]
+material = SubResource("ShaderMaterial_tvhya")
+position = Vector2(10000, 0)
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_uq17w")
+script = ExtResource("1_yiax1")
+baseSpeed = 3.0
+acceleration = 20.0
+idleDuration = 1.0

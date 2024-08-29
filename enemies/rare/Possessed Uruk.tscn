@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dibjucelosly"]
 
-[ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_numu1"]
+[ext_resource type="Script" path="res://scripts/Generic AI.gd" id="1_numu1"]
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_5jxfs"]
 [ext_resource type="PackedScene" uid="uid://ci3mixgugk6cv" path="res://artifacts/scenes/Uruk Daggers.tscn" id="3_tjj0p"]
 [ext_resource type="Texture2D" uid="uid://cps7b826veh8v" path="res://sprites/PUruk000.png" id="4_nxm3b"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
-[ext_resource type="Script" path="res://sprites/HelmetFollowBody.gd" id="2_htryi"]
+[ext_resource type="Script" path="res://scripts/HelmetFollowBody.gd" id="2_htryi"]
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="3_qhakb"]
 [ext_resource type="Texture2D" uid="uid://bl4gfdmkda1f7" path="res://sprites/drill_v2/drill_v2_1.png" id="4_2biel"]
 [ext_resource type="Texture2D" uid="uid://dpayti0gepckq" path="res://sprites/drill_v2/drill_v2_2.png" id="5_qabg5"]
@@ -23,8 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://bcm5pl2gcknof" path="res://sprites/drill_v2/drill_v2_17.png" id="20_qb8nx"]
 [ext_resource type="Texture2D" uid="uid://dd3gmefqjjbl2" path="res://sprites/drill_v2/drill_v2_18.png" id="21_fqufg"]
 [ext_resource type="Texture2D" uid="uid://db1i47fc7n4so" path="res://sprites/drill_v2/drill_v2_19.png" id="22_13mdf"]
-[ext_resource type="Script" path="res://sprites/drill.gd" id="23_unqb6"]
-[ext_resource type="Script" path="res://sprites/particle_parent.gd" id="24_1k5gd"]
+[ext_resource type="Script" path="res://scripts/drill.gd" id="23_unqb6"]
+[ext_resource type="Script" path="res://scripts/particle_parent.gd" id="24_1k5gd"]
 [ext_resource type="PackedScene" uid="uid://dd4dyytaho71c" path="res://scenes/drill_particle.tscn" id="25_n7681"]
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="26_2cqtc"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="27_60si4"]
@@ -38,8 +38,8 @@
 [ext_resource type="Texture2D" uid="uid://m6s1ksw4eu1g" path="res://sprites/bg.png" id="36_88nxx"]
 [ext_resource type="FontFile" uid="uid://kaa5h4tbgiri" path="res://fonts/3270NerdFont-Regular.ttf" id="36_xikev"]
 [ext_resource type="AudioStream" uid="uid://k5hssmv0gl54" path="res://music/1-osiris_monolith-2024.mp3" id="37_inqva"]
-[ext_resource type="Script" path="res://sprites/Artifacts.gd" id="37_nqwky"]
-[ext_resource type="Script" path="res://sprites/hud.gd" id="38_5xoef"]
+[ext_resource type="Script" path="res://scripts/Artifacts.gd" id="37_nqwky"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="38_5xoef"]
 [ext_resource type="PackedScene" uid="uid://bwyxckbc0vnkg" path="res://scenes/new_artifact.tscn" id="38_if82i"]
 [ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://scenes/stack_artifact.tscn" id="39_ks1ve"]
 [ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://scenes/block.tscn" id="41_p7r45"]
@@ -438,6 +438,59 @@ sprite_frames = SubResource("SpriteFrames_toi1a")
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
+common_artifacts = {
+"Old Pickaxe": {
+"description": "An old rusty pickaxe made by a fallen dwarf colony. Pierces enemies.",
+"extra_hp": 0,
+"id": "Q13",
+"resistance": 1,
+"sell_value": 3
+},
+"Rocks": {
+"description": "A bunch of measly rocks. They are used as a last ditch weapon by lost dwarven miners.",
+"extra_hp": 0,
+"id": "Q11",
+"resistance": 1,
+"sell_value": 1
+},
+"Rusty Nails": {
+"description": "Used to belong on a support pillar. They can be used to damage enemies; however, they are too worn to do any real damage.",
+"extra_hp": 0,
+"id": "Q14",
+"resistance": 0,
+"sell_value": 2
+},
+"Uruk Daggers": {
+"description": "Throwable daggers made from the bones of Caragor wolves by Uruks. Their jagged blade serrates the flesh of the victim and makes them bleed, damaging them over time.",
+"extra_hp": 0,
+"id": "Q12",
+"resistance": 2,
+"sell_value": 15
+}
+}
+rare_artifacts = {
+"Elven Sword Blade": {
+"description": "A weathered blade once created and used by the tall and immortal elves. Still slashes the enemy with ease at a cost of low direct damage.",
+"extra_hp": 0,
+"id": "E13",
+"resistance": 5,
+"sell_value": 40
+},
+"Hatchet": {
+"description": "A hatchet used as a self-defense weapon by dwarven miners. Thrown to heavily damage enemies.",
+"extra_hp": 0,
+"id": "E11",
+"resistance": 3,
+"sell_value": 25
+},
+"Uruk Javelin": {
+"description": "Javelin used by the Hunter-Uruks in their hunts. Famed for its piercing capabilities.",
+"extra_hp": 0,
+"id": "E12",
+"resistance": 4,
+"sell_value": 30
+}
+}
 legendary_artifacts = {
 "Ruined Dwarven Crossbow": {
 "description": "A Crossbow made by the dwarves utilizing mithril. Although heavily damaged, it is armed with a mithril bolt which can accurately serrate and pierce the enemy.",

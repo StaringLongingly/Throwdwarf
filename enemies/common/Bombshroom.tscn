@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpci6118aiv1h"]
 
-[ext_resource type="Script" path="res://sprites/Generic AI.gd" id="1_8gv24"]
+[ext_resource type="Script" path="res://scripts/Generic AI.gd" id="1_8gv24"]
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="2_p02ky"]
 [ext_resource type="PackedScene" uid="uid://cuwdpaxmice75" path="res://artifacts/scenes/Bombshroom Mortar.tscn" id="3_qs0wp"]
 [ext_resource type="Texture2D" uid="uid://d2ecft5ncaxty" path="res://sprites/Blowshroom000.png" id="4_fedvt"]

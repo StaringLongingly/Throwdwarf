@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dd4dyytaho71c"]
 
 [ext_resource type="Texture2D" uid="uid://28pqirqma2y5" path="res://sprites/triangle_300px.png" id="1_2riw8"]
-[ext_resource type="Script" path="res://sprites/drill_particles.gd" id="2_ns106"]
+[ext_resource type="Script" path="res://scripts/drill_particles.gd" id="2_ns106"]
 [ext_resource type="Script" path="res://scripts/Drill Particle Audio.gd" id="3_oly6f"]
 
 [sub_resource type="Curve" id="Curve_x2lov"]
