@@ -187,7 +187,6 @@ func add_artifact_to_inventory(artifact: Dictionary, rarity: String) -> void:
 			print("Unknown rarity: %s" % rarity)
 			return
 
-
 func artifact_exists(artifact_name: String, rarity: String) -> bool:
 	match rarity:
 		"common":
@@ -215,49 +214,6 @@ func give_new_artifact(rarityOverride: String = "random"):
 	add_artifact_to_inventory(newArtifact,latestRarity)
 	latestArtifact = newArtifact
 	displayArtifactInfo.emit(newArtifact, latestRarity, isArtifactNew)
-
-func generate_id_base_5(index: int) -> String:
-	var base = 5
-	var id_str = ""
-	
-	# Convert the index to base 5
-	while index >= 0:
-		id_str = str((index % base) + 1) + id_str
-		index = int(index as float / base as float) - 1
-		if index < 0:
-			break
-
-	# Ensure the ID has a minimum length (e.g., 3 digits)
-	while id_str.length() < 2:
-		id_str = "1" + id_str
-	
-	match latestRarity:
-		"common":
-			return "Q" + id_str
-		"rare":
-			return "E" + id_str
-		"legendary":
-			return "R" + id_str
-		_:
-			return "?" + id_str
-
-func get_artifact_id(artifact: Dictionary, rarity: String) -> String:
-	match rarity:
-		"common":
-			if artifact.name in common_inventory:
-				return common_inventory[artifact.name]["id"]
-		"rare":
-			if artifact.name in rare_inventory:
-				return rare_inventory[artifact.name]["id"]
-		"legendary":
-			if artifact.name in legendary_inventory:
-				return legendary_inventory[artifact.name]["id"]
-		_:
-			print("Unknown rarity: %s" % rarity)
-			return "Invalid Rarity"
-
-	# If the artifact is not found in the specified rarity inventory
-	return "Artifact Not Found"
 
 func get_artifact_names_and_ids(rarity: String) -> String:
 	var result = ""
