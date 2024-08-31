@@ -11,6 +11,7 @@ You can find the version posted to the jam on the init commit.
 - WASD to move
 - Drill the wall on the left to get items
 - Drill Energy makes drilling faster
+- Press Space to Dash (Consumes the 3 least valuable items)
 - Press Q, E, or R to search each inventory
 - Type the ID of the item you want to select
 - Press Left Click to use it

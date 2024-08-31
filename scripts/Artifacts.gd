@@ -127,7 +127,7 @@ func _ready():
 	HUD = get_node("/root/Node2D/HUD")
 	give_new_artifact("legendary")
 	if cheatMode:
-		for i in range(999):
+		for i in range(100):
 			give_new_artifact()
 	
 func print_artifact_info(artifact: Dictionary):
@@ -293,14 +293,35 @@ func find_artifact_by_id(id: String) -> Array:
 	# Return an empty dictionary if the artifact is not found
 	return [{}, ""]
 
-func remove_artifact_from_inventory(artifact: String, rarity: String) -> void:
+func remove_artifact_from_inventory(artifactStr: String, rarity: String = "any") -> bool:
+	var correctInventory: Dictionary
+	var artifact: Dictionary 
 	match rarity:
-		"common":
-			common_inventory.erase(artifact)
-		"rare":
-			rare_inventory.erase(artifact)
-		"legendary":
-			legendary_inventory.erase(artifact)
+			"common":
+				correctInventory = common_inventory
+			"rare":
+				correctInventory = rare_inventory
+			"legendary":
+				correctInventory = legendary_inventory
+	if rarity == "any":
+		for inventory in [common_inventory, rare_inventory, legendary_inventory]:
+			var gotten = inventory.get(artifactStr, {})
+			if gotten != {}:
+				artifact = gotten
+				correctInventory = inventory
+	else:
+		artifact = correctInventory.get(artifactStr)
+	if artifact == {}:
+		printerr("Did not find artifact!")
+	if artifact.count > 1:
+		artifact.count -= 1
+		return false
+	else:
+		print("Erased artifact: "+str(artifact))
+		if artifact == selectedArtifact:
+			selectedArtifact = {}
+		correctInventory.erase(artifact.name)
+		return true
 
 func calculate_total_sell_value() -> int:
 	var total_sell_value = 0
@@ -321,3 +342,39 @@ func calculate_total_sell_value() -> int:
 		total_sell_value += artifact["sell_value"] * artifact["count"]
 	
 	return total_sell_value
+
+func remove_least_valuables(amount: int) -> bool:
+	var valuables = get_least_valuables(amount)
+	var numberOfLeastValuables = 0
+	for valuable in valuables.values():
+		numberOfLeastValuables += valuable.count 
+	if numberOfLeastValuables < amount:
+		return false
+	var top: int = 0
+	var artifact: String = valuables.keys()[0]
+	for i in range(amount):
+		if remove_artifact_from_inventory(artifact):
+			top += 1
+			if valuables.keys().size() > top:
+				artifact = valuables.keys()[top]
+	return true
+
+func get_least_valuables(amount: int = 1) -> Dictionary:
+	var result: Dictionary = {}
+	for i in range(amount):
+		var leastValuable = get_least_valuable(result)
+		if leastValuable == {"sell_value": 9999999999}:
+			break
+		result[leastValuable.name] = leastValuable 
+	return result
+
+func get_least_valuable(exclude: Dictionary = {}) -> Dictionary:
+	var minSell: Dictionary = {"sell_value": 9999999999} 
+	var inventories = [common_inventory, rare_inventory, legendary_inventory]
+	for inventory in inventories:
+		for artifact in inventory.values():
+			# print("Testing: " + str(artifact))
+			# print("   with: " + str(min))
+			if artifact.sell_value < minSell.sell_value and not artifact.name in exclude.keys():
+				minSell = artifact
+	return minSell

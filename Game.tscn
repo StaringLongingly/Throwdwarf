@@ -193,6 +193,8 @@ up_direction = Vector2(1, 0)
 script = ExtResource("3_qhakb")
 speed = 6
 rotation_speed = 15.0
+dashDuration = 0.2
+dashSpeedScalar = 3.0
 shrinkAnimationDuration = 1.0
 
 [node name="Head Collider" type="CollisionShape2D" parent="Player/Drill & Colliders"]
@@ -246,7 +248,7 @@ autowrap_mode = 0
 zoom = Vector2(0.05, 0.05)
 script = ExtResource("27_60si4")
 target = NodePath("../Player/Drill & Colliders")
-speed = 1.0
+speed = 3.0
 
 [node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("infoLabel")]
 script = ExtResource("38_5xoef")
