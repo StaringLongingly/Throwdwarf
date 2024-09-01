@@ -36,13 +36,13 @@ func _physics_process(delta: float) -> void:
 	else:	
 		var custom_velocity = Vector2.ZERO
 	
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("Move up"):
 			custom_velocity.y -= 1
-		if Input.is_action_pressed("ui_down"):
+		if Input.is_action_pressed("Move down"):
 			custom_velocity.y += 1
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("Move left"):
 			custom_velocity.x -= 1
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("Move right"):
 			custom_velocity.x += 1
 		
 		if Input.is_action_just_pressed("Dash"):

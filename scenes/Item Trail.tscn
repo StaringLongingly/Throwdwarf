@@ -19,7 +19,7 @@ point_count = 2
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 z_index = -1
-amount = 30
+amount = 5
 lifetime = 0.2
 lifetime_randomness = 0.2
 texture = ExtResource("1_xid1q")
