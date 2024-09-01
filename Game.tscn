@@ -1,33 +1,35 @@
-[gd_scene load_steps=57 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=59 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
 [ext_resource type="Script" path="res://scripts/HelmetFollowBody.gd" id="2_htryi"]
 [ext_resource type="Script" path="res://scripts/character_body_2d.gd" id="3_qhakb"]
-[ext_resource type="Texture2D" uid="uid://bl4gfdmkda1f7" path="res://sprites/drill_v2/drill_v2_1.png" id="4_2biel"]
-[ext_resource type="Texture2D" uid="uid://dpayti0gepckq" path="res://sprites/drill_v2/drill_v2_2.png" id="5_qabg5"]
-[ext_resource type="Texture2D" uid="uid://c4v82gs4lw66k" path="res://sprites/drill_v2/drill_v2_3.png" id="6_7pqyj"]
-[ext_resource type="Texture2D" uid="uid://58kb6xsfqj8f" path="res://sprites/drill_v2/drill_v2_4.png" id="7_ev0tn"]
-[ext_resource type="Texture2D" uid="uid://d1tntyek3478t" path="res://sprites/drill_v2/drill_v2_5.png" id="8_n7rcw"]
-[ext_resource type="Texture2D" uid="uid://c3tl8ny7h3iuv" path="res://sprites/drill_v2/drill_v2_6.png" id="9_irc7c"]
-[ext_resource type="Texture2D" uid="uid://c6vnu6o0rl47n" path="res://sprites/drill_v2/drill_v2_7.png" id="10_2o4my"]
-[ext_resource type="Texture2D" uid="uid://bdobbji8i3h5s" path="res://sprites/drill_v2/drill_v2_8.png" id="11_mgmab"]
-[ext_resource type="Texture2D" uid="uid://b0mkssyq0e6fv" path="res://sprites/drill_v2/drill_v2_9.png" id="12_2sucp"]
-[ext_resource type="Texture2D" uid="uid://pbth2kib7ik7" path="res://sprites/drill_v2/drill_v2_10.png" id="13_0rvbh"]
-[ext_resource type="Texture2D" uid="uid://cklexdi8tb6d" path="res://sprites/drill_v2/drill_v2_11.png" id="14_1utxr"]
-[ext_resource type="Texture2D" uid="uid://b1i1sweefqv4h" path="res://sprites/drill_v2/drill_v2_12.png" id="15_ogxef"]
-[ext_resource type="Texture2D" uid="uid://bruoe4kfdh2a3" path="res://sprites/drill_v2/drill_v2_13.png" id="16_a44au"]
-[ext_resource type="Texture2D" uid="uid://2qny0pcusp2e" path="res://sprites/drill_v2/drill_v2_14.png" id="17_x7nbo"]
-[ext_resource type="Texture2D" uid="uid://qj8dumaqrpwy" path="res://sprites/drill_v2/drill_v2_15.png" id="18_uhcxt"]
-[ext_resource type="Texture2D" uid="uid://dy6vghnfw3eq5" path="res://sprites/drill_v2/drill_v2_16.png" id="19_bwr61"]
-[ext_resource type="Texture2D" uid="uid://bcm5pl2gcknof" path="res://sprites/drill_v2/drill_v2_17.png" id="20_qb8nx"]
-[ext_resource type="Texture2D" uid="uid://dd3gmefqjjbl2" path="res://sprites/drill_v2/drill_v2_18.png" id="21_fqufg"]
-[ext_resource type="Texture2D" uid="uid://db1i47fc7n4so" path="res://sprites/drill_v2/drill_v2_19.png" id="22_13mdf"]
+[ext_resource type="Texture2D" uid="uid://2cit8h8jrbqo" path="res://sprites/drill_v3/drill_v3_1.png" id="7_t7ou3"]
+[ext_resource type="Texture2D" uid="uid://cj3mww8f4q3hg" path="res://sprites/drill_v3/drill_v3_2.png" id="8_6xc34"]
+[ext_resource type="Texture2D" uid="uid://cnp4wfv8jwj32" path="res://sprites/drill_v3/drill_v3_3.png" id="9_4s2rv"]
+[ext_resource type="Texture2D" uid="uid://ykrn7t3gkbe0" path="res://sprites/drill_v3/drill_v3_4.png" id="10_vgblj"]
+[ext_resource type="Texture2D" uid="uid://xcdls0ynhqf" path="res://sprites/drill_v3/drill_v3_5.png" id="11_axrg8"]
+[ext_resource type="Texture2D" uid="uid://byebfxaybcs3q" path="res://sprites/drill_v3/drill_v3_6.png" id="12_vkcvi"]
+[ext_resource type="Texture2D" uid="uid://o7b3coep1g54" path="res://sprites/drill_v3/drill_v3_7.png" id="13_jm1ca"]
+[ext_resource type="Texture2D" uid="uid://iau1cdhctxlq" path="res://sprites/drill_v3/drill_v3_8.png" id="14_3tbwd"]
+[ext_resource type="Texture2D" uid="uid://0tuafe4rc64o" path="res://sprites/drill_v3/drill_v3_9.png" id="15_s8j0s"]
+[ext_resource type="Texture2D" uid="uid://dvrirf28idg56" path="res://sprites/drill_v3/drill_v3_10.png" id="16_csqm6"]
+[ext_resource type="Texture2D" uid="uid://bp6gj30r3k1yd" path="res://sprites/drill_v3/drill_v3_11.png" id="17_clcom"]
+[ext_resource type="Texture2D" uid="uid://b72ciwaf6ywci" path="res://sprites/drill_v3/drill_v3_12.png" id="18_olnu3"]
+[ext_resource type="Texture2D" uid="uid://6p60utdti6fy" path="res://sprites/drill_v3/drill_v3_13.png" id="19_b514h"]
+[ext_resource type="Texture2D" uid="uid://c6w51padreu75" path="res://sprites/drill_v3/drill_v3_14.png" id="20_k3vxp"]
+[ext_resource type="Texture2D" uid="uid://bhvmdk0wytx8n" path="res://sprites/drill_v3/drill_v3_15.png" id="21_gad2a"]
+[ext_resource type="Texture2D" uid="uid://nsb1p5r1taaw" path="res://sprites/drill_v3/drill_v3_16.png" id="22_nsm5w"]
+[ext_resource type="Texture2D" uid="uid://xu1tmep0obul" path="res://sprites/drill_v3/drill_v3_17.png" id="23_owpe4"]
 [ext_resource type="Script" path="res://scripts/drill.gd" id="23_unqb6"]
 [ext_resource type="Script" path="res://scripts/particle_parent.gd" id="24_1k5gd"]
+[ext_resource type="Texture2D" uid="uid://bs028a55ieh4n" path="res://sprites/drill_v3/drill_v3_18.png" id="24_gbf8y"]
+[ext_resource type="Texture2D" uid="uid://dm2ccoq374due" path="res://sprites/drill_v3/drill_v3_19.png" id="25_kpelu"]
 [ext_resource type="PackedScene" uid="uid://dd4dyytaho71c" path="res://scenes/drill_particle.tscn" id="25_n7681"]
 [ext_resource type="PackedScene" uid="uid://pts84332r2e1" path="res://scenes/drill_break_particle.tscn" id="26_2cqtc"]
+[ext_resource type="Texture2D" uid="uid://d4lnfolfpwkpd" path="res://sprites/drill_v3/drill_v3_20.png" id="26_sw8uq"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="27_60si4"]
+[ext_resource type="Texture2D" uid="uid://i7d2rforvjcs" path="res://sprites/drill_v3/drill_v3_21.png" id="27_e03hj"]
 [ext_resource type="Texture2D" uid="uid://bb1k07befyqgt" path="res://sprites/breakBlack.png" id="28_df15o"]
 [ext_resource type="FontFile" uid="uid://c6ol0yxmxxu1w" path="res://addons/godot-vim/TerminessNerdFont-Regular.ttf" id="29_w8agl"]
 [ext_resource type="FontFile" uid="uid://bkytyi8vvmlum" path="res://addons/godot-vim/TerminessNerdFont-Italic.ttf" id="30_bpxdh"]
@@ -68,61 +70,67 @@ size = Vector2(15.2344, 22.7604)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_2biel")
+"texture": ExtResource("7_t7ou3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_qabg5")
+"texture": ExtResource("8_6xc34")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_7pqyj")
+"texture": ExtResource("9_4s2rv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_ev0tn")
+"texture": ExtResource("10_vgblj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_n7rcw")
+"texture": ExtResource("11_axrg8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_irc7c")
+"texture": ExtResource("12_vkcvi")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_2o4my")
+"texture": ExtResource("13_jm1ca")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_mgmab")
+"texture": ExtResource("14_3tbwd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_2sucp")
+"texture": ExtResource("15_s8j0s")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_0rvbh")
+"texture": ExtResource("16_csqm6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_1utxr")
+"texture": ExtResource("17_clcom")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_ogxef")
+"texture": ExtResource("18_olnu3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_a44au")
+"texture": ExtResource("19_b514h")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_x7nbo")
+"texture": ExtResource("20_k3vxp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_uhcxt")
+"texture": ExtResource("21_gad2a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_bwr61")
+"texture": ExtResource("22_nsm5w")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_qb8nx")
+"texture": ExtResource("23_owpe4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_fqufg")
+"texture": ExtResource("24_gbf8y")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_13mdf")
+"texture": ExtResource("25_kpelu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_sw8uq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_e03hj")
 }],
 "loop": true,
 "name": &"default",
@@ -442,7 +450,6 @@ sprite_frames = SubResource("SpriteFrames_toi1a")
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
-cheatMode = true
 common_artifacts = {
 "Old Pickaxe": {
 "description": "An old rusty pickaxe made by a fallen dwarf colony. Pierces enemies.",

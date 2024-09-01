@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 			var totalSellValue = get_node("/root/Node2D/Artifact").calculate_total_sell_value()
 			# print(totalSellValue)
 			var speedGain = totalSellValue * speedGainScale / 1000 
+			get_node("/root/Node2D/Player/Drill & Colliders/Drill Sprite").speed_scale = -1 -speedGain
 			hp -= (speedGain + 1) * HpLoseRate * delta
 			
 			@warning_ignore("narrowing_conversion")
