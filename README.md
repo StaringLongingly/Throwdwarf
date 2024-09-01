@@ -10,6 +10,7 @@ You can find the version posted to the jam on the init commit.
 ## Tutorial
 - WASD to move
 - Drill the wall on the left to get items
+- Hold shift to lock the drill rotation
 - Drill Energy makes drilling faster
 - Press Space to Dash (Consumes the 3 least valuable items)
 - Press Q, E, or R to search each inventory

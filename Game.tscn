@@ -182,7 +182,7 @@ rotation = -1.5708
 sprite_frames = SubResource("SpriteFrames_ai074")
 script = ExtResource("2_htryi")
 target = NodePath("../Drill & Colliders")
-speed = 15.0
+rotationSpeed = 8.0
 
 [node name="Drill & Colliders" type="CharacterBody2D" parent="Player" groups=["Player"]]
 rotation = 1.5708

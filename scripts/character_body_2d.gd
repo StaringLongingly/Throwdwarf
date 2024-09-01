@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed = 2
 @export var rotation_speed = 5.0  # Controls the speed of rotation towards the mouse
 @export var canMove: bool = true
+var target_direction 
 
 @export_category("Dashing")
 @export var dashCost: int = 3
@@ -54,7 +55,8 @@ func _physics_process(delta: float) -> void:
 				# print("Not Enough Artifacts for a Dash!")
 	
 		# Calculate the target angle towards the mouse position
-		var target_direction = (get_global_mouse_position() - global_position).angle()
+		if not Input.is_action_pressed("Lock Drill"):
+			target_direction = (get_global_mouse_position() - global_position).angle()
 		
 		# Interpolate current rotation towards the target direction
 		rotation = lerp_angle(rotation, target_direction, rotation_speed * delta)
