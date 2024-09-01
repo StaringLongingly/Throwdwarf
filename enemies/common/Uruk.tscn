@@ -33,7 +33,7 @@ enemyRarity = "common"
 hitParticles = ExtResource("2_emorr")
 hpText = NodePath("HP display")
 artifact = ExtResource("3_osmdr")
-hp = 60.0
+hp = 40.0
 attackCooldown = 20.0
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="."]

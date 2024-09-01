@@ -178,7 +178,6 @@ hp = 300.0
 hpRegenRate = 0.5
 
 [node name="Helmet" type="AnimatedSprite2D" parent="Player" node_paths=PackedStringArray("target") groups=["Player"]]
-rotation = -1.5708
 sprite_frames = SubResource("SpriteFrames_ai074")
 script = ExtResource("2_htryi")
 target = NodePath("../Drill & Colliders")
