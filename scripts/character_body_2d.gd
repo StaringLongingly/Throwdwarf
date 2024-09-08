@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 			get_node("Head Collider").disabled = isDashing
 			if isDashing:
 				dashTrail.global_position = global_position
-				var progress = clamp(currectDashDuration / dashDuration, 0, 1)
+				var _progress = clamp(currectDashDuration / dashDuration, 0, 1)
 				custom_velocity *= dashSpeedScalar
 				
 		velocity = custom_velocity  # Use the built-in velocity property

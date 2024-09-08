@@ -50,5 +50,4 @@ func reset_shader_parameters() -> void:
 
 # Function to handle scene restart
 func restart_scene() -> void:
-	# reset_shader_parameters()  # Ensure cached values are reset before restarting
 	get_tree().reload_current_scene()

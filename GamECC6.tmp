@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=60 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -47,11 +47,11 @@
 [ext_resource type="PackedScene" uid="uid://c4xp778afjv25" path="res://scenes/stack_artifact.tscn" id="39_ks1ve"]
 [ext_resource type="PackedScene" uid="uid://cngy4em37bsf0" path="res://scenes/block.tscn" id="41_p7r45"]
 [ext_resource type="Script" path="res://scripts/Generic Entity.gd" id="43_00hfy"]
-[ext_resource type="Shader" path="res://shaders/CutoffArrow.gdshader" id="44_cptut"]
 [ext_resource type="Texture2D" uid="uid://cb8wlwjjfv1mq" path="res://sprites/border.png" id="44_fuhxg"]
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
 [ext_resource type="Shader" path="res://shaders/Cutoff.gdshader" id="48_egvxd"]
 [ext_resource type="Texture2D" uid="uid://cqfn8bjxloegd" path="res://sprites/Chain 4 links.png" id="49_wfxxo"]
+[ext_resource type="PackedScene" uid="uid://c3qi5tkasdvk3" path="res://enemies/legendary/Cavedrake.tscn" id="52_u03gh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ai074"]
 animations = [{
@@ -140,12 +140,6 @@ animations = [{
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0pqpx"]
 bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_li3nl"]
-shader = ExtResource("44_cptut")
-shader_parameter/progress = 1.0
-shader_parameter/angle = 15.0
-shader_parameter/modulate = Vector4(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68dla"]
 
@@ -354,43 +348,6 @@ offset_bottom = 400.0
 scale = Vector2(100, 100)
 color = Color(0, 0, 0, 0.788235)
 
-[node name="Description_v3" type="RichTextLabel" parent="HUD"]
-z_index = 1
-custom_minimum_size = Vector2(208.575, 0)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -192.0
-offset_top = 101.0
-offset_right = 33.125
-offset_bottom = 232.0
-grow_horizontal = 0
-scale = Vector2(0.62, 0.485)
-theme_override_fonts/normal_font = ExtResource("29_w8agl")
-theme_override_fonts/italics_font = ExtResource("36_xikev")
-theme_override_fonts/bold_italics_font = ExtResource("31_x1a1n")
-theme_override_fonts/bold_font = ExtResource("32_xeoih")
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 25
-bbcode_enabled = true
-text = "[color=#000000]Parrying Dagger"
-
-[node name="Dagger Cooldown" type="ColorRect" parent="HUD"]
-material = SubResource("ShaderMaterial_li3nl")
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -202.0
-offset_top = 100.0
-offset_right = 198.0
-offset_bottom = 500.0
-grow_horizontal = 0
-scale = Vector2(0.4, 0.05)
-size_flags_horizontal = 8
-
 [node name="Description_v2" type="RichTextLabel" parent="HUD"]
 custom_minimum_size = Vector2(20, 0)
 anchors_preset = 12
@@ -493,6 +450,7 @@ sprite_frames = SubResource("SpriteFrames_toi1a")
 script = ExtResource("37_nqwky")
 searchLabel = NodePath("../HUD/Search")
 itemCountLabel = NodePath("../HUD/ItemCount")
+cheatMode = true
 common_artifacts = {
 "Old Pickaxe": {
 "description": "An old rusty pickaxe made by a fallen dwarf colony. Pierces enemies.",
@@ -562,5 +520,9 @@ legendary_artifacts = {
 "sell_value": 100
 }
 }
+
+[node name="Cavedrake" parent="." instance=ExtResource("52_u03gh")]
+
+[node name="Parrying Dagger" parent="." instance=ExtResource("4_dt56w")]
 
 [connection signal="displayArtifactInfo" from="Artifact" to="HUD" method="_on_artifact_display_artifact_info"]

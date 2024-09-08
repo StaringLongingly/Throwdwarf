@@ -9,6 +9,9 @@ extends Node2D
 @export var isUsedByPlayer: bool
 @export var angleVariation: float = 0
 @export var rotateSpeed: float = 0
+var gotParried: bool = false
+var previousArtifactScene: PackedScene
+var artifactName: String
 
 var from: Vector2
 var to: Vector2
@@ -35,8 +38,12 @@ var cachedScale
 var cachedPos
 
 var trail: Node2D
+var helmet: Node2D
 
 func _ready() -> void:
+	artifactName = self.name
+	print(artifactName)
+	helmet = get_node("/root/Node2D/Player/Helmet")
 	var trailScene: PackedScene = preload("res://scenes/Item Trail.tscn")
 	trail = trailScene.instantiate()
 	var rarityColor: Color = get_node("/root/Node2D/HUD").get_color(itemRarity)
@@ -57,16 +64,10 @@ func _ready() -> void:
 		"explosion":
 			get_node("Explosion Particles").emitting = true
 	
-	var Helmet = get_node("/root/Node2D/Player/Helmet")
 	isUsedByPlayer = not get_parent().is_in_group("Enemy")
+	get_to_from(isUsedByPlayer)
 	
 	# Set 'from' and 'to' positions based on whether it's used by player or enemy
-	if isUsedByPlayer:
-		from = Helmet.global_position
-		to = get_global_mouse_position()
-	else:
-		from = find_parent("*").global_position
-		to = Helmet.global_position
 	
 	# Calculate target angle with variation
 	mortarProgress = 0
@@ -135,19 +136,44 @@ func _process_melee(_delta: float) -> void:
 
 func _on_area_2d_body_entered(body: Node) -> void:
 	var groupToCheck: String = "Enemy" if isUsedByPlayer else "Player"
-	
 	if weaponType == "explosion":
 		groupToCheck = "Player" if isUsedByPlayer else "Enemy"
-	
-	if body.is_in_group(groupToCheck):
+		
+	if body.is_in_group("Parry") and not gotParried and not is_in_group("Parry"):
+		print("Parried!" + str(gotParried))
+		gotParried = true
+		var self2: Node2D = self
+		var artifactString: String = "res://artifacts/scenes/" + artifactName + ".tscn"
+		var artifactScene: PackedScene = load(artifactString)
+		var newArtifact = artifactScene.instantiate()
+		
+		newArtifact.angleVariation += 20
+		newArtifact.bulletSpeed *= 2
+		newArtifact.DamageOverTimeDps /= 2 
+		newArtifact.damage /= 2
+		
+		helmet.add_child(newArtifact)
+		newArtifact.global_position = global_position
+		destroy()
+	elif body.is_in_group(groupToCheck):
 		var scriptHost: Node2D = body.get_parent()
 		scriptHost.take_damage(damage, DamageOverTimeDps, DamageOverTimeDuration, leech)
 		if bulletPenetration == 0 and weaponType != "explosion":
 			destroy()
 		else:
 			bulletPenetration -= 1
+	else:
+		pass
 
 func destroy():
 	trail.reparent(get_node("/root/Node2D"))
 	trail.get_node("CPUParticles2D").emitting = false
 	queue_free()
+
+func get_to_from(isUsedByPlayer: bool):
+	if isUsedByPlayer:
+		from = helmet.global_position
+		to = get_global_mouse_position()
+	else:
+		from = get_parent().global_position
+		to = helmet.global_position

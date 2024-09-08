@@ -30,9 +30,9 @@ angleVariation = 10.0
 rotateSpeed = 360.0
 distanceFromBody = 0.5
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["Artifact"]]
 collision_layer = 32
-collision_mask = 192
+collision_mask = 224
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(14, -7)

@@ -24,9 +24,9 @@ angleVariation = 2.0
 bulletSpeed = 20.0
 bulletPenetration = 5
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["Artifact"]]
 collision_layer = 32
-collision_mask = 192
+collision_mask = 224
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(-26, 502, 21, 502, 56, -324, -4, -504, -68, -305)

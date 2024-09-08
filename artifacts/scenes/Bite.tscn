@@ -25,11 +25,11 @@ DamageOverTimeDuration = 5.0
 weaponType = "melee"
 angleVariation = 10.0
 rotateSpeed = 360.0
-distanceFromBody = 1
+distanceFromBody = 0.5
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["Artifact"]]
 collision_layer = 32
-collision_mask = 192
+collision_mask = 224
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(-112, 78.75, -93.5, 107.75, 27, 115.75, 141, 92.75, 207.25, 29.75, 195.5, -23.5, 140.5, -90.25, 60.75, -104.25, -54.75, -84, -114.25, -0.5, -123.25, 50.5)

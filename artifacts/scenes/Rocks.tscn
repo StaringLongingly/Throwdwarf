@@ -23,9 +23,9 @@ damage = 10.0
 angleVariation = 10.0
 rotateSpeed = 360.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["Artifact"]]
 collision_layer = 32
-collision_mask = 192
+collision_mask = 224
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(390, -132.5, 497.5, -30, 497.5, 235, 480, 360, 432.5, 407.5, -147.5, 412.5, -235, 492.5, -427.5, 295, -427.5, -42.5, -505, -117.5, -500, -240, -345, -392.5, -140, -385, -35, -495, 220, -495, 335, -380, 335, -207.5)

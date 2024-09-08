@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl405np67k5lm"]
+
+[ext_resource type="Texture2D" uid="uid://rj7hevv3oa1f" path="res://artifacts/sprites/Old Pickaxe.png" id="1_ohydw"]
+[ext_resource type="Script" path="res://scripts/Generic Consumable.gd" id="2_tfvwb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jq806"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ohydw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Parrying Dagger" type="AnimatedSprite2D" groups=["Parry"]]
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_jq806")
+script = ExtResource("2_tfvwb")
+damage = 5.0
+DamageOverTimeDuration = 0.0
+weaponType = "melee"
+angleVariation = 10.0
+rotateSpeed = 500.0
+bulletPenetration = 99
+
+[node name="Area2D" type="Area2D" parent="." groups=["Artifact"]]
+collision_layer = 32
+collision_mask = 192
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-39.5, 1.5, -43, 396.5, 41.5, 397.5, 40.5, -363.5, 153.5, -361, 360.5, -260, 461.5, -205.5, 311.5, -399, 233, -449, 7, -452.5, -176, -457.5, -297.5, -404, -405.5, -292, -498.5, -171, -303.5, -287.5, -148.5, -351.5, -47.5, -357.5)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Parry"]]
+collision_layer = 288
+collision_mask = 32
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="CharacterBody2D"]
+polygon = PackedVector2Array(-39.5, 1.5, -43, 396.5, 41.5, 397.5, 40.5, -363.5, 153.5, -361, 360.5, -260, 461.5, -205.5, 311.5, -399, 233, -449, 7, -452.5, -176, -457.5, -297.5, -404, -405.5, -292, -498.5, -171, -303.5, -287.5, -148.5, -351.5, -47.5, -357.5)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

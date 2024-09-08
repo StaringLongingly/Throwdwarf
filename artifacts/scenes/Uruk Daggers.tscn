@@ -14,7 +14,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Uruk Dagger" type="AnimatedSprite2D"]
+[node name="Uruk Daggers" type="AnimatedSprite2D"]
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_u1e0j")
 script = ExtResource("2_1uutq")
@@ -25,9 +25,9 @@ DamageOverTimeDuration = 5.0
 angleVariation = 3.0
 bulletSpeed = 20.0
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["Artifact"]]
 collision_layer = 32
-collision_mask = 192
+collision_mask = 224
 
 [node name="Hitbox" type="CollisionPolygon2D" parent="Area2D"]
 scale = Vector2(0.954639, 1.01036)
