@@ -38,6 +38,7 @@ hpText = NodePath("HP display")
 artifact = ExtResource("3_rqfpd")
 hp = 10.0
 attackCooldown = 2.0
+minimumAttackDistance = 2.0
 
 [node name="Enemy Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gig1s")

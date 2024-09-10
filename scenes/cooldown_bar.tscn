@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cia0rndec74sk"]
+
+[ext_resource type="Script" path="res://scenes/Cooldown Bar.gd" id="1_e5ilh"]
+[ext_resource type="Shader" path="res://shaders/CutoffArrow.gdshader" id="5_t7o26"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrx7u"]
+resource_local_to_scene = true
+shader = ExtResource("5_t7o26")
+shader_parameter/progress = 0.575
+shader_parameter/angle = 5.0
+shader_parameter/modulate = Vector4(1, 1, 1, 1)
+
+[node name="Cooldown Bar" type="Node2D"]
+position = Vector2(500, 553.03)
+script = ExtResource("1_e5ilh")
+
+[node name="Rectangle" type="ColorRect" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_lrx7u")
+clip_contents = true
+custom_minimum_size = Vector2(208.575, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -366.0
+offset_top = -529.0
+offset_right = 792.0
+offset_bottom = 151.0
+grow_horizontal = 0
+scale = Vector2(0.62, 0.485)
+color = Color(0.43134, 0.43134, 0.43134, 1)

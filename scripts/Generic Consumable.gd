@@ -18,6 +18,7 @@ var to: Vector2
 var target_angle: float = 0 # For melee, bullet
 
 @export_category("Only for melee")
+@export var isRotating: bool = true
 @export var distanceFromBody: float = 2
 
 @export_category("Only for bullet")
@@ -76,11 +77,8 @@ func _ready() -> void:
 	
 	global_position = from
 	rotation_degrees = rad_to_deg(target_angle) + 90
-	
 	if weaponType == "melee":
 		position = Vector2.UP * distanceFromBody * 1000
-		if not isUsedByPlayer and (to - from).length() > 2000:
-			destroy()
 	else:
 		reparent(get_node("/root"))
 		rotation_degrees = rad_to_deg(target_angle) + 90
@@ -123,9 +121,17 @@ func _process_melee(_delta: float) -> void:
 	var newPosDif = Vector2.UP.rotated(deg_to_rad(count)) * distanceFromBody * 1000
 	if not isUsedByPlayer:
 		newPosDif = newPosDif.rotated(target_angle)
-		rotation_degrees = count + rad_to_deg(target_angle)
-	else:
-		rotation_degrees = count
+		if isRotating:
+			rotation_degrees = count + rad_to_deg(target_angle)
+		else:
+			if count > 90 and scale.y > 0:
+				scale.y *= -1
+			rotation_degrees = 0
+	else :
+		if isRotating:
+			rotation_degrees = count
+		else:
+			rotation_degrees = 0
 	
 	position = newPosDif
 	var scaleMagnitude = ease((1 - abs((count - 90) / 90)), 0.4) * cachedScale.x
@@ -140,18 +146,17 @@ func _on_area_2d_body_entered(body: Node) -> void:
 		groupToCheck = "Player" if isUsedByPlayer else "Enemy"
 		
 	if body.is_in_group("Parry") and not gotParried and not is_in_group("Parry"):
-		print("Parried!" + str(gotParried))
 		gotParried = true
 		var self2: Node2D = self
 		var artifactString: String = "res://artifacts/scenes/" + artifactName + ".tscn"
+		print("Parried artifact: " + artifactString)
 		var artifactScene: PackedScene = load(artifactString)
 		var newArtifact = artifactScene.instantiate()
-		
 		newArtifact.angleVariation += 20
 		newArtifact.bulletSpeed *= 2
 		newArtifact.DamageOverTimeDps /= 2 
 		newArtifact.damage /= 2
-		
+
 		helmet.add_child(newArtifact)
 		newArtifact.global_position = global_position
 		destroy()

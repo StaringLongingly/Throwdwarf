@@ -10,8 +10,7 @@ var cachedHPTextPosition: Vector2
 @export var hpRegenRate: float = 0
 @export var attackCooldown: float = 5
 @export var parryingDagger: PackedScene
-@export var parryCooldown: float = 15
-@export var parryAnimationDuration: float = 0.5
+@export var minimumAttackDistance: float = 50
 var currentParryAnimationCooldown: float = 0
 var currentParryCooldown: float = 0
 var splitsDirection: Array[Vector2] = [
@@ -39,7 +38,6 @@ var chains: Array[AnimatedSprite2D] = [null, null, null, null]
 var splitsCachedPosition: Array[Vector2] = [Vector2.ZERO, Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
 var isDying = false
 var startingHP
-var currentCooldown
 var currentDoTduration = 0
 var latestDoTdps
 var cachedPosition
@@ -51,15 +49,26 @@ var splitsTo: Array[Vector2] = [
 ]
 var spawnParticlesSuper
 var cachedHelmetRotation
+@export var cooldownBarScene: PackedScene
+var cooldownBar: Node2D
 
 func _ready():
-	currentParryAnimationCooldown = parryAnimationDuration
-	currentParryCooldown = parryCooldown
 	startingHP = hp
 	cachedHPTextPosition = hpText.position
-	currentCooldown = attackCooldown
 	var genericSprite: AnimatedSprite2D = get_node("/root/Node2D/Wall/Generic Sprite")
 	var chain: AnimatedSprite2D = get_node("/root/Node2D/Wall/Chain")
+	if not cooldownBarScene:
+		cooldownBarScene = preload("res://scenes/cooldown_bar.tscn")
+	cooldownBar = cooldownBarScene.instantiate()
+	hpText.add_child(cooldownBar)
+	cooldownBar.position = Vector2(500, 550)
+	cooldownBar.cooldown = attackCooldown
+	var barColor: Color = Color.RED
+	if not isPlayer:
+		barColor = get_node("/root/Node2D/HUD").get_color(enemyRarity)
+	barColor = Color.WHITE - barColor
+	barColor.a = 1
+	cooldownBar.get_node("Rectangle").material.set_shader_parameter("modulate", barColor)
 	
 	if isPlayer:
 		genericSprite.sprite_frames = get_node("Helmet").sprite_frames
@@ -112,30 +121,20 @@ func _process(delta: float) -> void:
 		if hp <= 0:
 			isDying = true
 	if not isPlayer:
-		if currentCooldown > 0:
-			currentCooldown -= delta
-		else:
-			currentCooldown = attackCooldown
+		var helmetPosition = get_node("/root/Node2D/Player/Helmet").global_position
+		var distance = (helmetPosition -  global_position).length()
+		if cooldownBar.is_ready() && distance <= minimumAttackDistance * 1000:
 			var spawnedArtifact = artifact.instantiate()
+			cooldownBar.reset()
 			add_child(spawnedArtifact)
 	else:
-		hpText.global_position = get_node("Helmet").global_position + cachedHPTextPosition 
+		hpText.global_position = get_node("Helmet").global_position + cachedHPTextPosition
 		
-	if Input.is_action_just_pressed("Parry") and isPlayer && currentParryCooldown >= parryCooldown:
-		currentParryCooldown = 0
-		currentParryAnimationCooldown = 0
+	if Input.is_action_just_pressed("Parry") and isPlayer and cooldownBar.is_ready():
+		cooldownBar.reset()
 		var dagger = parryingDagger.instantiate()
 		get_node("Drill & Colliders").add_child(dagger)
 		
-	if currentParryAnimationCooldown < parryAnimationDuration:
-		currentParryAnimationCooldown += delta
-		var progress = clamp(currentParryAnimationCooldown / parryAnimationDuration, 0, 1)
-		var progressEased = ease(1.0 - progress, 2)
-		get_node("/root/Node2D/HUD/Dagger Cooldown").material.set_shader_parameter("progress", progressEased)
-	elif currentParryCooldown < parryCooldown:
-		currentParryCooldown += delta
-		var progress = clamp(currentParryCooldown / parryCooldown, 0, 1)
-		get_node("/root/Node2D/HUD/Dagger Cooldown").material.set_shader_parameter("progress", progress)
 
 func take_damage(damage: float = 0, DoTdps: float = 0, DoTduration: float = 1, drainHP: float = 0):
 	print("Took Damage:")
