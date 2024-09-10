@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://g4pomsca342k"]
+[gd_scene load_steps=59 format=3 uid="uid://g4pomsca342k"]
 
 [ext_resource type="Script" path="res://scripts/Spawn Enemies.gd" id="1_4y6e0"]
 [ext_resource type="Texture2D" uid="uid://bx50dl8v58bq7" path="res://sprites/helmet.png" id="1_gwdp4"]
@@ -51,7 +51,6 @@
 [ext_resource type="FontFile" uid="uid://6q2xyetu31xx" path="res://fonts/TerminessNerdFontMono-Bold.ttf" id="46_54msb"]
 [ext_resource type="Shader" path="res://shaders/Cutoff.gdshader" id="48_egvxd"]
 [ext_resource type="Texture2D" uid="uid://cqfn8bjxloegd" path="res://sprites/Chain 4 links.png" id="49_wfxxo"]
-[ext_resource type="PackedScene" uid="uid://c3qi5tkasdvk3" path="res://enemies/legendary/Cavedrake.tscn" id="51_twu31"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ai074"]
 animations = [{
@@ -445,8 +444,6 @@ position = Vector2(0, 1e+06)
 material = SubResource("ShaderMaterial_usk3l")
 position = Vector2(2000, -20000)
 sprite_frames = SubResource("SpriteFrames_toi1a")
-
-[node name="Cavedrake" parent="." instance=ExtResource("51_twu31")]
 
 [node name="Artifact" type="Node2D" parent="." node_paths=PackedStringArray("searchLabel", "itemCountLabel")]
 script = ExtResource("37_nqwky")
