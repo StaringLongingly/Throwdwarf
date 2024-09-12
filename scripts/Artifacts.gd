@@ -4,29 +4,29 @@ signal displayArtifactInfo(artifact: Dictionary, rarity: String, isNew: bool, id
 
 @export var searchLabel: RichTextLabel
 @export var itemCountLabel: RichTextLabel
-var HUD
-@export var hueSpeed = 0.2
-@export var cheatMode = false
-var latestRarity: String
-var latestArtifact: Dictionary
-var hue = 0
+var HUD: Node
+@export var hueSpeed: float = 0.2
+@export var cheatMode: bool = false
+var latestRarity: String = ""
+var latestArtifact: Dictionary = {}
+var hue: float = 0.0
 
-@export var common_artifacts = {}
-@export var rare_artifacts = {}
-@export var legendary_artifacts = {}
+@export var common_artifacts: Dictionary = {}
+@export var rare_artifacts: Dictionary = {}
+@export var legendary_artifacts: Dictionary = {}
 
-var common_inventory = {}  # Dictionary to store common artifacts
-var rare_inventory = {}    # Dictionary to store rare artifacts
-var legendary_inventory = {}  # Dictionary to store legendary artifacts
+var common_inventory: Dictionary = {}    # Dictionary to store common artifacts
+var rare_inventory: Dictionary = {}      # Dictionary to store rare artifacts
+var legendary_inventory: Dictionary = {} # Dictionary to store legendary artifacts
 
 var typed: String = ""
 var searchResults: String = ""
 var selectedArtifact: Dictionary = {}
-var selectedArtifactRarity: String
-var latestSearchedInventory: String
+var selectedArtifactRarity: String = ""
+var latestSearchedInventory: String = ""
 
 func _process(delta: float) -> void:
-	#itemcount
+	# Item count display
 	itemCountLabel.text = "[b][i]"
 	itemCountLabel.text += " " + HUD.get_color_string("legendary") + str(count_items_in_inventory(legendary_inventory))
 	itemCountLabel.text += " " + HUD.get_color_string("rare") + str(count_items_in_inventory(rare_inventory))
@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 	var rare_keyword = HUD.get_color_string("rare") + "E[/color]"
 	var legendary_keyword = HUD.get_color_string("legendary") + "R[/color]"
 	
-	#search
+	# Search input handling
 	if Input.is_action_just_pressed("Common Inventory"):
 		latestSearchedInventory = "common"
 		if typed == common_keyword:
@@ -55,16 +55,18 @@ func _process(delta: float) -> void:
 			typed = ""
 		else:
 			typed = legendary_keyword 
-		
-	match typed.left(common_keyword.length()):
+	
+	var keyword_length = common_keyword.length()
+	var typed_substr = typed.substr(0, keyword_length)
+	match typed_substr:
 		common_keyword:
 			searchResults = get_artifact_names_and_ids("common")
 		rare_keyword:
 			searchResults = get_artifact_names_and_ids("rare")
 		legendary_keyword:
 			searchResults = get_artifact_names_and_ids("legendary")
-			
-	if (typed.length() < 2 + common_keyword.length() && typed.length() >= common_keyword.length()):
+	
+	if typed.length() < 2 + keyword_length and typed.length() >= keyword_length:
 		if Input.is_action_just_pressed("Pressed 1"):
 			typed += "1"
 		if Input.is_action_just_pressed("Pressed 2"):
@@ -75,84 +77,112 @@ func _process(delta: float) -> void:
 			typed += "4"
 		if Input.is_action_just_pressed("Pressed 5"):
 			typed += "5"
-	elif (typed.length() == 2 + common_keyword.length()):
+	elif typed.length() == 2 + keyword_length:
 		var colorStringToRemove = HUD.get_color_string(latestSearchedInventory)
 		var typedClean = typed.replace(colorStringToRemove, "")
 		typedClean = typedClean.replace("[/color]", "")
-		var foundArtifact = find_artifact_by_id(typedClean)[0]
-		if (foundArtifact != {}): 
-			if selectedArtifact == find_artifact_by_id(typedClean)[0]:
+		var find_result = find_artifact_by_id(typedClean)
+		var foundArtifact = find_result[0]
+		if foundArtifact != {}: 
+			if selectedArtifact == foundArtifact:
 				selectedArtifact = {}
 			else:
-				selectedArtifact = find_artifact_by_id(typedClean)[0]
-				selectedArtifactRarity = find_artifact_by_id(typedClean)[1]
-			# print("Selected artifact: " + selectedArtifact.name)
+				selectedArtifact = foundArtifact
+				selectedArtifactRarity = find_result[1]
 		typed = ""
+	
 	hue += hueSpeed * delta
-	if (hue >= 1):
-		hue -= 1
-	# print(typedClean + ", " + colorStringToRemove)
+	if hue >= 1.0:
+		hue -= 1.0
+	
 	var colorStringToRemove = HUD.get_color_string(latestSearchedInventory)
 	var typedClean = typed.replace(colorStringToRemove, "")
 	typedClean = typedClean.replace("[/color]", "")
 	var filteredLines = filter_lines(searchResults, typedClean)
 	searchLabel.text = "Search with ID: [i]" + typed + "[/i]" + "\n"
-	if filteredLines:
+	if filteredLines != "":
 		searchLabel.text += filteredLines
 	else:
 		if typed == "":
 			searchLabel.text += "[i] Press " + HUD.get_color_string("common") + "Q[/color], " + HUD.get_color_string("rare") + "E[/color], or " + HUD.get_color_string("legendary") + "R[/color] to search the matching inventory\n" 
-			if selectedArtifact:
-				if selectedArtifact.name:
-					searchLabel.text += " Selected Artifact: " + HUD.get_color_string(selectedArtifactRarity) + str(selectedArtifact.name) + "[/color], " + str(selectedArtifact.count) + " use"
-					if selectedArtifact.count > 1:
+			if selectedArtifact != {}:
+				if "name" in selectedArtifact:
+					searchLabel.text += " Selected Artifact: " + HUD.get_color_string(selectedArtifactRarity) + str(selectedArtifact["name"]) + "[/color], " + str(selectedArtifact["count"]) + " use"
+					if selectedArtifact["count"] > 1:
 						searchLabel.text += "s"
 					searchLabel.text += " remaining."
 		else:
-			searchLabel.text += "[i] No Artifacts found on " + HUD.get_color_string(latestSearchedInventory) + latestSearchedInventory + " inventory[/color]!"
+			searchLabel.text += "[i] No Artifacts found in " + HUD.get_color_string(latestSearchedInventory) + latestSearchedInventory + " inventory[/color]!"
 	
-	#artifact usage
-	if (Input.is_action_just_pressed("Fire Artifact") && selectedArtifact != {}):
+	# Artifact usage
+	if Input.is_action_just_pressed("Fire Artifact") and selectedArtifact != {}:
 		var artifactScene = load("res://artifacts/scenes/" + selectedArtifact["name"] + ".tscn")
 		var spawnedArtifact = artifactScene.instantiate()
 		get_node("../Player/Drill & Colliders").add_child(spawnedArtifact) 
-		if selectedArtifact.count == 1:
+		if selectedArtifact["count"] == 1:
 			remove_artifact_from_inventory(selectedArtifact["name"], selectedArtifactRarity)
 			selectedArtifact = {}
 		else:
 			selectedArtifact["count"] -= 1
-	
-func _ready():
+
+func _ready() -> void:
 	selectedArtifact = {}
 	HUD = get_node("/root/Node2D/HUD")
 	give_new_artifact("legendary")
 	if cheatMode:
 		for i in range(100):
 			give_new_artifact()
-	
+
 func print_artifact_info(artifact: Dictionary):
-	print("Selected Artifact: %s" % artifact.name)
-	print("Extra HP: %d" % artifact.extra_hp)
-	print("Sell Value: %d" % artifact.sell_value)
-	print("Description: %s" % artifact.description)
+	print("Selected Artifact: %s" % artifact["name"])
+	print("Extra HP: %d" % artifact["extra_hp"])
+	print("Sell Value: %d" % artifact["sell_value"])
+	print("Description: %s" % artifact["description"])
 
 func select_random_artifact(rarity: String) -> Dictionary:
-	if (rarity == "random"):
+	if rarity == "random":
 		rarity = randomize_rarity()
 	latestRarity = rarity
 	
 	match rarity:
 		"common":
-			var artifact_name = common_artifacts.keys()[randi() % common_artifacts.size()]
-			return {"name": artifact_name, "id": common_artifacts[artifact_name]["id"], "extra_hp": common_artifacts[artifact_name]["extra_hp"], "sell_value": common_artifacts[artifact_name]["sell_value"], "description": common_artifacts[artifact_name]["description"]}
+			var artifact_names = common_artifacts.keys()
+			var artifact_name = artifact_names[randi() % artifact_names.size()]
+			var artifact_data = common_artifacts[artifact_name]
+			return {
+				"name": artifact_name,
+				"id": artifact_data["id"],
+				"extra_hp": artifact_data["extra_hp"],
+				"sell_value": artifact_data["sell_value"],
+				"description": artifact_data["description"],
+				"rarity": "common"
+			}
 		"rare":
-			var artifact_name = rare_artifacts.keys()[randi() % rare_artifacts.size()]
-			return {"name": artifact_name, "id": rare_artifacts[artifact_name]["id"], "extra_hp": rare_artifacts[artifact_name]["extra_hp"], "sell_value": rare_artifacts[artifact_name]["sell_value"], "description": rare_artifacts[artifact_name]["description"]}
+			var artifact_names = rare_artifacts.keys()
+			var artifact_name = artifact_names[randi() % rare_artifacts.size()]
+			var artifact_data = rare_artifacts[artifact_name]
+			return {
+				"name": artifact_name,
+				"id": artifact_data["id"],
+				"extra_hp": artifact_data["extra_hp"],
+				"sell_value": artifact_data["sell_value"],
+				"description": artifact_data["description"],
+				"rarity": "rare"
+			}
 		"legendary":
-			var artifact_name = legendary_artifacts.keys()[randi() % legendary_artifacts.size()]
-			return {"name": artifact_name, "id": legendary_artifacts[artifact_name]["id"], "extra_hp": legendary_artifacts[artifact_name]["extra_hp"], "sell_value": legendary_artifacts[artifact_name]["sell_value"], "description": legendary_artifacts[artifact_name]["description"]}
+			var artifact_names = legendary_artifacts.keys()
+			var artifact_name = artifact_names[randi() % legendary_artifacts.size()]
+			var artifact_data = legendary_artifacts[artifact_name]
+			return {
+				"name": artifact_name,
+				"id": artifact_data["id"],
+				"extra_hp": artifact_data["extra_hp"],
+				"sell_value": artifact_data["sell_value"],
+				"description": artifact_data["description"],
+				"rarity": "legendary"
+			}
 		_:
-			return {"name": "Unknown", "extra_hp": 0, "sell_value": 0, "description": "No description available."}
+			return {"name": "Unknown", "extra_hp": 0, "sell_value": 0, "description": "No description available.", "rarity": "unknown"}
 
 func randomize_rarity() -> String:
 	var roll = randi() % 100
@@ -166,23 +196,23 @@ func randomize_rarity() -> String:
 func add_artifact_to_inventory(artifact: Dictionary, rarity: String) -> void:
 	match rarity:
 		"common":
-			if artifact.name in common_inventory:
-				common_inventory[artifact.name]["count"] += 1
+			if artifact["name"] in common_inventory:
+				common_inventory[artifact["name"]]["count"] += 1
 			else:
-				common_inventory[artifact.name] = artifact
-				common_inventory[artifact.name]["count"] = 1
+				common_inventory[artifact["name"]] = artifact
+				common_inventory[artifact["name"]]["count"] = 1
 		"rare":
-			if artifact.name in rare_inventory:
-				rare_inventory[artifact.name]["count"] += 1
+			if artifact["name"] in rare_inventory:
+				rare_inventory[artifact["name"]]["count"] += 1
 			else:
-				rare_inventory[artifact.name] = artifact
-				rare_inventory[artifact.name]["count"] = 1
+				rare_inventory[artifact["name"]] = artifact
+				rare_inventory[artifact["name"]]["count"] = 1
 		"legendary":
-			if artifact.name in legendary_inventory:
-				legendary_inventory[artifact.name]["count"] += 1
+			if artifact["name"] in legendary_inventory:
+				legendary_inventory[artifact["name"]]["count"] += 1
 			else:
-				legendary_inventory[artifact.name] = artifact
-				legendary_inventory[artifact.name]["count"] = 1
+				legendary_inventory[artifact["name"]] = artifact
+				legendary_inventory[artifact["name"]]["count"] = 1
 		_:
 			print("Unknown rarity: %s" % rarity)
 			return
@@ -190,191 +220,185 @@ func add_artifact_to_inventory(artifact: Dictionary, rarity: String) -> void:
 func artifact_exists(artifact_name: String, rarity: String) -> bool:
 	match rarity:
 		"common":
-			# print("Artifact exists in ", rarity)
-			return common_inventory.has(artifact_name)
+			return artifact_name in common_inventory
 		"rare":
-			# print("Artifact exists in ", rarity)
-			return rare_inventory.has(artifact_name)
+			return artifact_name in rare_inventory
 		"legendary":
-			# print("Artifact exists in ", rarity)
-			return legendary_inventory.has(artifact_name)
+			return artifact_name in legendary_inventory
 		_:
 			print("Unknown rarity: %s" % rarity)
 			return false
 
 func count_items_in_inventory(inventory: Dictionary) -> int:
 	var total_count = 0
-	for artifact_name in inventory.keys():
-		total_count += inventory[artifact_name]["count"]
+	for artifact in inventory.values():
+		total_count += artifact["count"]
 	return total_count
 
-func give_new_artifact(rarityOverride: String = "random"):
-	var newArtifact = select_random_artifact(rarityOverride)
-	var isArtifactNew = !artifact_exists(newArtifact.name, latestRarity)
-	add_artifact_to_inventory(newArtifact,latestRarity)
-	latestArtifact = newArtifact
-	displayArtifactInfo.emit(newArtifact, latestRarity, isArtifactNew)
+func give_new_artifact(rarityOverride: String = "random") -> void:
+	var new_artifact = select_random_artifact(rarityOverride)
+	var is_artifact_new = not artifact_exists(new_artifact["name"], new_artifact["rarity"])
+	add_artifact_to_inventory(new_artifact, new_artifact["rarity"])
+	latestArtifact = new_artifact
+	displayArtifactInfo.emit(new_artifact, new_artifact["rarity"], is_artifact_new, new_artifact["id"])
 
 func get_artifact_names_and_ids(rarity: String) -> String:
 	var result = ""
-
-	var inventoryValues
+	var inventory_values: Array
+	
 	match rarity:
 		"common":
-			inventoryValues = common_inventory.values()
+			inventory_values = common_inventory.values()
 		"rare":
-			inventoryValues = rare_inventory.values()
+			inventory_values = rare_inventory.values()
 		"legendary":
-			inventoryValues = legendary_inventory.values()
+			inventory_values = legendary_inventory.values()
 		_:
 			print("Unknown rarity: %s" % rarity)
 			return ""
 	
-	var resultRarity = "[u][b]" + HUD.get_color_string(rarity) 
-	for artifact in inventoryValues:
-		var countString = ""
-		var selectedString = ""
-		if (artifact["count"] > 1):
-			countString = " x" + str(artifact["count"])
-		if (artifact == selectedArtifact):
-			var hsv_color = Color.from_hsv(hue, 1, 1,)
-			selectedString += "[color=" + color_to_hex(hsv_color) + "] Selected![/color]"
-		result += resultRarity + artifact["name"] + "[/color][/b][/u]" + countString + " (ID:" + artifact["id"] + ")" + " [color=#f2ee15]Total DE: " + str(artifact["sell_value"] * artifact["count"]) + "[/color]" +  selectedString +"\n"
+	var result_rarity = "[u][b]" + HUD.get_color_string(rarity)
+	for artifact in inventory_values:
+		var count_string = ""
+		var selected_string = ""
+		if artifact["count"] > 1:
+			count_string = " x" + str(artifact["count"])
+		if artifact == selectedArtifact:
+			var hsv_color = Color.from_hsv(hue, 1.0, 1.0)
+			selected_string += "[color=#" + color_to_hex(hsv_color) + "] Selected![/color]"
+		result += result_rarity + artifact["name"] + "[/color][/b][/u]" + count_string + " (ID:" + artifact["id"] + ")" + " [color=#f2ee15]Total DE: " + str(artifact["sell_value"] * artifact["count"]) + "[/color]" +  selected_string + "\n"
 	
 	return result.strip_edges()
 
 func filter_lines(input_string: String, keyword: String) -> String:
-	var lines = input_string.split("\n")   # Split the string into lines
-	var result = []
-
+	var lines = input_string.split("\n")
+	var result: Array = []
+	
 	for line in lines:
 		if keyword in line:
 			result.append(line)
-
-	# Join the filtered lines back into a single string
-	var joined_string = ""
-	for line in result:
-		joined_string += line + "\n"
-
-	# Remove the trailing newline character if necessary
-	if joined_string.length() > 0:
-		joined_string = joined_string.substr(0, joined_string.length() - 1)
-
-	return joined_string
+	
+	return "\n".join(result)
 
 func color_to_hex(color: Color) -> String:
-	# Convert Color to RGB
 	var r = int(color.r * 255)
 	var g = int(color.g * 255)
 	var b = int(color.b * 255)
-
-	# Format as a hexadecimal string
-	return String("%02X%02X%02X" % [r, g, b])
+	return "%02X%02X%02X" % [r, g, b]
 
 func find_artifact_by_id(id: String) -> Array:
-	# Search in common inventory
-	for artifact_name in common_inventory.keys():
-		var artifact = common_inventory[artifact_name]
+	for artifact in common_inventory.values():
 		if artifact["id"] == id:
 			return [artifact, "common"]
 	
-	# Search in rare inventory
-	for artifact_name in rare_inventory.keys():
-		var artifact = rare_inventory[artifact_name]
+	for artifact in rare_inventory.values():
 		if artifact["id"] == id:
 			return [artifact, "rare"]
 	
-	# Search in legendary inventory
-	for artifact_name in legendary_inventory.keys():
-		var artifact = legendary_inventory[artifact_name]
+	for artifact in legendary_inventory.values():
 		if artifact["id"] == id:
 			return [artifact, "legendary"]
 	
-	# Return an empty dictionary if the artifact is not found
 	return [{}, ""]
 
-func remove_artifact_from_inventory(artifactStr: String, rarity: String = "any") -> bool:
-	var correctInventory: Dictionary
-	var artifact: Dictionary 
-	match rarity:
-			"common":
-				correctInventory = common_inventory
-			"rare":
-				correctInventory = rare_inventory
-			"legendary":
-				correctInventory = legendary_inventory
+func remove_artifact_from_inventory(artifact_name: String, rarity: String = "any") -> bool:
+	var correct_inventory: Dictionary = {}
+	var artifact: Dictionary = {}
+	
 	if rarity == "any":
 		for inventory in [common_inventory, rare_inventory, legendary_inventory]:
-			var gotten = inventory.get(artifactStr, {})
-			if gotten != {}:
-				artifact = gotten
-				correctInventory = inventory
+			if artifact_name in inventory:
+				artifact = inventory[artifact_name]
+				correct_inventory = inventory
+				break
 	else:
-		artifact = correctInventory.get(artifactStr)
+		match rarity:
+			"common":
+				correct_inventory = common_inventory
+			"rare":
+				correct_inventory = rare_inventory
+			"legendary":
+				correct_inventory = legendary_inventory
+			_:
+				print("Unknown rarity: %s" % rarity)
+				return false
+		if artifact_name in correct_inventory:
+			artifact = correct_inventory[artifact_name]
+	
 	if artifact == {}:
 		printerr("Did not find artifact!")
-	if artifact.count > 1:
-		artifact.count -= 1
+		return false
+	
+	if artifact["count"] > 1:
+		artifact["count"] -= 1
 		return false
 	else:
-		print("Erased artifact: "+str(artifact))
+		print("Erased artifact: " + str(artifact))
 		if artifact == selectedArtifact:
 			selectedArtifact = {}
-		correctInventory.erase(artifact.name)
+		correct_inventory.erase(artifact["name"])
 		return true
 
 func calculate_total_sell_value() -> int:
 	var total_sell_value = 0
 	
-	# Accumulate sell values from common_inventory
-	for artifact_name in common_inventory.keys():
-		var artifact = common_inventory[artifact_name]
+	for artifact in common_inventory.values():
 		total_sell_value += artifact["sell_value"] * artifact["count"]
 	
-	# Accumulate sell values from rare_inventory
-	for artifact_name in rare_inventory.keys():
-		var artifact = rare_inventory[artifact_name]
+	for artifact in rare_inventory.values():
 		total_sell_value += artifact["sell_value"] * artifact["count"]
 	
-	# Accumulate sell values from legendary_inventory
-	for artifact_name in legendary_inventory.keys():
-		var artifact = legendary_inventory[artifact_name]
+	for artifact in legendary_inventory.values():
 		total_sell_value += artifact["sell_value"] * artifact["count"]
 	
 	return total_sell_value
 
 func remove_least_valuables(amount: int) -> bool:
 	var valuables = get_least_valuables(amount)
-	var numberOfLeastValuables = 0
+	var number_of_least_valuables = 0
+
+	# Calculate the total count of least valuables
 	for valuable in valuables.values():
-		numberOfLeastValuables += valuable.count 
-	if numberOfLeastValuables < amount:
+		number_of_least_valuables += valuable["count"]
+
+	# If there are not enough valuables to remove, return false
+	if number_of_least_valuables < amount:
 		return false
+
 	var top: int = 0
-	var artifact: String = valuables.keys()[0]
+	var artifact_names = valuables.keys()
+	if artifact_names.size() == 0:
+		return false  # No artifacts to remove
+
+	var artifact_name: String = artifact_names[top]
+
+	# Attempt to remove 'amount' number of least valuable artifacts
 	for i in range(amount):
-		if remove_artifact_from_inventory(artifact):
+		if remove_artifact_from_inventory(artifact_name, valuables[artifact_name]["rarity"]):
 			top += 1
-			if valuables.keys().size() > top:
-				artifact = valuables.keys()[top]
+			# If there are more artifacts in the list, move to the next one
+			if top < artifact_names.size():
+				artifact_name = artifact_names[top]
+			else:
+				break  # No more artifacts to remove
+
 	return true
 
 func get_least_valuables(amount: int = 1) -> Dictionary:
 	var result: Dictionary = {}
 	for i in range(amount):
-		var leastValuable = get_least_valuable(result)
-		if leastValuable == {"sell_value": 9999999999}:
+		var least_valuable = get_least_valuable(result)
+		if least_valuable == {}:
 			break
-		result[leastValuable.name] = leastValuable 
+		result[least_valuable["name"]] = least_valuable
 	return result
 
 func get_least_valuable(exclude: Dictionary = {}) -> Dictionary:
-	var minSell: Dictionary = {"sell_value": 9999999999} 
-	var inventories = [common_inventory, rare_inventory, legendary_inventory]
-	for inventory in inventories:
+	var min_sell_artifact: Dictionary = {}
+	var min_sell_value: float = INF  # Use INF for initial comparison
+	for inventory in [common_inventory, rare_inventory, legendary_inventory]:
 		for artifact in inventory.values():
-			# print("Testing: " + str(artifact))
-			# print("   with: " + str(min))
-			if artifact.sell_value < minSell.sell_value and not artifact.name in exclude.keys():
-				minSell = artifact
-	return minSell
+			if artifact["sell_value"] < min_sell_value and not artifact["name"] in exclude:
+				min_sell_artifact = artifact
+				min_sell_value = artifact["sell_value"]
+	return min_sell_artifact
