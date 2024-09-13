@@ -88,7 +88,8 @@ func _ready() -> void:
 	target_angle = (to - from).angle()
 	target_angle += (randf() * 2 - 1) * angleVariation / 360 * PI
 	
-	# Initialize position and rotation
+	# Initialize position and rotation and scale
+	global_scale = cachedScale
 	global_position = from
 	rotation_degrees = rad_to_deg(target_angle) + 90
 	
