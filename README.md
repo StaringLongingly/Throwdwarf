@@ -17,3 +17,5 @@ You can find the version posted to the jam on the init commit.
 - Press Q, E, or R to search each inventory
 - Type the ID of the item you want to select
 - Press Left Click to use it
+
+This project is kinda abandonded but if someone likes it I'll keep working on it 
